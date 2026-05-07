@@ -300,12 +300,19 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
         linkWidth: 0.5,
         linkColor: () => linkColor,
         nodeRelSize: 3,
-        cooldownTicks: 0,
-        d3AlphaDecay: 0.005,
-        d3AlphaTarget: 0.02,
+        cooldownTime: Infinity,
+        d3AlphaDecay: 0.003,
+        d3AlphaTarget: 0.05,
         d3VelocityDecay: 0.3,
         enableNodeDrag: true,
         enableZoomInteraction: true,
+        onEngineStop: () => {
+          // 시뮬레이션이 멈추면 재시작
+          if (fgRef.current) {
+            fgRef.current.d3ReheatSimulation();
+            fgRef.current.d3Force('charge').strength(-30);
+          }
+        },
       });
 
       const root = ReactDOM.createRoot(containerRef.current);
