@@ -250,7 +250,7 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
 
       const prefersDark = typeof window !== 'undefined' &&
         window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const bgColor = prefersDark ? '#0d0d1a' : '#f0ead6';
+      const bgColor = prefersDark ? '#0d0d1a' : '#e8dfc8';
       const textColor = prefersDark ? 'rgba(255,255,255,0.85)' : 'rgba(15,15,30,0.8)';
       const linkColor = prefersDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
 
@@ -433,13 +433,7 @@ const WikiGraph = ({ currentSlug }) => {
             <>
               <TooltipBar $visible={!!hoveredNode}>
                 {hoveredNode && (
-                  <>
-                    <TooltipCategory $color={CAT_COLOR[hoveredNode.category] || DEFAULT_COLOR}>
-                      {hoveredNode.category}
-                    </TooltipCategory>
-                    <TooltipTitle>{hoveredNode.title}</TooltipTitle>
-                    <TooltipPath>{hoveredNode.id}</TooltipPath>
-                  </>
+                  <TooltipTitle>{hoveredNode.title}</TooltipTitle>
                 )}
               </TooltipBar>
               <GraphRenderer
@@ -479,13 +473,7 @@ const WikiGraph = ({ currentSlug }) => {
           <ModalCanvas>
             <TooltipBar $visible={!!hoveredNode} style={{ background: 'rgba(0,0,0,0.6)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
               {hoveredNode && (
-                <>
-                  <TooltipCategory $color={CAT_COLOR[hoveredNode.category] || DEFAULT_COLOR}>
-                    {hoveredNode.category}
-                  </TooltipCategory>
-                  <TooltipTitle style={{ color: '#fff' }}>{hoveredNode.title}</TooltipTitle>
-                  <TooltipPath style={{ color: 'rgba(255,255,255,0.4)' }}>{hoveredNode.id}</TooltipPath>
-                </>
+                <TooltipTitle style={{ color: '#fff' }}>{hoveredNode.title}</TooltipTitle>
               )}
             </TooltipBar>
             <GraphRenderer
