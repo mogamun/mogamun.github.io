@@ -156,7 +156,7 @@ const CategoryAccent = styled.span`
 `;
 
 const CategoryTitle = styled.h2`
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 800;
   margin: 0;
   color: ${({ theme }) => theme.colors.headline};
@@ -182,16 +182,20 @@ const CategoryLine = styled.div`
 /* ── 위키 카드 그리드 ── */
 const CardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const WikiCard = styled(Link)`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 16px 18px 16px 22px;
-  border-radius: 14px;
+  gap: 12px;
+  padding: 22px 24px 20px 28px;
+  border-radius: 18px;
   background: ${({ theme }) => theme.colors.background};
   border: 1px solid ${({ theme }) => theme.colors.glassBorder};
   text-decoration: none;
@@ -200,26 +204,23 @@ const WikiCard = styled(Link)`
   overflow: hidden;
   transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* 기본 그림자 — 배경에서 살짝 떠 있는 느낌 */
   box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.06),
     0 4px 12px rgba(0, 0, 0, 0.08);
 
-  /* 좌측 카테고리 컬러 액센트 바 */
   &::before {
     content: '';
     position: absolute;
     left: 0;
-    top: 12px;
-    bottom: 12px;
-    width: 3px;
-    border-radius: 0 3px 3px 0;
+    top: 14px;
+    bottom: 14px;
+    width: 4px;
+    border-radius: 0 4px 4px 0;
     background: ${({ $color }) => $color || '#818cf8'};
     opacity: 0.7;
     transition: opacity 0.25s, height 0.25s;
   }
 
-  /* shimmer */
   &::after {
     content: '';
     position: absolute;
@@ -246,10 +247,14 @@ const WikiCard = styled(Link)`
     &::before { opacity: 1; top: 8px; bottom: 8px; }
     &::after  { opacity: 1; }
   }
+
+  @media (max-width: 480px) {
+    padding: 18px 20px 16px 24px;
+  }
 `;
 
 const CardTitle = styled.h3`
-  font-size: 0.92rem;
+  font-size: 1.05rem;
   font-weight: 700;
   margin: 0;
   line-height: 1.45;
@@ -269,15 +274,15 @@ const CardMeta = styled.div`
 `;
 
 const CardDate = styled.span`
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: ${({ theme }) => theme.colors.gray};
   opacity: 0.7;
 `;
 
 const CardStatus = styled.span`
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 1px 8px;
+  padding: 2px 10px;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -290,12 +295,12 @@ const CardStatus = styled.span`
 const CardTags = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
 `;
 
 const CardTag = styled.span`
-  font-size: 0.68rem;
-  padding: 1px 8px;
+  font-size: 0.72rem;
+  padding: 2px 10px;
   border-radius: 999px;
   background: ${({ theme }) => `${theme.colors.secondary}12`};
   color: ${({ theme }) => theme.colors.secondary};
@@ -422,18 +427,6 @@ const WikiIndexPage = ({ data }) => {
     <WikiLayout currentSlug="/wiki/">
       <SEO title="Blog" />
       <PageWrapper>
-        {/* 히어로 */}
-        <HeroArea>
-          <HeroTitle>Blog</HeroTitle>
-          <HeroDesc>
-            수집하고 정리한 이야기 — 개념, 비교, 소스, 인사이트
-          </HeroDesc>
-          <StatsRow>
-            <StatChip>📚 총 {allWiki.length}개 포스트</StatChip>
-            <StatChip>📂 {categories.length}개 카테고리</StatChip>
-          </StatsRow>
-        </HeroArea>
-
         {/* 카테고리별 그리드 */}
         {sortedCategories.length === 0 ? (
           <EmptyState>검색 결과가 없습니다.</EmptyState>
