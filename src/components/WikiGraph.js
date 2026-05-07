@@ -208,11 +208,9 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
         nodeLinks[t].add(link);
       }
 
-      const prefersDark = typeof window !== 'undefined' &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const bgColor = prefersDark ? '#0d0d1a' : '#f5f7ff';
-      const textColor = prefersDark ? 'rgba(255,255,255,0.85)' : 'rgba(15,15,30,0.8)';
-      const linkColor = prefersDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
+      const bgColor = '#fffff5';
+      const textColor = 'rgba(15,15,30,0.85)';
+      const linkColor = 'rgba(0,0,0,0.1)';
 
       const handleNodeHover = (node) => {
         highlightNodes.clear();
@@ -286,7 +284,13 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
       };
 
       const el = React.createElement(ForceGraph2D, {
-        ref: fgRef,
+        ref: (fg) => {
+          if (fg) {
+            fgRef.current = fg;
+            // 시뮬레이션 안정화 후에도 reheat 가능하게 warmup
+            fg.d3Force('charge').strength(-30);
+          }
+        },
         graphData,
         width,
         height,
@@ -297,14 +301,18 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
         linkCanvasObject: paintLink,
         onNodeHover: handleNodeHover,
         onNodeClick: (node) => onNodeClick && onNodeClick(node),
+        onNodeDrag: (node) => { node.fx = node.x; node.fy = node.y; },
+        onNodeDragEnd: (node) => { node.fx = null; node.fy = null; },
         linkWidth: 0.5,
         linkColor: () => linkColor,
         nodeRelSize: 3,
-        cooldownTicks: 120,
-        d3AlphaDecay: 0.02,
+        cooldownTicks: Infinity,
+        cooldownTime: 0,
+        d3AlphaDecay: 0.008,
         d3VelocityDecay: 0.3,
         enableNodeDrag: true,
         enableZoomInteraction: true,
+        enablePanInteraction: true,
       });
 
       const root = ReactDOM.createRoot(containerRef.current);
