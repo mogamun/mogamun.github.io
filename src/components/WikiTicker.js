@@ -167,7 +167,7 @@ const WikiTicker = () => {
     <TickerOuter>
       <TickerLabel>
         <LabelDot />
-        Latest Wiki
+        Latest Posts
       </TickerLabel>
       <TickerTrack>
         <TickerInner>

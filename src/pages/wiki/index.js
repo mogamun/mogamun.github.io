@@ -420,41 +420,19 @@ const WikiIndexPage = ({ data }) => {
 
   return (
     <WikiLayout currentSlug="/wiki/">
-      <SEO title="Wiki" />
+      <SEO title="Blog" />
       <PageWrapper>
         {/* 히어로 */}
         <HeroArea>
-          <HeroTitle>Wiki</HeroTitle>
+          <HeroTitle>Blog</HeroTitle>
           <HeroDesc>
-            수집하고 정리한 지식 베이스 — 개념, 엔티티, 비교, 소스
+            수집하고 정리한 이야기 — 개념, 비교, 소스, 인사이트
           </HeroDesc>
           <StatsRow>
-            <StatChip>📚 총 {allWiki.length}개 문서</StatChip>
+            <StatChip>📚 총 {allWiki.length}개 포스트</StatChip>
             <StatChip>📂 {categories.length}개 카테고리</StatChip>
           </StatsRow>
         </HeroArea>
-
-        {/* 검색 + 필터 */}
-        <ControlRow>
-          <SearchInput
-            type="text"
-            placeholder="제목, 태그, 내용 검색..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-          />
-          <FilterChip $active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
-            전체
-          </FilterChip>
-          {categories.map(cat => (
-            <FilterChip
-              key={cat}
-              $active={activeCategory === cat}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {CATEGORY_EMOJI[cat] || '📁'} {cat}
-            </FilterChip>
-          ))}
-        </ControlRow>
 
         {/* 카테고리별 그리드 */}
         {sortedCategories.length === 0 ? (

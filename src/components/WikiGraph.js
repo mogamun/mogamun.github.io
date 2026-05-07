@@ -460,7 +460,7 @@ const WikiGraph = ({ currentSlug }) => {
       {expanded && graphData && (
         <Overlay onClick={(e) => { if (e.target === e.currentTarget) setExpanded(false); }}>
           <ModalHeader>
-            <ModalTitle>Wiki Graph — {graphData.nodes.length}개 노드 · {graphData.links.length}개 연결</ModalTitle>
+            <ModalTitle>Blog Graph — {graphData.nodes.length}개 포스트 · {graphData.links.length}개 연결</ModalTitle>
             <ModalClose onClick={() => setExpanded(false)}>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M1 1l10 10M11 1L1 11" />
