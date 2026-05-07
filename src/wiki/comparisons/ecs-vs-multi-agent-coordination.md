@@ -1,5 +1,5 @@
 ---
-title: ECS vs 멀티에이전트 조정: 구조적 유사성
+title: "ECS vs 멀티에이전트 조정: 구조적 유사성"
 created: 2026-04-16
 updated: 2026-04-16
 tags: [comparison, ecs, multi-agent, architecture, structural-pattern]

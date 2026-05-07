@@ -1,5 +1,5 @@
 ---
-title: 브라우저 자동화 3접근법: Playwright MCP vs agent-browser vs mcp-chrome
+title: "브라우저 자동화 3접근법: Playwright MCP vs agent-browser vs mcp-chrome"
 created: 2026-04-28
 updated: 2026-04-28
 tags: [comparison, browser-automation, mcp, cli, chrome-extension]

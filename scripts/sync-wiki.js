@@ -149,23 +149,110 @@ function transformContent(content, currentRel) {
 
 // ─── 프론트매터 정규화 ────────────────────────────────────────────────────────
 // category 필드를 폴더명으로 자동 주입
+function quoteYamlValue(val) {
+  if (/[:\[\]{}"'#|>]/.test(val)) {
+    return `"${val.replace(/"/g, '\\"')}"`;
+  }
+  return val;
+}
+
 function normalizeFrontmatter(content, relPath) {
   const category = relPath.split('/')[0]; // concepts, sources, entities ...
 
   if (content.startsWith('---')) {
-    // 이미 frontmatter 있음 → category 없으면 추가
+    // 이미 frontmatter 있음 → title 따옴표 보정 + category 없으면 추가
     return content.replace(/^(---\n)([\s\S]*?)(---\n)/, (full, open, body, close) => {
+      // title 값이 따옴표로 안 감싸져 있고 특수문자가 있으면 보정
+      body = body.replace(/^title:\s+(.+)$/m, (_, val) => {
+        const trimmed = val.trim();
+        if (/^["']/.test(trimmed)) return `title: ${trimmed}`;
+        return `title: ${quoteYamlValue(trimmed)}`;
+      });
       if (!body.includes('category:')) {
         return `${open}${body}category: ${category}\n${close}`;
       }
-      return full;
+      return `${open}${body}${close}`;
     });
   }
 
   // frontmatter 없음 → 기본값으로 생성
   const rawTitle = path.basename(relPath, '.md');
-  const title = /[:\[\]{}"'#]/.test(rawTitle) ? `"${rawTitle.replace(/"/g, '\\"')}"` : rawTitle;
+  const title = quoteYamlValue(rawTitle);
   return `---\ntitle: ${title}\ncategory: ${category}\n---\n\n${content}`;
+}
+
+// ─── 그래프 데이터 추출 ────────────────────────────────────────────────────────
+// 원본 MD에서 [[wikilink]] 및 [text](file.md) 링크를 추출해 edges 생성
+function extractWikiLinks(content) {
+  const links = new Set();
+
+  // [[filename]] or [[filename|display]]
+  const obsRe = /\[\[([^\]|#]+)(?:[|#][^\]]*)?\]\]/g;
+  let m;
+  while ((m = obsRe.exec(content)) !== null) {
+    links.add(path.basename(m[1].trim()).replace(/\.md$/i, '').toLowerCase());
+  }
+
+  // [text](../path/file.md)
+  const mdRe = /\[[^\]]*\]\(([^)]+\.md[^)]*)\)/g;
+  while ((m = mdRe.exec(content)) !== null) {
+    const href = m[1].replace(/#.*$/, '').trim();
+    links.add(path.basename(href, '.md').toLowerCase());
+  }
+
+  return links;
+}
+
+function buildGraphJson(files, rawContents) {
+  const GRAPH_DEST = path.join(PROJECT_ROOT, 'static', 'wiki-graph.json');
+
+  const nodes = files.map(({ rel }) => {
+    const relNorm = rel.replace(/\\/g, '/');
+    const slug = mdRelToSlug(relNorm.replace(/\.md$/, ''));
+    const category = relNorm.split('/')[0];
+    const title = path.basename(relNorm, '.md');
+    return { id: slug, title, category };
+  });
+
+  const slugByBase = {};
+  for (const n of nodes) {
+    slugByBase[n.title.toLowerCase()] = n.id;
+  }
+
+  const linkSet = new Set();
+  const links = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const { rel } = files[i];
+    const relNorm = rel.replace(/\\/g, '/');
+    const sourceSlug = mdRelToSlug(relNorm.replace(/\.md$/, ''));
+    const refs = extractWikiLinks(rawContents[i]);
+
+    for (const ref of refs) {
+      const targetSlug = slugByBase[ref];
+      if (!targetSlug || targetSlug === sourceSlug) continue;
+      const key = `${sourceSlug}→${targetSlug}`;
+      const revKey = `${targetSlug}→${sourceSlug}`;
+      if (!linkSet.has(key) && !linkSet.has(revKey)) {
+        linkSet.add(key);
+        links.push({ source: sourceSlug, target: targetSlug });
+      }
+    }
+  }
+
+  // val: 연결 수로 노드 크기 결정
+  const degree = {};
+  for (const { source, target } of links) {
+    degree[source] = (degree[source] || 0) + 1;
+    degree[target] = (degree[target] || 0) + 1;
+  }
+  for (const n of nodes) {
+    n.val = Math.min(1 + (degree[n.id] || 0) * 0.4, 6);
+  }
+
+  ensureDir(path.dirname(GRAPH_DEST));
+  fs.writeFileSync(GRAPH_DEST, JSON.stringify({ nodes, links }, null, 2), 'utf-8');
+  console.log(`🕸   그래프 JSON:  ${nodes.length}개 노드, ${links.length}개 엣지`);
 }
 
 // ─── 메인 ─────────────────────────────────────────────────────────────────────
@@ -200,11 +287,13 @@ async function main() {
   let copiedMd = 0;
   let copiedImg = 0;
   const missingImages = [];
+  const rawContents = []; // 그래프 추출용 원본 내용
 
   // 3. MD 파일 처리
   for (const { abs, rel } of files) {
     const relNorm = rel.replace(/\\/g, '/');
     let content = fs.readFileSync(abs, 'utf-8');
+    rawContents.push(content); // 변환 전 원본 보관
 
     // 이미지 파일 복사
     const imgRefs = extractImageRefs(content);
@@ -230,7 +319,10 @@ async function main() {
     copiedMd++;
   }
 
-  // 4. 결과 리포트
+  // 4. 그래프 JSON 생성
+  buildGraphJson(files, rawContents);
+
+  // 5. 결과 리포트
   console.log(`✅  MD 복사:    ${copiedMd}개`);
   console.log(`🖼   이미지 복사: ${copiedImg}개`);
 

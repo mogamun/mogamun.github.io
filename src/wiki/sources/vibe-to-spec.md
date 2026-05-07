@@ -1,5 +1,5 @@
 ---
-title: 메타프롬프트: Vibe to Spec 앱 개발 기획 변환기
+title: "메타프롬프트: Vibe to Spec 앱 개발 기획 변환기"
 created: 2026-04-23
 updated: 2026-04-23
 tags: [source, prompt-engineering, meta-prompt, app-planning]
