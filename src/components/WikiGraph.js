@@ -170,8 +170,48 @@ const ModalCanvas = styled.div`
   canvas { display: block; }
 `;
 
+/* ── 툴팁 바 ── */
+const TooltipBar = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 16px;
+  background: ${({ theme }) => theme.colors.glass};
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid ${({ theme }) => theme.colors.glassBorder};
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transition: opacity 0.15s ease;
+  min-height: 40px;
+`;
+
+const TooltipCategory = styled.span`
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: ${({ $color }) => $color};
+`;
+
+const TooltipTitle = styled.span`
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.headline};
+`;
+
+const TooltipPath = styled.span`
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.colors.gray};
+`;
+
 /* ── 그래프 렌더러 ── */
-function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nodeSize = 1 }) {
+function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nodeSize = 1, onHoverNode }) {
   const containerRef = useRef(null);
   const fgRef = useRef(null);
 
@@ -210,7 +250,7 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
 
       const prefersDark = typeof window !== 'undefined' &&
         window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const bgColor = prefersDark ? '#0d0d1a' : '#f5f7ff';
+      const bgColor = prefersDark ? '#0d0d1a' : '#f0ead6';
       const textColor = prefersDark ? 'rgba(255,255,255,0.85)' : 'rgba(15,15,30,0.8)';
       const linkColor = prefersDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
 
@@ -228,6 +268,7 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
         } else {
           hoverNode.current = null;
         }
+        if (onHoverNode) onHoverNode(node);
       };
 
       const paintNode = (node, ctx, globalScale) => {
@@ -266,10 +307,10 @@ function GraphRenderer({ graphData, currentSlug, width, height, onNodeClick, nod
         }
 
         // 레이블: 줌 레벨이 충분하거나 hover 상태일 때
-        if (globalScale > 2.5 || isHovered || isCurrent) {
-          const label = node.title.length > 18 ? node.title.slice(0, 18) + '…' : node.title;
-          const fontSize = Math.max(3, 4.5 / globalScale);
-          ctx.font = `${isCurrent ? 600 : 400} ${fontSize}px sans-serif`;
+        if (globalScale > 1.5 || isHovered || isCurrent) {
+          const label = node.title.length > 28 ? node.title.slice(0, 28) + '…' : node.title;
+          const fontSize = Math.max(4, (isHovered ? 13.5 : 4.5) / globalScale);
+          ctx.font = `${isHovered || isCurrent ? 700 : 400} ${fontSize}px sans-serif`;
           ctx.fillStyle = isHovered || isCurrent ? textColor : `${textColor}90`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
@@ -337,6 +378,7 @@ const WikiGraph = ({ currentSlug }) => {
   const [graphData, setGraphData] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState(null);
   const sidebarRef = useRef(null);
   const [sidebarSize, setSidebarSize] = useState({ w: 260, h: 500 });
 
@@ -388,14 +430,28 @@ const WikiGraph = ({ currentSlug }) => {
 
         <GraphCanvas ref={sidebarRef} $collapsed={collapsed}>
           {graphData && !collapsed && sidebarSize.w > 0 && (
-            <GraphRenderer
-              graphData={graphData}
-              currentSlug={currentSlug}
-              width={sidebarSize.w}
-              height={sidebarSize.h}
-              onNodeClick={handleNodeClick}
-              nodeSize={0.9}
-            />
+            <>
+              <TooltipBar $visible={!!hoveredNode}>
+                {hoveredNode && (
+                  <>
+                    <TooltipCategory $color={CAT_COLOR[hoveredNode.category] || DEFAULT_COLOR}>
+                      {hoveredNode.category}
+                    </TooltipCategory>
+                    <TooltipTitle>{hoveredNode.title}</TooltipTitle>
+                    <TooltipPath>{hoveredNode.id}</TooltipPath>
+                  </>
+                )}
+              </TooltipBar>
+              <GraphRenderer
+                graphData={graphData}
+                currentSlug={currentSlug}
+                width={sidebarSize.w}
+                height={sidebarSize.h}
+                onNodeClick={handleNodeClick}
+                onHoverNode={setHoveredNode}
+                nodeSize={0.9}
+              />
+            </>
           )}
         </GraphCanvas>
       </SidebarWrap>
@@ -421,12 +477,24 @@ const WikiGraph = ({ currentSlug }) => {
             ))}
           </Legend>
           <ModalCanvas>
+            <TooltipBar $visible={!!hoveredNode} style={{ background: 'rgba(0,0,0,0.6)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+              {hoveredNode && (
+                <>
+                  <TooltipCategory $color={CAT_COLOR[hoveredNode.category] || DEFAULT_COLOR}>
+                    {hoveredNode.category}
+                  </TooltipCategory>
+                  <TooltipTitle style={{ color: '#fff' }}>{hoveredNode.title}</TooltipTitle>
+                  <TooltipPath style={{ color: 'rgba(255,255,255,0.4)' }}>{hoveredNode.id}</TooltipPath>
+                </>
+              )}
+            </TooltipBar>
             <GraphRenderer
               graphData={graphData}
               currentSlug={currentSlug}
               width={typeof window !== 'undefined' ? window.innerWidth : 1200}
               height={typeof window !== 'undefined' ? window.innerHeight - 100 : 700}
               onNodeClick={(node) => { navigate(node.id); setExpanded(false); }}
+              onHoverNode={setHoveredNode}
               nodeSize={1.2}
             />
           </ModalCanvas>
