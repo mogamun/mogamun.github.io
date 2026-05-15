@@ -12,7 +12,7 @@ category: entities
 
 ## 정체
 
-개인 AI 어시스턴트 플랫폼. 로컬에서 실행되며 MIT 라이선스 기반 오픈소스. Gemini CLI, Codex, Claude Code, Open Code 등 다양한 AI CLI 도구를 하나의 환경에서 통합 운영할 수 있는 "AI OS" 역할.
+개인 AI 어시스턴트 플랫폼. 로컬에서 실행되며 MIT 라이선스 기반 오픈소스. Gemini CLI, Codex, Claude Code, Open Code 등 다양한 AI CLI 도구를 하나의 환경에서 통합 운영할 수 있는 "AI OS" 역할. **Pi 터미널 코딩 하네스를 기반으로 구동**됨 — Pi의 확장 시스템, 모델 스위칭, 세션 트리 기능을 그대로 활용.
 
 ## 역할
 
@@ -53,10 +53,10 @@ category: entities
 
 ## See also
 
+- [Pi](/wiki/entities/pi/) — OpenClaw의 기반 하네스 (확장, 세션 트리, 모델 스위칭)
 - [ACP (Agent Client Protocol)](/wiki/concepts/agent-client-protocol/) — 핵심 프로토콜 개념
 - [오마이클로(ohmyclaw)](# ) — 라우팅/오케스트레이션 도구
 - [Hermes Agent](/wiki/entities/hermes-agent/) — OpenClaw 마이그레이션 지원
 - [OpenClaw vs Hermes Agent 비교](/wiki/comparisons/openclaw-vs-hermes-agent/) — 실전 비교 분석
 - [OpenClaw Codex 이미지 자동화 설정](/wiki/important/setup/openclaw-codex-image-gen/) — 이미지 자동화 플러그인
-- [Claude CLI x OpenClaw 연동](/wiki/sources/conanssam-claude-cli-openclaw/) — 상세 소스
-- [GPT 이미지 2.0 + OpenClaw 자동화](/wiki/sources/conanssam-gpt-image-2-openclaw/) — 상세 소스
+- [LLM + Harness 모델](/wiki/concepts/llm-harness-model/) — 하네스 멘탈 모델

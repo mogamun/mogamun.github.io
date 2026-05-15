@@ -7,6 +7,58 @@ category: log.md
 
 > Append-only chronological record of all wiki operations.
 
+## [2026-05-13] ingest | Hermes Google Chat 연동 가이드 (2번째 Hermes 설치 영상)
+- Ingested: raw/2026-05-13-hermes-google-chat-setup.md
+- Updated: wiki/sources/hermes-codex-setup.md (Google Chat 연동, Docker sandbox, Codex→Docker 위임, 초보자 평가 추가)
+- Key insight: 메신저 3파전 — Slack(UX 최고), Telegram(설정 최소), Google Chat(Google Workspace 통합). Docker sandbox가 Hermes 파일 작업의 필수 전제. "에이전트로 에이전트 환경 구축" 패턴 등장: Codex --yolo로 Docker 설치 → Hermes 컨테이너 생성까지 자동화. 초보자 시각에서 메신저 연동이 병목이지만 Hermes 자체 설치는 매우 쉽다는 평가.
+
+## [2026-05-13] ingest | Hermes Agent X Codex 실전 설정 가이드
+- Ingested: raw/2026-05-13-hermes-codex-setup.md
+- Added: wiki/sources/hermes-codex-setup.md
+- Updated: wiki/index.md, wiki/log.md
+- Key insight: OpenAI Codex 구독 토큰을 Hermes에서 그대로 사용 가능 (추가 비용 제로). 서드파티 연동이지만 현재 작동. Slack이 Telegram보다 멀티 에이전트 관리에 적합 (쓰레드, 채널, UX). Wave Terminal이 Windows CLI 에이전트 사용자에게 오픈소스 대안. Codex CLI로 원격 VPS의 Hermes 설정을 자동 관리하는 "에이전트로 에이전트 관리" 패턴 등장.
+
+## [2026-05-13] ingest | Hermes Agent v0.13.0 — Computer Use, Kanban, /goal
+- Ingested: raw/2026-05-13-hermes-agent-v2.md
+- Added: wiki/sources/hermes-agent-v2.md
+- Updated: wiki/entities/hermes-agent.md (v0.12.0→v0.13.0, Computer Use/Kanban//goal/Qwen 3.6 Plus, 20번째 플랫폼 Google Chat, 개발 속도 테이블), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: "v2.0"은 유튜브 마케팅 표현이며 실제 버전은 v0.13.0. 백그라운드 Computer Use(KUA)가 Codex 스타일의 오픈소스 구현체로 등장 — 커서/키보드/Space 전환 없이 macOS 데스크탑 제어. 칸반 보드가 "독립 AI 도구"에서 "멀티 에이전트 지속적 작업 공간"으로의 전환을 완성. /goal 명령으로 Claude Code/Codex와 기능 경쟁 본격화.
+
+## [2026-05-13] ingest | Claude Code Agent View — 터미널 멀티 세션 TUI
+- Ingested: raw/2026-05-13-claude-agent-view.md
+- Added: wiki/sources/claudagent-view.md
+- Updated: wiki/entities/claude-code.md (Agent View 섹션, See also), wiki/sources/agent-teams.md (See also), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: Agent Teams의 Display Mode(Ingress/Split Panes)가 네이티브 터미널 TUI인 Agent View로 진화. `claude agents` 하나의 명령으로 멀티 세션 오케스트레이션이 가능해졌으며, 각 세션은 독립 git worktree에서 격리. 사용자별 수퍼바이저 프로세스가 세션 생명주기를 관리하는 아키텍처 도입. "터미널에서 데스크탑 앱급 멀티 에이전트 경험"이 실현됨.
+
+## [2026-05-12] ingest | agentmemory — AI 코딩 에이전트 영구 메모리
+- Ingested: raw/2026-05-12-agentmemory.md
+- Added: wiki/sources/agentmemory.md, wiki/entities/agentmemory.md, wiki/concepts/iii-engine.md, wiki/concepts/memory-consolidation-tiers.md, wiki/comparisons/agent-memory-approaches.md, wiki/important/setup/agentmemory.md
+- Updated: wiki/entities/claude-code.md (agentmemory 플러그인 섹션, See also), wiki/concepts/filesystem-based-memory.md (agentmemory 사례, See also), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: Karpathy LLM Wiki 패턴의 "실제 구현체"가 등장. 파일 기반 정적 메모리(CLAUDE.md)를 4-Tier 동적 메모리 엔진(Working→Episodic→Semantic→Procedural)으로 진화시키며, iii engine이라는 3원시 런타임(Functions+Triggers+KV State) 위에 전체 스택을 재구축. 92% 토큰 절감, 95.2% 검색 정확도, 16개 에이전트 지원. "지식 재구성 > 지식 검색" 테제의 도구급 실증.
+
+## [2026-05-09] ingest | Claude Code Agent Teams 완벽 정리
+- Ingested: raw/2026-05-09-claude-code-agent-teams.md
+- Added: wiki/sources/agent-teams.md, wiki/concepts/agent-teams.md, wiki/important/setup/agent-teams.md
+- Updated: wiki/entities/claude-code.md (Agent Teams 섹션, See also), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: Subagent는 "프리랜서"(결과만 보고), Agent Teams는 "팀"(서로 소통). Mailbox(직접 메시지)와 Task List(공유 작업)가 Subagent의 3가지 한계(소통 불가, 단서 소실, 메인 병목)를 구조적으로 해결. 공식 문서가 명시한 전환 타이밍: 에이전트 간 정보 공유가 필요해지는 순간.
+
+## [2026-05-09] ingest | Claude Code Hookify Plugin
+- Ingested: raw/2026-05-09-claude-code-hookify-plugin.md
+- Added: wiki/sources/hookify.md, wiki/concepts/claude-code-hooks.md, wiki/important/setup/hookify.md, wiki/important/prompts/hookify-rule-templates.md
+- Updated: wiki/entities/claude-code.md (플러그인 생태계 섹션, See also), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: Hookify는 복잡한 hooks.json 대신 마크다운 파일로 훅을 생성하는 사용성 추상화. 자연어로 규칙을 만들고 즉시 적용. Claude Code의 훅 시스템(PreToolUse/PostToolUse/Stop) 위에 마크다운 레이어를 얹어 "훅의 민주화" 실현.
+
+## [2026-05-08] note | AnimatedSceneBackground 전역화 및 색상 스키마 시스템
+- Added: raw/2026-05-08-autopenna-animated-bg-global.md
+- Source project: Autopenna
+- Key insight: dangerouslySetInnerHTML CSS 주입은 Android WebView에서 불안정 → 반드시 index.css로 이동. GlobalBackground 단일 컴포넌트로 모든 페이지 커버.
+
+## [2026-05-08] ingest | Pi 터미널 코딩 하네스 리뷰
+- Ingested: raw/2026-05-08-pi-terminal-coding-harness.md
+- Added: wiki/sources/pi-terminal-coding-harness.md, wiki/entities/pi.md
+- Updated: wiki/concepts/llm-harness-model.md (Pi 적용 사례, "Model=CPU" 비유), wiki/entities/openclaw.md (Pi 기반 하네스 명시), wiki/entities/claude-code.md (Pi 경쟁 도구 추가), wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: 같은 모델이라도 하네스가 다르면 완전히 다른 에이전트. Pi는 기능 경쟁이 아닌 "소유권 경쟁"으로 Claude Code에 도전 — 사용자가 직접 하네스를 구축하는 생태계.
+
 ## [2026-05-06] ingest | Hermes Agent GitHub 업데이트 (v0.9.0~v0.12.0)
 - Ingested: raw/2026-05-06-hermes-agent-github-update.md
 - Added: wiki/sources/hermes-agent-github-update.md

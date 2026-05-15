@@ -16,6 +16,13 @@ category: index.md
 - [overview](/wiki/overview/) — 위키 전체에 대한 고수준 종합 (2026-04-16)
 
 ## Sources
+- [hermes-codex-setup](/wiki/sources/hermes-codex-setup/) — Hermes Agent X Codex 실전 설정: 추가 비용 제로, Slack 연동, Wave Terminal, VPS 원클릭 (2026-05-13)
+- [hermes-agent-v2](/wiki/sources/hermes-agent-v2/) — Hermes Agent v0.13.0 "Tenacity": Computer Use (KUA), WebUI 칸반, /goal 자율 모드, Qwen 3.6 Plus 무료 (2026-05-13)
+- [claudagent-view](/wiki/sources/claudagent-view/) — Claude Code Agent View: 터미널 멀티 세션 TUI, 5상태 관리, 병렬 디스패치, 독립 worktree, 수퍼바이저 아키텍처 (2026-05-13)
+- [agentmemory](/wiki/sources/agentmemory/) — AI 코딩 에이전트 영구 메모리: 4-Tier 통합, BM25+Vector+Graph 검색, 51 MCP tools, iii engine 기반 (2026-05-12)
+- [agent-teams](/wiki/sources/agent-teams/) — Claude Code Agent Teams 완벽 정리: Subagent vs Teams, Mailbox/Task List/Spawn, 전환 타이밍 (2026-05-09)
+- [hookify](/wiki/sources/hookify/) — Claude Code Hookify 플러그인: 마크다운으로 훅 생성, 자연어→규칙, PreToolUse/PostToolUse 추상화 (2026-05-09)
+- [pi-terminal-coding-harness](/wiki/sources/pi-terminal-coding-harness/) — Pi 미니멀 터미널 코딩 하네스: Model=CPU 비유, TypeScript 확장, 컴팩션 제어, 세션 트리 (2026-05-08)
 - [hermes-agent-github-update](/wiki/sources/hermes-agent-github-update/) — Hermes Agent v0.9.0~v0.12.0 릴리즈 종합: 자율 Curator, Transport ABC, 19 메시징, 213 기여자 (2026-05-06)
 - [hermes-agent-review-beomsu](/wiki/sources/hermes-agent-review-beomsu/) — Hermes Agent 독스 기반 기술 심층 분석, "LLM+Harness" 모델, 클로즈 루프 학습 (2026-05-04)
 - [warp-terminal](/wiki/sources/warp-terminal/) — Rust GPU 터미널 오픈소스 + 자동완성 아키텍처: Trie 없이 starts_with+메모리 올인 (2026-04-29)
@@ -54,6 +61,8 @@ category: index.md
 - [heyjames-claude-code-frameworks](/wiki/sources/heyjames-claude-code-frameworks/) — 헤이제임스: Superpowers vs GSD vs gstack 비교, Claude 코딩 프레임워크 3종 (2026-04-24)
 
 ## Entities
+- [agentmemory](/wiki/entities/agentmemory/) — AI 코딩 에이전트용 영구 메모리 엔진, iii engine 기반, 51 MCP tools, 16 에이전트 지원 (2026-05-12)
+- [pi](/wiki/entities/pi/) — 미니멀 터미널 코딩 하네스, TypeScript 확장, 세션 트리, 수백 모델, OpenClaw 기반 (2026-05-08)
 - [hermes-agent](/wiki/entities/hermes-agent/) — Nous Research 독립 자가 개선 AI 에이전트, v0.12.0 Curator, 8 백엔드, 19 메시징, 200+ 모델 (2026-05-06)
 - [warp-terminal](/wiki/entities/warp-terminal/) — Rust GPU 가속 터미널→ADE, AGPL 오픈소스, 70만+ 사용자, Oz 에이전트 오케스트레이션 (2026-04-29)
 - [quarkdown](/wiki/entities/quarkdown/) — Turing-complete Markdown 조판 시스템: .function 문법, 4출력 타겟, VS Code Live Preview (2026-04-29)
@@ -89,8 +98,12 @@ category: index.md
 - [gstack](/wiki/gstack/) — Claude Code 23역할 리뷰 게이트 프레임워크 (71K stars, Garry Tan/YC CEO) (2026-04-24)
 
 ## Concepts
+- [memory-consolidation-tiers](/wiki/concepts/memory-consolidation-tiers/) — 4-Tier 기억 모델: Working→Episodic→Semantic→Procedural, Ebbinghaus 감쇠, 모순 해결 (2026-05-12)
+- [iii-engine](/wiki/concepts/iii-engine/) — 웹 스택 통합 런타임: Functions+Triggers+KV State 3원시, Workers 확장, 내장 OTEL (2026-05-12)
+- [agent-teams](/wiki/concepts/agent-teams/) — Claude Code Agent Teams: Mailbox/Task List/Spawn 협업 모델, Subagent 전환 기준, 이중 할당 구조 (2026-05-09)
+- [claude-code-hooks](/wiki/concepts/claude-code-hooks/) — Claude Code 훅 시스템: PreToolUse/PostToolUse/Stop 이벤트 모델, warn/block 액션, 하네스 제어 메커니즘 (2026-05-09)
 - [closed-learning-loop](/wiki/concepts/closed-learning-loop/) — AI 에이전트 자가 강화 순환: 경험→스킬→개선→큐레이션→영속화 (5단계, v0.12.0 Curator) (2026-05-06)
-- [llm-harness-model](/wiki/concepts/llm-harness-model/) — "LLM + 통제 도구" 멘탈 모델: Curator, Transport, Credential Pool 등 하네스 확장 (2026-05-06)
+- [llm-harness-model](/wiki/concepts/llm-harness-model/) — "LLM + 통제 도구" 멘탈 모델: Model=CPU 비유, Curator, Pi 미니멀 하네스 (2026-05-08)
 - [lean-autocomplete-architecture](/wiki/concepts/lean-autocomplete-architecture/) — 복잡한 인덱스 없이 단순 매칭+메모리 올인+비동기 I/O로 빠른 자동완성 (Warp 실증) (2026-04-29)
 - [turing-complete-markdown](/wiki/concepts/turing-complete-markdown/) — Markdown에 함수/변수/흐름제어 도입으로 프로그래밍 언어화: Quarkdown, Typst, MDX (2026-04-29)
 - [filesystem-based-memory](/wiki/concepts/filesystem-based-memory/) — 에이전트 메모리를 파일로 저장: 기존 도구 재사용, 내보내기 가능, 범위 권한 (2026-04-29)
@@ -124,6 +137,7 @@ category: index.md
 - [role-based-ai-governance](/wiki/role-based-ai-governance/) — 역할 기반 AI 거버넌스: 다중 관점 리뷰로 의사결정 품질 향상 (2026-04-24)
 
 ## Comparisons
+- [agent-memory-approaches](/wiki/comparisons/agent-memory-approaches/) — agentmemory vs mem0 vs Letta/MemGPT vs Built-in: 4종 에이전트 메모리 접근법 비교 (2026-05-12)
 - [markdown-typesetting-systems](/wiki/comparisons/markdown-typesetting-systems/) — Quarkdown vs Typst vs LaTeX vs AsciiDoc vs MDX: 5종 조판 시스템 비교 (2026-04-29)
 - [browser-automation-approaches](/wiki/comparisons/browser-automation-approaches/) — Playwright MCP vs agent-browser vs mcp-chrome: 3가지 브라우저 자동화 접근법 비교 (2026-04-28)
 - [openclaw-vs-hermes-agent](/wiki/comparisons/openclaw-vs-hermes-agent/) — OpenClaw vs Hermes Agent: 개인 비서 vs AI 직원, "유전자가 다르다", 개발 속도 차이 확대 (2026-05-06)
@@ -138,11 +152,15 @@ category: index.md
 
 ### Prompts
 _복붙 가능한 실제 프롬프트 템플릿_
+- [hookify-rule-templates](/wiki/important/prompts/hookify-rule-templates/) — Claude Code Hookify 훅 규칙 템플릿 8종 (파괴적 명령 차단, 디버그 감지, 테스트 강제) (2026-05-09)
 - [vibe-coding-persona](/wiki/important/prompts/vibe-coding-persona/) — AI 페르소나 부여 프롬프트 (역할+전문성+스타일+제약) (2026-04-23)
 - [vibe-coding-ui-ux](/wiki/important/prompts/vibe-coding-ui-ux/) — 바이브코딩 UI/UX 품질 향상 프롬프트 5종 (FontAwesome, 벤토디자인, 레퍼런스) (2026-04-23)
 
 ### Setup
 _설치/설정 가이드 (단계별)_
+- [agentmemory](/wiki/important/setup/agentmemory/) — AI 코딩 에이전트 영구 메모리 설정 (Claude Code/Cursor/Gemini CLI/Hermes/Pi, 12 hooks, 51 MCP tools) (2026-05-12)
+- [agent-teams](/wiki/important/setup/agent-teams/) — Claude Code Agent Teams 활성화 (실험적 기능, Mailbox, Task List, Display Mode) (2026-05-09)
+- [hookify](/wiki/important/setup/hookify/) — Claude Code Hookify 플러그인 설정 (마크다운 훅 생성, 자연어 규칙) (2026-05-09)
 - [quarkdown](/wiki/important/setup/quarkdown/) — Turing-complete Markdown 조판 시스템 설치 (brew/curl/scoop, Live Preview) (2026-04-29)
 - [mcp-chrome](/wiki/important/setup/mcp-chrome/) — Chrome Extension 기반 MCP 서버 설정 (Streamable HTTP, 사용자 실제 브라우저) (2026-04-28)
 - [agent-browser](/wiki/important/setup/agent-browser/) — AI 에이전트용 브라우저 자동화 CLI 설치 (npm/Homebrew/Cargo, Chrome 다운로드) (2026-04-28)
@@ -160,4 +178,4 @@ _설치/설정 가이드 (단계별)_
 - [port-env-override](/wiki/corrections/port-env-override/) — **HIGH** 전역 환경변수 PORT로 포트 충돌 + 다른 서비스 kill 사고. 해결: 포트 상수 하드코딩, run.sh로만 구동, 광역 kill 금지 (2026-04-24)
 
 ---
-_Stats: 36 sources | 126 pages | Last updated: 2026-05-06_
+_Stats: 43 sources | 144 pages | Last updated: 2026-05-13_
