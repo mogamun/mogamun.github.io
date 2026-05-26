@@ -4,6 +4,7 @@ import { ThemeProvider } from './ThemeContext';
 import Header from './Header';
 import Footer from './Footer';
 import WikiGraph from './WikiGraph';
+import CoupangBanner from './CoupangBanner';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ const Main = styled.main`
 const WikiLayout = ({ children, currentSlug }) => (
   <ThemeProvider>
     <Header />
+    <CoupangBanner />
     <Wrapper>
       <WikiGraph currentSlug={currentSlug} />
       <Main>{children}</Main>

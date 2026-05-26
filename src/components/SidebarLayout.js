@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { ThemeProvider } from './ThemeContext';
 import Header from './Header';
 import Footer from './Footer';
+import CoupangBanner from './CoupangBanner';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -99,6 +100,7 @@ const SidebarLayout = ({ children, sidebar, title, headerExtra }) => {
   return (
     <ThemeProvider>
       <Header />
+      <CoupangBanner />
       <Wrapper>
         <SidebarOuter $collapsed={collapsed}>
           <SidebarHeader $collapsed={collapsed}>

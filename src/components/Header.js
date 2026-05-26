@@ -288,6 +288,7 @@ const Header = () => {
         <NavLinks>
           <li><NavLink to="/wiki/">Blog</NavLink></li>
           <li><NavLink to="/kit/">Kit</NavLink></li>
+          <li><NavLink to="/recommend/">추천</NavLink></li>
           <DropdownWrap ref={toolRef}>
             <DropdownTrigger $open={toolOpen} onClick={() => setToolOpen(!toolOpen)}>
               Tools

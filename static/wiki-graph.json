@@ -1,6 +1,12 @@
 {
   "nodes": [
     {
+      "id": "/wiki/comparisons/agent-memory-approaches/",
+      "title": "agent-memory-approaches",
+      "category": "comparisons",
+      "val": 4.6
+    },
+    {
       "id": "/wiki/comparisons/api-vs-cli-vs-mcp/",
       "title": "api-vs-cli-vs-mcp",
       "category": "comparisons",
@@ -34,25 +40,37 @@
       "id": "/wiki/comparisons/openclaw-vs-hermes-agent/",
       "title": "openclaw-vs-hermes-agent",
       "category": "comparisons",
-      "val": 5.800000000000001
+      "val": 5.4
     },
     {
       "id": "/wiki/concepts/agent-client-protocol/",
       "title": "agent-client-protocol",
       "category": "concepts",
-      "val": 3.4000000000000004
+      "val": 3
     },
     {
       "id": "/wiki/concepts/agent-coordination/",
       "title": "agent-coordination",
       "category": "concepts",
-      "val": 5
+      "val": 5.800000000000001
+    },
+    {
+      "id": "/wiki/concepts/agent-teams/",
+      "title": "agent-teams",
+      "category": "concepts",
+      "val": 3.4000000000000004
     },
     {
       "id": "/wiki/concepts/brevity-accuracy-tradeoff/",
       "title": "brevity-accuracy-tradeoff",
       "category": "concepts",
       "val": 6
+    },
+    {
+      "id": "/wiki/concepts/claude-code-hooks/",
+      "title": "claude-code-hooks",
+      "category": "concepts",
+      "val": 4.6
     },
     {
       "id": "/wiki/concepts/client-daemon-architecture/",
@@ -64,7 +82,7 @@
       "id": "/wiki/concepts/closed-learning-loop/",
       "title": "closed-learning-loop",
       "category": "concepts",
-      "val": 5
+      "val": 5.800000000000001
     },
     {
       "id": "/wiki/concepts/code-orchestration/",
@@ -112,7 +130,13 @@
       "id": "/wiki/concepts/filesystem-based-memory/",
       "title": "filesystem-based-memory",
       "category": "concepts",
-      "val": 5.4
+      "val": 6
+    },
+    {
+      "id": "/wiki/concepts/iii-engine/",
+      "title": "iii-engine",
+      "category": "concepts",
+      "val": 4.2
     },
     {
       "id": "/wiki/concepts/intent-grouped-tools/",
@@ -124,7 +148,7 @@
       "id": "/wiki/concepts/knowledge-repository-evolution/",
       "title": "knowledge-repository-evolution",
       "category": "concepts",
-      "val": 5.800000000000001
+      "val": 6
     },
     {
       "id": "/wiki/concepts/lean-autocomplete-architecture/",
@@ -136,7 +160,7 @@
       "id": "/wiki/concepts/llm-harness-model/",
       "title": "llm-harness-model",
       "category": "concepts",
-      "val": 4.2
+      "val": 6
     },
     {
       "id": "/wiki/concepts/mcp-apps/",
@@ -151,10 +175,16 @@
       "val": 3
     },
     {
+      "id": "/wiki/concepts/memory-consolidation-tiers/",
+      "title": "memory-consolidation-tiers",
+      "category": "concepts",
+      "val": 5
+    },
+    {
       "id": "/wiki/concepts/multi-agent-hierarchy/",
       "title": "multi-agent-hierarchy",
       "category": "concepts",
-      "val": 4.2
+      "val": 6
     },
     {
       "id": "/wiki/concepts/programmatic-tool-calling/",
@@ -166,7 +196,7 @@
       "id": "/wiki/concepts/rag/",
       "title": "rag",
       "category": "concepts",
-      "val": 5
+      "val": 6
     },
     {
       "id": "/wiki/concepts/ref-based-selection/",
@@ -214,7 +244,7 @@
       "id": "/wiki/concepts/verification-driven-development/",
       "title": "verification-driven-development",
       "category": "concepts",
-      "val": 3.4000000000000004
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/concepts/vibe-coding-cheatkey/",
@@ -247,6 +277,12 @@
       "val": 4.2
     },
     {
+      "id": "/wiki/entities/agentmemory/",
+      "title": "agentmemory",
+      "category": "entities",
+      "val": 4.6
+    },
+    {
       "id": "/wiki/entities/aikorea-community/",
       "title": "aikorea-community",
       "category": "entities",
@@ -265,22 +301,10 @@
       "val": 3
     },
     {
-      "id": "/wiki/entities/beomsu-koh/",
-      "title": "beomsu-koh",
-      "category": "entities",
-      "val": 3.4000000000000004
-    },
-    {
       "id": "/wiki/entities/claude-code/",
       "title": "claude-code",
       "category": "entities",
       "val": 6
-    },
-    {
-      "id": "/wiki/entities/conanssam/",
-      "title": "conanssam",
-      "category": "entities",
-      "val": 5
     },
     {
       "id": "/wiki/entities/donchitos/",
@@ -400,7 +424,13 @@
       "id": "/wiki/entities/openclaw/",
       "title": "openclaw",
       "category": "entities",
-      "val": 5.4
+      "val": 5.800000000000001
+    },
+    {
+      "id": "/wiki/entities/pi/",
+      "title": "pi",
+      "category": "entities",
+      "val": 4.6
     },
     {
       "id": "/wiki/entities/quarkdown/",
@@ -415,16 +445,10 @@
       "val": 4.2
     },
     {
-      "id": "/wiki/entities/smartdaddy/",
-      "title": "smartdaddy",
-      "category": "entities",
-      "val": 3.8000000000000003
-    },
-    {
       "id": "/wiki/entities/source-playground/",
       "title": "source-playground",
       "category": "entities",
-      "val": 5
+      "val": 4.6
     },
     {
       "id": "/wiki/entities/stashyoutube/",
@@ -463,10 +487,10 @@
       "val": 2.6
     },
     {
-      "id": "/wiki/entities/zerocho/",
-      "title": "zerocho",
-      "category": "entities",
-      "val": 4.2
+      "id": "/wiki/important/prompts/hookify-rule-templates/",
+      "title": "hookify-rule-templates",
+      "category": "important",
+      "val": 3
     },
     {
       "id": "/wiki/important/prompts/vibe-coding-persona/",
@@ -487,6 +511,18 @@
       "val": 2.2
     },
     {
+      "id": "/wiki/important/setup/agent-teams/",
+      "title": "agent-teams",
+      "category": "important",
+      "val": 2.2
+    },
+    {
+      "id": "/wiki/important/setup/agentmemory/",
+      "title": "agentmemory",
+      "category": "important",
+      "val": 3
+    },
+    {
       "id": "/wiki/important/setup/ai-coding-frameworks-setup/",
       "title": "ai-coding-frameworks-setup",
       "category": "important",
@@ -496,7 +532,7 @@
       "id": "/wiki/important/setup/codex-image-generation/",
       "title": "codex-image-generation",
       "category": "important",
-      "val": 5.800000000000001
+      "val": 5.4
     },
     {
       "id": "/wiki/important/setup/figma-mcp-setup/",
@@ -508,7 +544,13 @@
       "id": "/wiki/important/setup/hermes-agent-setup/",
       "title": "hermes-agent-setup",
       "category": "important",
-      "val": 4.2
+      "val": 4.6
+    },
+    {
+      "id": "/wiki/important/setup/hookify/",
+      "title": "hookify",
+      "category": "important",
+      "val": 2.6
     },
     {
       "id": "/wiki/important/setup/imagesorcery-mcp-setup/",
@@ -526,7 +568,7 @@
       "id": "/wiki/important/setup/openclaw-codex-image-gen/",
       "title": "openclaw-codex-image-gen",
       "category": "important",
-      "val": 4.6
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/important/setup/quarkdown/",
@@ -589,6 +631,18 @@
       "val": 6
     },
     {
+      "id": "/wiki/sources/agent-teams/",
+      "title": "agent-teams",
+      "category": "sources",
+      "val": 4.6
+    },
+    {
+      "id": "/wiki/sources/agentmemory/",
+      "title": "agentmemory",
+      "category": "sources",
+      "val": 5.4
+    },
+    {
       "id": "/wiki/sources/ai-coding-frameworks-deep-research/",
       "title": "ai-coding-frameworks-deep-research",
       "category": "sources",
@@ -599,6 +653,12 @@
       "title": "caveman-token-reduction",
       "category": "sources",
       "val": 3.4000000000000004
+    },
+    {
+      "id": "/wiki/sources/claudagent-view/",
+      "title": "claudagent-view",
+      "category": "sources",
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/sources/claude-code-game-studios/",
@@ -634,7 +694,7 @@
       "id": "/wiki/sources/conanssam-claude-cli-openclaw/",
       "title": "conanssam-claude-cli-openclaw",
       "category": "sources",
-      "val": 3
+      "val": 2.6
     },
     {
       "id": "/wiki/sources/conanssam-gpt-image-2-openclaw/",
@@ -664,7 +724,7 @@
       "id": "/wiki/sources/gpt-image-2-15-use-cases/",
       "title": "gpt-image-2-15-use-cases",
       "category": "sources",
-      "val": 3.8000000000000003
+      "val": 3.4000000000000004
     },
     {
       "id": "/wiki/sources/gpt-image-2-codex-webtoon/",
@@ -682,7 +742,7 @@
       "id": "/wiki/sources/hermes-agent-github-update/",
       "title": "hermes-agent-github-update",
       "category": "sources",
-      "val": 3.8000000000000003
+      "val": 4.2
     },
     {
       "id": "/wiki/sources/hermes-agent-github/",
@@ -697,10 +757,28 @@
       "val": 5.4
     },
     {
+      "id": "/wiki/sources/hermes-agent-v2/",
+      "title": "hermes-agent-v2",
+      "category": "sources",
+      "val": 4.6
+    },
+    {
+      "id": "/wiki/sources/hermes-codex-setup/",
+      "title": "hermes-codex-setup",
+      "category": "sources",
+      "val": 3.8000000000000003
+    },
+    {
       "id": "/wiki/sources/heyjames-claude-code-frameworks/",
       "title": "heyjames-claude-code-frameworks",
       "category": "sources",
       "val": 5
+    },
+    {
+      "id": "/wiki/sources/hookify/",
+      "title": "hookify",
+      "category": "sources",
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/sources/image-prompt-chroma-key/",
@@ -749,6 +827,12 @@
       "title": "modui-myeongjak-anime-q1",
       "category": "sources",
       "val": 1.4
+    },
+    {
+      "id": "/wiki/sources/pi-terminal-coding-harness/",
+      "title": "pi-terminal-coding-harness",
+      "category": "sources",
+      "val": 3.4000000000000004
     },
     {
       "id": "/wiki/sources/playwright-mcp-setup/",
@@ -808,7 +892,7 @@
       "id": "/wiki/sources/warp-terminal/",
       "title": "warp-terminal",
       "category": "sources",
-      "val": 3.8000000000000003
+      "val": 4.2
     },
     {
       "id": "/wiki/sources/weekdaycode-ai-news/",
@@ -820,7 +904,7 @@
       "id": "/wiki/sources/zerocho-openclaw-vs-hermes/",
       "title": "zerocho-openclaw-vs-hermes",
       "category": "sources",
-      "val": 4.2
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/synthesis/structure-as-implicit-prompt/",
@@ -830,6 +914,26 @@
     }
   ],
   "links": [
+    {
+      "source": "/wiki/comparisons/agent-memory-approaches/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/comparisons/agent-memory-approaches/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
+    },
+    {
+      "source": "/wiki/comparisons/agent-memory-approaches/",
+      "target": "/wiki/concepts/filesystem-based-memory/"
+    },
+    {
+      "source": "/wiki/comparisons/agent-memory-approaches/",
+      "target": "/wiki/concepts/rag/"
+    },
+    {
+      "source": "/wiki/comparisons/agent-memory-approaches/",
+      "target": "/wiki/entities/claude-code/"
+    },
     {
       "source": "/wiki/comparisons/api-vs-cli-vs-mcp/",
       "target": "/wiki/entities/mcp-protocol/"
@@ -948,14 +1052,6 @@
     },
     {
       "source": "/wiki/comparisons/openclaw-vs-hermes-agent/",
-      "target": "/wiki/entities/zerocho/"
-    },
-    {
-      "source": "/wiki/comparisons/openclaw-vs-hermes-agent/",
-      "target": "/wiki/entities/beomsu-koh/"
-    },
-    {
-      "source": "/wiki/comparisons/openclaw-vs-hermes-agent/",
       "target": "/wiki/concepts/compounding-artifact/"
     },
     {
@@ -969,10 +1065,6 @@
     {
       "source": "/wiki/concepts/agent-client-protocol/",
       "target": "/wiki/entities/openclaw/"
-    },
-    {
-      "source": "/wiki/concepts/agent-client-protocol/",
-      "target": "/wiki/entities/conanssam/"
     },
     {
       "source": "/wiki/concepts/agent-client-protocol/",
@@ -1003,6 +1095,30 @@
       "target": "/wiki/entities/shannon/"
     },
     {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/sources/agent-teams/"
+    },
+    {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/concepts/multi-agent-hierarchy/"
+    },
+    {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/concepts/agent-coordination/"
+    },
+    {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
+      "source": "/wiki/concepts/agent-teams/",
+      "target": "/wiki/synthesis/structure-as-implicit-prompt/"
+    },
+    {
       "source": "/wiki/concepts/brevity-accuracy-tradeoff/",
       "target": "/wiki/sources/caveman-token-reduction/"
     },
@@ -1017,6 +1133,30 @@
     {
       "source": "/wiki/concepts/brevity-accuracy-tradeoff/",
       "target": "/wiki/concepts/lean-autocomplete-architecture/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/sources/hookify/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/important/prompts/hookify-rule-templates/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/concepts/verification-driven-development/"
+    },
+    {
+      "source": "/wiki/concepts/claude-code-hooks/",
+      "target": "/wiki/synthesis/structure-as-implicit-prompt/"
     },
     {
       "source": "/wiki/concepts/client-daemon-architecture/",
@@ -1184,7 +1324,27 @@
     },
     {
       "source": "/wiki/concepts/filesystem-based-memory/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/concepts/filesystem-based-memory/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
+    },
+    {
+      "source": "/wiki/concepts/filesystem-based-memory/",
       "target": "/wiki/sources/claude-managed-agents-memory/"
+    },
+    {
+      "source": "/wiki/concepts/iii-engine/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/concepts/iii-engine/",
+      "target": "/wiki/entities/mcp-protocol/"
+    },
+    {
+      "source": "/wiki/concepts/iii-engine/",
+      "target": "/wiki/comparisons/agent-memory-approaches/"
     },
     {
       "source": "/wiki/concepts/intent-grouped-tools/",
@@ -1240,6 +1400,14 @@
     },
     {
       "source": "/wiki/concepts/llm-harness-model/",
+      "target": "/wiki/entities/pi/"
+    },
+    {
+      "source": "/wiki/concepts/llm-harness-model/",
+      "target": "/wiki/sources/pi-terminal-coding-harness/"
+    },
+    {
+      "source": "/wiki/concepts/llm-harness-model/",
       "target": "/wiki/concepts/filesystem-based-memory/"
     },
     {
@@ -1261,6 +1429,22 @@
     {
       "source": "/wiki/concepts/memex/",
       "target": "/wiki/concepts/compounding-artifact/"
+    },
+    {
+      "source": "/wiki/concepts/memory-consolidation-tiers/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/concepts/memory-consolidation-tiers/",
+      "target": "/wiki/concepts/rag/"
+    },
+    {
+      "source": "/wiki/concepts/memory-consolidation-tiers/",
+      "target": "/wiki/concepts/context-rot-prevention/"
+    },
+    {
+      "source": "/wiki/concepts/memory-consolidation-tiers/",
+      "target": "/wiki/concepts/knowledge-repository-evolution/"
     },
     {
       "source": "/wiki/concepts/multi-agent-hierarchy/",
@@ -1423,6 +1607,42 @@
       "target": "/wiki/comparisons/browser-automation-approaches/"
     },
     {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/concepts/iii-engine/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/comparisons/agent-memory-approaches/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/concepts/filesystem-based-memory/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/entities/mcp-protocol/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/entities/pi/"
+    },
+    {
+      "source": "/wiki/entities/agentmemory/",
+      "target": "/wiki/entities/hermes-agent/"
+    },
+    {
       "source": "/wiki/entities/aikorea-community/",
       "target": "/wiki/sources/claude-visualization-skins/"
     },
@@ -1441,18 +1661,6 @@
     {
       "source": "/wiki/entities/autopenna/",
       "target": "/wiki/sources/mobile-app-guidelines/"
-    },
-    {
-      "source": "/wiki/entities/beomsu-koh/",
-      "target": "/wiki/sources/hermes-agent-review-beomsu/"
-    },
-    {
-      "source": "/wiki/entities/beomsu-koh/",
-      "target": "/wiki/entities/hermes-agent/"
-    },
-    {
-      "source": "/wiki/entities/beomsu-koh/",
-      "target": "/wiki/entities/zerocho/"
     },
     {
       "source": "/wiki/entities/claude-code/",
@@ -1491,32 +1699,32 @@
       "target": "/wiki/sources/mcp-chrome/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/entities/openclaw/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/entities/pi/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/sources/conanssam-claude-cli-openclaw/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/sources/hookify/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/sources/conanssam-gpt-image-2-openclaw/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/sources/agent-teams/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/important/setup/openclaw-codex-image-gen/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/sources/claudagent-view/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/entities/source-playground/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/sources/agentmemory/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/entities/smartdaddy/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/concepts/iii-engine/"
     },
     {
-      "source": "/wiki/entities/conanssam/",
-      "target": "/wiki/entities/hermes-agent/"
+      "source": "/wiki/entities/claude-code/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
     },
     {
       "source": "/wiki/entities/donchitos/",
@@ -1608,7 +1816,7 @@
     },
     {
       "source": "/wiki/entities/hermes-agent/",
-      "target": "/wiki/entities/zerocho/"
+      "target": "/wiki/sources/hermes-agent-v2/"
     },
     {
       "source": "/wiki/entities/hermes-agent/",
@@ -1748,7 +1956,7 @@
     },
     {
       "source": "/wiki/entities/openclaw/",
-      "target": "/wiki/entities/zerocho/"
+      "target": "/wiki/entities/pi/"
     },
     {
       "source": "/wiki/entities/openclaw/",
@@ -1756,11 +1964,15 @@
     },
     {
       "source": "/wiki/entities/openclaw/",
-      "target": "/wiki/sources/conanssam-claude-cli-openclaw/"
+      "target": "/wiki/concepts/llm-harness-model/"
     },
     {
-      "source": "/wiki/entities/openclaw/",
-      "target": "/wiki/sources/conanssam-gpt-image-2-openclaw/"
+      "source": "/wiki/entities/pi/",
+      "target": "/wiki/sources/pi-terminal-coding-harness/"
+    },
+    {
+      "source": "/wiki/entities/pi/",
+      "target": "/wiki/concepts/context-rot-prevention/"
     },
     {
       "source": "/wiki/entities/quarkdown/",
@@ -1791,22 +2003,6 @@
       "target": "/wiki/entities/claude-code/"
     },
     {
-      "source": "/wiki/entities/smartdaddy/",
-      "target": "/wiki/sources/gpt-image-2-15-use-cases/"
-    },
-    {
-      "source": "/wiki/entities/smartdaddy/",
-      "target": "/wiki/entities/source-playground/"
-    },
-    {
-      "source": "/wiki/entities/smartdaddy/",
-      "target": "/wiki/important/setup/codex-image-generation/"
-    },
-    {
-      "source": "/wiki/entities/smartdaddy/",
-      "target": "/wiki/important/setup/openclaw-codex-image-gen/"
-    },
-    {
       "source": "/wiki/entities/source-playground/",
       "target": "/wiki/sources/gpt-image-2-codex-webtoon/"
     },
@@ -1817,6 +2013,10 @@
     {
       "source": "/wiki/entities/source-playground/",
       "target": "/wiki/important/setup/openclaw-codex-image-gen/"
+    },
+    {
+      "source": "/wiki/entities/source-playground/",
+      "target": "/wiki/sources/conanssam-gpt-image-2-openclaw/"
     },
     {
       "source": "/wiki/entities/source-playground/",
@@ -1891,12 +2091,8 @@
       "target": "/wiki/sources/weekdaycode-ai-news/"
     },
     {
-      "source": "/wiki/entities/zerocho/",
-      "target": "/wiki/sources/zerocho-openclaw-vs-hermes/"
-    },
-    {
-      "source": "/wiki/entities/zerocho/",
-      "target": "/wiki/entities/conanssam/"
+      "source": "/wiki/important/prompts/hookify-rule-templates/",
+      "target": "/wiki/sources/hookify/"
     },
     {
       "source": "/wiki/important/prompts/vibe-coding-persona/",
@@ -1941,6 +2137,38 @@
     {
       "source": "/wiki/important/setup/agent-browser/",
       "target": "/wiki/important/setup/figma-mcp-setup/"
+    },
+    {
+      "source": "/wiki/important/setup/agent-teams/",
+      "target": "/wiki/sources/agent-teams/"
+    },
+    {
+      "source": "/wiki/important/setup/agent-teams/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/important/setup/agent-teams/",
+      "target": "/wiki/concepts/multi-agent-hierarchy/"
+    },
+    {
+      "source": "/wiki/important/setup/agentmemory/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/important/setup/agentmemory/",
+      "target": "/wiki/concepts/iii-engine/"
+    },
+    {
+      "source": "/wiki/important/setup/agentmemory/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/important/setup/agentmemory/",
+      "target": "/wiki/entities/mcp-protocol/"
+    },
+    {
+      "source": "/wiki/important/setup/agentmemory/",
+      "target": "/wiki/concepts/filesystem-based-memory/"
     },
     {
       "source": "/wiki/important/setup/ai-coding-frameworks-setup/",
@@ -1989,6 +2217,22 @@
     {
       "source": "/wiki/important/setup/hermes-agent-setup/",
       "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
+      "source": "/wiki/important/setup/hookify/",
+      "target": "/wiki/important/prompts/hookify-rule-templates/"
+    },
+    {
+      "source": "/wiki/important/setup/hookify/",
+      "target": "/wiki/concepts/claude-code-hooks/"
+    },
+    {
+      "source": "/wiki/important/setup/hookify/",
+      "target": "/wiki/sources/hookify/"
+    },
+    {
+      "source": "/wiki/important/setup/hookify/",
+      "target": "/wiki/entities/claude-code/"
     },
     {
       "source": "/wiki/important/setup/imagesorcery-mcp-setup/",
@@ -2085,6 +2329,34 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/overview/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/hermes-codex-setup/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/hermes-agent-v2/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/claudagent-view/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/agentmemory/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/agent-teams/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/hookify/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/pi-terminal-coding-harness/"
     },
     {
       "source": "/wiki/index/",
@@ -2232,15 +2504,11 @@
     },
     {
       "source": "/wiki/index/",
+      "target": "/wiki/entities/pi/"
+    },
+    {
+      "source": "/wiki/index/",
       "target": "/wiki/entities/hermes-agent/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/entities/beomsu-koh/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/entities/zerocho/"
     },
     {
       "source": "/wiki/index/",
@@ -2336,10 +2604,6 @@
     },
     {
       "source": "/wiki/index/",
-      "target": "/wiki/entities/smartdaddy/"
-    },
-    {
-      "source": "/wiki/index/",
       "target": "/wiki/entities/ilgisseoyeong/"
     },
     {
@@ -2357,6 +2621,18 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/entities/gstack/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/concepts/iii-engine/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/concepts/claude-code-hooks/"
     },
     {
       "source": "/wiki/index/",
@@ -2484,6 +2760,10 @@
     },
     {
       "source": "/wiki/index/",
+      "target": "/wiki/comparisons/agent-memory-approaches/"
+    },
+    {
+      "source": "/wiki/index/",
       "target": "/wiki/comparisons/markdown-typesetting-systems/"
     },
     {
@@ -2509,6 +2789,10 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/synthesis/structure-as-implicit-prompt/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/important/prompts/hookify-rule-templates/"
     },
     {
       "source": "/wiki/index/",
@@ -2541,6 +2825,22 @@
     {
       "source": "/wiki/overview/",
       "target": "/wiki/important/prompts/vibe-coding-ui-ux/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/important/prompts/hookify-rule-templates/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/sources/hookify/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/sources/agent-teams/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/sources/agentmemory/"
     },
     {
       "source": "/wiki/overview/",
@@ -2620,7 +2920,15 @@
     },
     {
       "source": "/wiki/overview/",
+      "target": "/wiki/concepts/memory-consolidation-tiers/"
+    },
+    {
+      "source": "/wiki/overview/",
       "target": "/wiki/concepts/turing-complete-markdown/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/sources/claudagent-view/"
     },
     {
       "source": "/wiki/overview/",
@@ -2652,6 +2960,10 @@
     },
     {
       "source": "/wiki/overview/",
+      "target": "/wiki/concepts/claude-code-hooks/"
+    },
+    {
+      "source": "/wiki/overview/",
       "target": "/wiki/concepts/ref-based-selection/"
     },
     {
@@ -2673,6 +2985,10 @@
     {
       "source": "/wiki/overview/",
       "target": "/wiki/sources/imagesorcery-mcp/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/concepts/iii-engine/"
     },
     {
       "source": "/wiki/overview/",
@@ -2701,6 +3017,10 @@
     {
       "source": "/wiki/overview/",
       "target": "/wiki/concepts/filesystem-based-memory/"
+    },
+    {
+      "source": "/wiki/overview/",
+      "target": "/wiki/comparisons/agent-memory-approaches/"
     },
     {
       "source": "/wiki/overview/",
@@ -2736,15 +3056,11 @@
     },
     {
       "source": "/wiki/overview/",
+      "target": "/wiki/entities/pi/"
+    },
+    {
+      "source": "/wiki/overview/",
       "target": "/wiki/entities/source-playground/"
-    },
-    {
-      "source": "/wiki/overview/",
-      "target": "/wiki/entities/smartdaddy/"
-    },
-    {
-      "source": "/wiki/overview/",
-      "target": "/wiki/entities/conanssam/"
     },
     {
       "source": "/wiki/overview/",
@@ -2757,10 +3073,6 @@
     {
       "source": "/wiki/overview/",
       "target": "/wiki/comparisons/openclaw-vs-hermes-agent/"
-    },
-    {
-      "source": "/wiki/overview/",
-      "target": "/wiki/entities/zerocho/"
     },
     {
       "source": "/wiki/overview/",
@@ -2844,10 +3156,6 @@
     },
     {
       "source": "/wiki/overview/",
-      "target": "/wiki/entities/beomsu-koh/"
-    },
-    {
-      "source": "/wiki/overview/",
       "target": "/wiki/sources/warp-terminal/"
     },
     {
@@ -2871,6 +3179,30 @@
       "target": "/wiki/entities/mcp-protocol/"
     },
     {
+      "source": "/wiki/sources/agent-teams/",
+      "target": "/wiki/concepts/multi-agent-hierarchy/"
+    },
+    {
+      "source": "/wiki/sources/agent-teams/",
+      "target": "/wiki/concepts/agent-coordination/"
+    },
+    {
+      "source": "/wiki/sources/agent-teams/",
+      "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
+      "source": "/wiki/sources/agent-teams/",
+      "target": "/wiki/sources/claudagent-view/"
+    },
+    {
+      "source": "/wiki/sources/agentmemory/",
+      "target": "/wiki/concepts/rag/"
+    },
+    {
+      "source": "/wiki/sources/agentmemory/",
+      "target": "/wiki/sources/llm-wiki-pattern/"
+    },
+    {
       "source": "/wiki/sources/ai-coding-frameworks-deep-research/",
       "target": "/wiki/comparisons/claude-code-framework-comparison/"
     },
@@ -2885,6 +3217,14 @@
     {
       "source": "/wiki/sources/caveman-token-reduction/",
       "target": "/wiki/sources/geeknews-weekly-352/"
+    },
+    {
+      "source": "/wiki/sources/claudagent-view/",
+      "target": "/wiki/concepts/multi-agent-hierarchy/"
+    },
+    {
+      "source": "/wiki/sources/claudagent-view/",
+      "target": "/wiki/entities/pi/"
     },
     {
       "source": "/wiki/sources/claude-context-semantic-search/",
@@ -2924,11 +3264,19 @@
     },
     {
       "source": "/wiki/sources/conanssam-claude-cli-openclaw/",
+      "target": "/wiki/entities/openclaw/"
+    },
+    {
+      "source": "/wiki/sources/conanssam-claude-cli-openclaw/",
       "target": "/wiki/sources/conanssam-gpt-image-2-openclaw/"
     },
     {
       "source": "/wiki/sources/conanssam-claude-cli-openclaw/",
       "target": "/wiki/entities/hermes-agent/"
+    },
+    {
+      "source": "/wiki/sources/conanssam-gpt-image-2-openclaw/",
+      "target": "/wiki/entities/openclaw/"
     },
     {
       "source": "/wiki/sources/conanssam-gpt-image-2-openclaw/",
@@ -3079,6 +3427,54 @@
       "target": "/wiki/important/setup/hermes-agent-setup/"
     },
     {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/sources/hermes-agent-github-update/"
+    },
+    {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/sources/hermes-agent-review-beomsu/"
+    },
+    {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/concepts/closed-learning-loop/"
+    },
+    {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/sources/claudagent-view/"
+    },
+    {
+      "source": "/wiki/sources/hermes-agent-v2/",
+      "target": "/wiki/concepts/multi-agent-hierarchy/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/entities/hermes-agent/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/important/setup/hermes-agent-setup/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/sources/hermes-agent-v2/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/comparisons/openclaw-vs-hermes-agent/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/sources/warp-terminal/"
+    },
+    {
+      "source": "/wiki/sources/hermes-codex-setup/",
+      "target": "/wiki/concepts/closed-learning-loop/"
+    },
+    {
       "source": "/wiki/sources/heyjames-claude-code-frameworks/",
       "target": "/wiki/entities/claude-code/"
     },
@@ -3113,6 +3509,10 @@
     {
       "source": "/wiki/sources/heyjames-claude-code-frameworks/",
       "target": "/wiki/concepts/role-based-ai-governance/"
+    },
+    {
+      "source": "/wiki/sources/hookify/",
+      "target": "/wiki/concepts/llm-harness-model/"
     },
     {
       "source": "/wiki/sources/imagesorcery-mcp/",
@@ -3153,6 +3553,18 @@
     {
       "source": "/wiki/sources/mcp-chrome/",
       "target": "/wiki/comparisons/api-vs-cli-vs-mcp/"
+    },
+    {
+      "source": "/wiki/sources/pi-terminal-coding-harness/",
+      "target": "/wiki/entities/openclaw/"
+    },
+    {
+      "source": "/wiki/sources/pi-terminal-coding-harness/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/sources/pi-terminal-coding-harness/",
+      "target": "/wiki/concepts/context-rot-prevention/"
     },
     {
       "source": "/wiki/sources/playwright-mcp-setup/",
