@@ -78,7 +78,7 @@ category: index.md
 - [donchitos](/wiki/donchitos/) — Claude Code Game Studios 오픈소스 작성자 (GitHub) (2026-04-16)
 - [claude-code](/wiki/claude-code/) — Anthropic AI 코딩 CLI 도구, 이 위키의 실행 환경 (2026-04-16)
 - [arrays-devbook](/wiki/arrays-devbook/) — Unity ECS/DOTS 게임 개발 유튜브 채널 (2026-04-16)
-- [autopenna](/wiki/autopenna/) — 인터랙티브 스토리 게임 + AI 글쓰기 도우미 모바일 앱 (2026-04-22)
+- [autopenna](/wiki/entities/autopenna/) — 웹/dev 서버가 로컬 Gemma4 LiteRT 런타임을 health check 후 자동 관리하는 인터랙티브 스토리 앱 (2026-05-16)
 - [geeknews](/wiki/geeknews/) — 한국어 기술 뉴스 큐레이션 플랫폼 (2026-04-22)
 - [karpathy](/wiki/karpathy/) — AI 연구자, LLM Wiki 패턴의 영감 원천 (2026-04-22)
 - [weekdaycode](/wiki/weekdaycode/) — 한국어 AI 코딩 유튜브 채널 (2026-04-22)
@@ -178,4 +178,4 @@ _설치/설정 가이드 (단계별)_
 - [port-env-override](/wiki/corrections/port-env-override/) — **HIGH** 전역 환경변수 PORT로 포트 충돌 + 다른 서비스 kill 사고. 해결: 포트 상수 하드코딩, run.sh로만 구동, 광역 kill 금지 (2026-04-24)
 
 ---
-_Stats: 43 sources | 144 pages | Last updated: 2026-05-13_
+_Stats: 43 sources | 144 pages | Last updated: 2026-05-16_

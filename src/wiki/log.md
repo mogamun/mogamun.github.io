@@ -7,6 +7,17 @@ category: log.md
 
 > Append-only chronological record of all wiki operations.
 
+## [2026-05-16] work | Autopenna — LiteRT Gemma 서버 자동 관리
+- Added: raw/2026-05-16-autopenna-work-litert-gemma-runtime-management.md
+- Updated: `server/features/llm/litertServer.ts`, `litert.ts`, `index.ts`
+- Key insight: 웹/dev 서버는 로컬 Gemma4 LiteRT 런타임을 health check 후 tmux로 자동 시작할 수 있다. 다만 Autopenna dev 서버의 `PORT=9231`이 자식 프로세스에 상속될 수 있으므로 Gemma 시작 시 `PORT=8088`을 명시해야 한다.
+
+## [2026-05-15] work | stashYoutube — 썸네일/자막 404 청소 + 자막 큐 표시 + 1~5 드롭존
+- Added: raw/2026-05-15-yousstash-work-thumbnail-subtitle-dropzone.md
+- Server: thumbnails.js (404→SVG placeholder 200), subtitles.js (신규 /api/subtitle-status), config.js (moveFolders GET/POST)
+- Frontend: VideoCard 폴링 교체, subtitle/api.ts notifyQueued 래퍼, App.tsx 이벤트 폴링 트리거, MoveDropZones 위젯 신규, SettingsPage 1~5 폴더 섹션
+- Key insight: dataTransfer.types로 드래그 종류를 구별해 무관한 드래그에 드롭존을 띄우지 않는 패턴. 콘솔 404는 "응답을 다르게" 주는 게 가장 단순한 해결책 (placeholder/상태 JSON 200).
+
 ## [2026-05-13] ingest | Hermes Google Chat 연동 가이드 (2번째 Hermes 설치 영상)
 - Ingested: raw/2026-05-13-hermes-google-chat-setup.md
 - Updated: wiki/sources/hermes-codex-setup.md (Google Chat 연동, Docker sandbox, Codex→Docker 위임, 초보자 평가 추가)

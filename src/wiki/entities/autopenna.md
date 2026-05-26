@@ -1,7 +1,7 @@
 ---
 title: autopenna
 created: 2026-04-22
-updated: 2026-05-05
+updated: 2026-05-16
 tags: [project, react, typescript, capacitor, mobile-app, vite7, zustand]
 status: stable
 category: entities
@@ -41,6 +41,7 @@ cp android/app/build/outputs/apk/debug/app-debug.apk "/Volumes/Vol3So/autopenna-
 - 자동 기록: 실수 교정, 사용자 지시, 반복 패턴
 
 ## 최근 설계 기록
+- 2026-05-16: 웹/dev 서버에서 `AUTOPENNA_LLM_PROVIDER=litert`일 때 로컬 Gemma4 LiteRT 서버를 health check 후 자동 시작하도록 `server/features/llm/litertServer.ts`를 추가했다. 자동 시작은 로컬 URL에만 적용하고, Gemma `run.sh` 실행 시 `PORT=8088`을 명시해 Autopenna dev 서버 포트 `9231` 상속 충돌을 방지한다.
 - 2026-05-05: 웹 LLM 통신을 Hono 미들웨어로 통합하는 계획 수립. 클라이언트는 Ollama 직접 호출을 중단하고 `/api/llm/*`, `/api/characters/:characterId/chat`을 사용한다.
 - 2026-05-05: 캐릭터 상세의 `대화하기` 버튼, 카카오톡형 채팅 팝업, 캐릭터별 compact memory fact 파일 저장 계획 수립. 신규 프론트 AI 응답 호출은 `useStreamingChoices` 계층을 거친다.
 - 2026-05-05: 글쓰기 페이지 검토와 페이지형 `textarea` 설계 문서 작성. 펜 입력 요구 때문에 본문 입력은 Tiptap보다 `textarea`를 유지하고, 챕터와 별개인 페이지 모델과 5초 유휴 자동 다음 문장 3개 추천을 설계했다.
