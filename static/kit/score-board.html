@@ -9,31 +9,29 @@
 <meta name="kit-emoji" content="🎮">
 <title>게임 점수판</title>
 <style>
+  /* ===== LED DIGIT FONT (7-segment via CSS) ===== */
+  @font-face {
+    font-family: 'LED';
+    src: local('Courier New'), local('Menlo'), local('monospace');
+  }
+
   :root {
-    --bg: #0d0d1a;
-    --surface: #1a1a2e;
-    --surface2: #252540;
-    --border: #2a2a4a;
+    --bg: #0a0a12;
+    --surface: #111122;
+    --surface2: #1a1a30;
+    --border: #222240;
     --text: #e2e8f0;
-    --text-dim: #94a3b8;
+    --text-dim: #64748b;
+    --led-color: #ff2222;
+    --led-glow: rgba(255,34,34,0.6);
+    --led-bg: #1a0505;
     --accent: #818cf8;
-    --accent2: #a78bfa;
     --danger: #ef4444;
     --success: #22c55e;
     --gold: #fbbf24;
     --silver: #94a3b8;
     --bronze: #d97706;
     --radius: 12px;
-  }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #f0f4ff;
-      --surface: #ffffff;
-      --surface2: #f1f5f9;
-      --border: #e2e8f0;
-      --text: #1e293b;
-      --text-dim: #64748b;
-    }
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -45,57 +43,153 @@
     flex-direction: column;
   }
 
-  /* ===== TIMER ===== */
-  .timer-bar {
-    width: 100%;
-    background: var(--surface);
-    border-bottom: 2px solid var(--border);
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+  /* ===== SCOREBOARD HEADER ===== */
+  .scoreboard {
+    background: #000;
+    border-bottom: 3px solid #333;
+    padding: 0;
     position: relative;
-    overflow: hidden;
   }
-  .timer-display {
-    font-family: 'Courier New', 'Menlo', monospace;
-    font-size: clamp(48px, 10vw, 80px);
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: var(--accent);
-    text-shadow: 0 0 20px rgba(129,140,248,0.4);
-    min-width: 200px;
-    text-align: center;
-    transition: color 0.3s, text-shadow 0.3s;
+  .scoreboard-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 20px 12px;
   }
-  .timer-display.warning { color: #fbbf24; text-shadow: 0 0 20px rgba(251,191,36,0.5); }
-  .timer-display.critical { color: var(--danger); text-shadow: 0 0 30px rgba(239,68,68,0.6); animation: pulse 0.5s ease-in-out infinite; }
-  .timer-display.finished { color: var(--danger); text-shadow: 0 0 40px rgba(239,68,68,0.8); animation: flash 0.3s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
-  @keyframes flash { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-  .timer-controls {
+  .timer-setup {
     display: flex;
     gap: 8px;
     align-items: center;
+    margin-bottom: 10px;
     flex-wrap: wrap;
     justify-content: center;
   }
   .timer-input {
-    width: 60px;
-    padding: 8px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 16px;
+    width: 52px;
+    padding: 6px 4px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 15px;
     text-align: center;
     outline: none;
+    font-family: 'Courier New', monospace;
   }
   .timer-input:focus { border-color: var(--accent); }
-  .timer-label { font-size: 13px; color: var(--text-dim); }
+  .timer-input:disabled { opacity: 0.4; }
+  .timer-label { font-size: 12px; color: #888; }
+
+  /* ===== LED DISPLAY ===== */
+  .led-display {
+    background: #0a0000;
+    border: 3px solid #222;
+    border-radius: 12px;
+    padding: 12px 28px 8px;
+    position: relative;
+    box-shadow:
+      inset 0 0 40px rgba(0,0,0,0.8),
+      0 0 20px rgba(255,34,34,0.1),
+      0 4px 12px rgba(0,0,0,0.5);
+    min-width: 340px;
+  }
+  .led-display::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .led-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0;
+  }
+  .led-digit {
+    font-family: 'Courier New', 'Menlo', monospace;
+    font-size: clamp(64px, 14vw, 110px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--led-color);
+    text-shadow:
+      0 0 10px var(--led-glow),
+      0 0 30px var(--led-glow),
+      0 0 60px rgba(255,34,34,0.3);
+    letter-spacing: 2px;
+    min-width: 0.6em;
+    text-align: center;
+  }
+  .led-colon {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(56px, 12vw, 96px);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--led-color);
+    text-shadow:
+      0 0 10px var(--led-glow),
+      0 0 30px var(--led-glow);
+    padding: 0 2px;
+    animation: colonBlink 1s step-end infinite;
+  }
+  .timer-running .led-colon { animation: colonBlink 1s step-end infinite; }
+  .timer-paused .led-colon { animation: none; opacity: 1; }
+  .timer-idle .led-colon { animation: none; opacity: 1; }
+  @keyframes colonBlink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .led-ms {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(28px, 6vw, 48px);
+    font-weight: 700;
+    color: var(--led-color);
+    text-shadow:
+      0 0 8px var(--led-glow),
+      0 0 20px rgba(255,34,34,0.3);
+    margin-left: 4px;
+    opacity: 0.85;
+    line-height: 1;
+    align-self: flex-end;
+    margin-bottom: 6px;
+  }
+  .led-dot {
+    font-size: clamp(24px, 5vw, 40px);
+    color: var(--led-color);
+    text-shadow: 0 0 8px var(--led-glow);
+    margin: 0 1px;
+    align-self: flex-end;
+    margin-bottom: 6px;
+  }
+
+  /* LED warning states */
+  .led-display.warning {
+    --led-color: #ffaa00;
+    --led-glow: rgba(255,170,0,0.6);
+    border-color: #443300;
+  }
+  .led-display.critical {
+    --led-color: #ff0000;
+    --led-glow: rgba(255,0,0,0.8);
+    border-color: #440000;
+    animation: criticalPulse 0.5s ease-in-out infinite;
+  }
+  .led-display.finished {
+    --led-color: #ff0000;
+    --led-glow: rgba(255,0,0,0.9);
+    border-color: #660000;
+    animation: finishedFlash 0.3s ease-in-out infinite;
+  }
+  @keyframes criticalPulse { 0%,100%{box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 0 20px rgba(255,0,0,0.2)} 50%{box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 0 0 40px rgba(255,0,0,0.5)} }
+  @keyframes finishedFlash { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+  /* ===== TIMER CONTROLS ===== */
+  .timer-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .btn {
     padding: 8px 18px;
     border: none;
@@ -103,91 +197,43 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s;
     display: inline-flex;
     align-items: center;
     gap: 6px;
   }
   .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
   .btn:active { transform: translateY(0); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-danger { background: var(--danger); color: #fff; }
-  .btn-success { background: var(--success); color: #fff; }
-  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  /* ===== TIME'S UP OVERLAY ===== */
-  .times-up-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background: rgba(0,0,0,0.85);
-    animation: overlayIn 0.3s ease-out;
-  }
-  .times-up-overlay.show { display: flex; }
-  @keyframes overlayIn { from{opacity:0} to{opacity:1} }
-  .times-up-text {
-    font-size: clamp(40px, 12vw, 100px);
-    font-weight: 900;
-    color: #ef4444;
-    text-shadow: 0 0 60px rgba(239,68,68,0.8), 0 0 120px rgba(239,68,68,0.4);
-    animation: timesUpPulse 0.5s ease-in-out infinite;
-    text-align: center;
-    line-height: 1.1;
-  }
-  .times-up-sub {
-    font-size: clamp(16px, 4vw, 28px);
-    color: #fbbf24;
-    margin-top: 20px;
-    font-weight: 600;
-  }
-  @keyframes timesUpPulse {
-    0%,100% { transform: scale(1); text-shadow: 0 0 60px rgba(239,68,68,0.8), 0 0 120px rgba(239,68,68,0.4); }
-    50% { transform: scale(1.08); text-shadow: 0 0 80px rgba(239,68,68,1), 0 0 160px rgba(239,68,68,0.6); }
-  }
-  .times-up-close {
-    margin-top: 40px;
-    padding: 14px 40px;
-    font-size: 18px;
-    background: var(--danger);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: all 0.2s;
-  }
-  .times-up-close:hover { transform: scale(1.05); background: #dc2626; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; filter: none; }
+  .btn-start { background: #22c55e; color: #000; }
+  .btn-pause { background: #fbbf24; color: #000; }
+  .btn-reset { background: #444; color: #fff; }
+  .btn-fs { background: #818cf8; color: #fff; }
 
   /* ===== PROGRESS BAR ===== */
   .progress-bar {
     height: 4px;
-    background: var(--border);
+    background: #222;
     width: 100%;
   }
   .progress-fill {
     height: 100%;
-    background: var(--accent);
-    transition: width 0.3s linear, background 0.3s;
+    background: var(--led-color);
+    transition: width 0.1s linear;
     width: 100%;
+    box-shadow: 0 0 8px var(--led-glow);
   }
-  .progress-fill.warning { background: #fbbf24; }
-  .progress-fill.critical { background: var(--danger); }
 
   /* ===== MAIN CONTENT ===== */
   .content {
     flex: 1;
-    padding: 20px;
+    padding: 16px 20px;
     max-width: 800px;
     width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
   /* ===== ADD TEAM ===== */
@@ -207,6 +253,7 @@
     outline: none;
   }
   .add-team-bar input:focus { border-color: var(--accent); }
+  .btn-primary { background: var(--accent); color: #fff; }
 
   /* ===== TEAM LIST ===== */
   .team-list {
@@ -224,58 +271,32 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
-    position: relative;
   }
-  .team-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .team-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
   .team-rank {
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 16px;
-    flex-shrink: 0;
-    background: var(--surface2);
-    color: var(--text-dim);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; flex-shrink: 0;
+    background: var(--surface2); color: var(--text-dim);
   }
   .team-rank.rank-1 { background: var(--gold); color: #000; box-shadow: 0 0 12px rgba(251,191,36,0.4); }
   .team-rank.rank-2 { background: var(--silver); color: #000; }
   .team-rank.rank-3 { background: var(--bronze); color: #fff; }
   .team-name {
-    flex: 1;
-    font-size: 16px;
-    font-weight: 600;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    flex: 1; font-size: 16px; font-weight: 600;
+    min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .team-score {
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--accent);
-    min-width: 50px;
-    text-align: center;
-    font-family: 'Courier New', monospace;
+    font-size: 28px; font-weight: 800; color: var(--accent);
+    min-width: 50px; text-align: center; font-family: 'Courier New', monospace;
   }
-  .team-actions {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-  }
+  .team-actions { display: flex; gap: 4px; align-items: center; }
   .score-btn {
-    width: 34px;
-    height: 34px;
-    border: none;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 34px; height: 34px;
+    border: none; border-radius: 8px;
+    font-size: 20px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
   }
   .score-btn:hover { transform: scale(1.1); }
@@ -289,67 +310,205 @@
 
   /* ===== QUICK SCORE ===== */
   .quick-score-bar {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 8px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    display: flex; gap: 6px; align-items: center;
+    justify-content: center; flex-wrap: wrap;
+    padding: 8px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
   }
   .quick-score-bar span { font-size: 13px; color: var(--text-dim); margin-right: 4px; }
   .quick-btn {
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
+    padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px;
+    background: var(--surface2); color: var(--text);
+    font-size: 13px; cursor: pointer; transition: all 0.15s;
   }
   .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
   .quick-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-  /* ===== RESET ===== */
-  .bottom-bar {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    padding-top: 8px;
-  }
+  /* ===== BOTTOM ===== */
+  .bottom-bar { display: flex; gap: 8px; justify-content: center; padding-top: 8px; }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
 
   /* ===== EMPTY STATE ===== */
-  .empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--text-dim);
-  }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--text-dim); }
   .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
   .empty-state p { font-size: 15px; }
 
-  /* ===== SCORE POP ANIMATION ===== */
-  @keyframes scorePop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-    100% { transform: scale(1); }
-  }
+  @keyframes scorePop { 0%{transform:scale(1)} 50%{transform:scale(1.3)} 100%{transform:scale(1)} }
   .score-pop { animation: scorePop 0.2s ease-out; }
+
+  /* ===== FULLSCREEN SCOREBOARD ===== */
+  .fs-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #000; display: none;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  .fs-overlay.show { display: flex; }
+  .fs-scoreboard {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 30px; width: 100%; max-width: 1200px; padding: 40px;
+  }
+  .fs-timer-section {
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .fs-led-display {
+    background: #0a0000;
+    border: 4px solid #333;
+    border-radius: 20px;
+    padding: 20px 40px 14px;
+    box-shadow:
+      inset 0 0 60px rgba(0,0,0,0.9),
+      0 0 40px rgba(255,34,34,0.15),
+      0 8px 24px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .fs-led-display::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .fs-digit {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(80px, 18vw, 180px);
+    font-weight: 700; line-height: 1;
+    color: var(--led-color);
+    text-shadow:
+      0 0 15px var(--led-glow),
+      0 0 40px var(--led-glow),
+      0 0 80px rgba(255,34,34,0.3);
+    letter-spacing: 4px;
+    min-width: 0.6em; text-align: center;
+  }
+  .fs-colon {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(72px, 16vw, 160px);
+    font-weight: 700; line-height: 1;
+    color: var(--led-color);
+    text-shadow: 0 0 15px var(--led-glow), 0 0 40px var(--led-glow);
+    padding: 0 4px;
+  }
+  .fs-ms {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 700;
+    color: var(--led-color);
+    text-shadow: 0 0 10px var(--led-glow), 0 0 30px rgba(255,34,34,0.3);
+    margin-left: 6px; opacity: 0.85;
+    align-self: flex-end; margin-bottom: 10px;
+  }
+  .fs-dot {
+    font-size: clamp(30px, 7vw, 60px);
+    color: var(--led-color);
+    text-shadow: 0 0 10px var(--led-glow);
+    align-self: flex-end; margin-bottom: 10px;
+  }
+
+  .fs-led-display.warning { --led-color:#ffaa00; --led-glow:rgba(255,170,0,0.6); border-color:#554400; }
+  .fs-led-display.critical { --led-color:#ff0000; --led-glow:rgba(255,0,0,0.8); border-color:#550000; animation:criticalPulse 0.5s ease-in-out infinite; }
+  .fs-led-display.finished { --led-color:#ff0000; --led-glow:rgba(255,0,0,0.9); border-color:#660000; animation:finishedFlash 0.3s ease-in-out infinite; }
+
+  .fs-controls {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  }
+  .fs-btn {
+    padding: 14px 32px; border: none; border-radius: 10px;
+    font-size: 18px; font-weight: 700; cursor: pointer;
+    transition: all 0.15s; display: flex; align-items: center; gap: 8px;
+  }
+  .fs-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  .fs-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+  .fs-btn-start { background: #22c55e; color: #000; font-size: 20px; padding: 16px 40px; }
+  .fs-btn-pause { background: #fbbf24; color: #000; font-size: 20px; padding: 16px 40px; }
+  .fs-btn-reset { background: #555; color: #fff; }
+  .fs-btn-exit { background: #818cf8; color: #fff; position: absolute; top: 20px; right: 20px; }
+
+  .fs-teams {
+    display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;
+    width: 100%; max-width: 900px;
+  }
+  .fs-team-card {
+    flex: 1; min-width: 180px; max-width: 280px;
+    background: #111; border: 2px solid #333; border-radius: 16px;
+    padding: 20px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .fs-team-card.rank-1 { border-color: var(--gold); box-shadow: 0 0 20px rgba(251,191,36,0.2); }
+  .fs-team-card.rank-2 { border-color: var(--silver); }
+  .fs-team-card.rank-3 { border-color: var(--bronze); }
+  .fs-team-rank { font-size: 24px; }
+  .fs-team-name {
+    font-size: 18px; font-weight: 700; color: #ccc;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 100%;
+  }
+  .fs-team-score {
+    font-family: 'Courier New', monospace;
+    font-size: 48px; font-weight: 800; line-height: 1;
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(129,140,248,0.4);
+  }
+  .fs-team-actions { display: flex; gap: 8px; margin-top: 4px; }
+  .fs-score-btn {
+    width: 44px; height: 44px; border: none; border-radius: 10px;
+    font-size: 24px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .fs-score-btn:hover { transform: scale(1.1); }
+  .fs-score-btn:active { transform: scale(0.95); }
+  .fs-score-btn.plus { background: rgba(34,197,94,0.2); color: #22c55e; }
+  .fs-score-btn.minus { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+  /* ===== TIME'S UP OVERLAY ===== */
+  .times-up-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; background: rgba(0,0,0,0.92);
+    animation: overlayIn 0.3s ease-out;
+  }
+  .times-up-overlay.show { display: flex; }
+  @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+  .times-up-text {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(40px, 12vw, 120px);
+    font-weight: 900; color: #ff0000;
+    text-shadow: 0 0 60px rgba(255,0,0,0.8), 0 0 120px rgba(255,0,0,0.4);
+    animation: timesUpPulse 0.5s ease-in-out infinite;
+    text-align: center; line-height: 1.1;
+  }
+  .times-up-sub {
+    font-size: clamp(16px, 4vw, 28px);
+    color: #fbbf24; margin-top: 20px; font-weight: 600;
+  }
+  @keyframes timesUpPulse {
+    0%,100%{transform:scale(1);text-shadow:0 0 60px rgba(255,0,0,0.8),0 0 120px rgba(255,0,0,0.4)}
+    50%{transform:scale(1.08);text-shadow:0 0 80px rgba(255,0,0,1),0 0 160px rgba(255,0,0,0.6)}
+  }
+  .times-up-close {
+    margin-top: 40px; padding: 14px 40px;
+    font-size: 18px; background: var(--danger); color: #fff;
+    border: none; border-radius: 12px; cursor: pointer;
+    font-weight: 700; transition: all 0.2s;
+  }
+  .times-up-close:hover { transform: scale(1.05); background: #dc2626; }
 
   /* ===== MOBILE ===== */
   @media (max-width: 480px) {
-    .timer-bar { padding: 12px 12px; gap: 10px; }
-    .timer-display { font-size: 40px; }
-    .content { padding: 12px; }
+    .scoreboard-inner { padding: 10px 10px 8px; }
+    .led-display { padding: 8px 14px 6px; min-width: 260px; }
+    .content { padding: 10px; gap: 8px; }
     .team-card { padding: 10px 12px; gap: 8px; }
     .team-score { font-size: 22px; }
     .team-name { font-size: 14px; }
+    .fs-scoreboard { padding: 16px; gap: 16px; }
+    .fs-team-card { min-width: 140px; padding: 12px; }
+    .fs-team-score { font-size: 36px; }
   }
 </style>
 </head>
-<body>
+<body class="timer-idle">
 
 <!-- TIME'S UP OVERLAY -->
 <div class="times-up-overlay" id="overlay">
@@ -358,33 +517,69 @@
   <button class="times-up-close" onclick="closeOverlay()">닫기</button>
 </div>
 
-<!-- TIMER BAR -->
-<div class="timer-bar">
-  <div class="timer-controls">
-    <input type="number" class="timer-input" id="minInput" min="0" max="99" value="3">
-    <span class="timer-label">분</span>
-    <input type="number" class="timer-input" id="secInput" min="0" max="59" value="0">
-    <span class="timer-label">초</span>
-  </div>
-  <div class="timer-display" id="timerDisplay">03:00</div>
-  <div class="timer-controls">
-    <button class="btn btn-primary" id="btnStart" onclick="startTimer()">▶ 시작</button>
-    <button class="btn btn-ghost" id="btnPause" onclick="pauseTimer()" disabled>⏸ 일시정지</button>
-    <button class="btn btn-danger" id="btnReset" onclick="resetTimer()">↺ 리셋</button>
+<!-- FULLSCREEN SCOREBOARD -->
+<div class="fs-overlay" id="fsOverlay">
+  <button class="fs-btn fs-btn-exit" onclick="exitFullscreen()">✕ 전체화면 종료</button>
+  <div class="fs-scoreboard">
+    <div class="fs-timer-section">
+      <div class="fs-led-display" id="fsLedDisplay">
+        <div class="led-row">
+          <span class="fs-digit" id="fsMin1">0</span>
+          <span class="fs-digit" id="fsMin2">3</span>
+          <span class="fs-colon">:</span>
+          <span class="fs-digit" id="fsSec1">0</span>
+          <span class="fs-digit" id="fsSec2">0</span>
+          <span class="fs-dot">.</span>
+          <span class="fs-ms" id="fsMs">00</span>
+        </div>
+      </div>
+      <div class="fs-controls">
+        <button class="fs-btn fs-btn-start" id="fsBtnStart" onclick="startTimer()">▶ 시작</button>
+        <button class="fs-btn fs-btn-pause" id="fsBtnPause" onclick="pauseTimer()" disabled>⏸ 일시정지</button>
+        <button class="fs-btn fs-btn-reset" onclick="resetTimer()">↺ 리셋</button>
+      </div>
+    </div>
+    <div class="fs-teams" id="fsTeams"></div>
   </div>
 </div>
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- EMBEDDED SCOREBOARD -->
+<div class="scoreboard">
+  <div class="scoreboard-inner">
+    <div class="timer-setup">
+      <input type="number" class="timer-input" id="minInput" min="0" max="99" value="3">
+      <span class="timer-label">분</span>
+      <input type="number" class="timer-input" id="secInput" min="0" max="59" value="0">
+      <span class="timer-label">초</span>
+    </div>
+    <div class="led-display" id="ledDisplay">
+      <div class="led-row">
+        <span class="led-digit" id="ledMin1">0</span>
+        <span class="led-digit" id="ledMin2">3</span>
+        <span class="led-colon">:</span>
+        <span class="led-digit" id="ledSec1">0</span>
+        <span class="led-digit" id="ledSec2">0</span>
+        <span class="led-dot">.</span>
+        <span class="led-ms" id="ledMs">00</span>
+      </div>
+    </div>
+    <div class="timer-btns">
+      <button class="btn btn-start" id="btnStart" onclick="startTimer()">▶ 시작</button>
+      <button class="btn btn-pause" id="btnPause" onclick="pauseTimer()" disabled>⏸ 일시정지</button>
+      <button class="btn btn-reset" onclick="resetTimer()">↺ 리셋</button>
+      <button class="btn btn-fs" onclick="enterFullscreen()">⛶ 전체화면</button>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
 
 <!-- MAIN CONTENT -->
 <div class="content">
-  <!-- ADD TEAM -->
   <div class="add-team-bar">
     <input type="text" id="teamNameInput" placeholder="팀 이름 입력..." maxlength="20"
            onkeydown="if(event.key==='Enter')addTeam()">
     <button class="btn btn-primary" onclick="addTeam()">+ 팀 추가</button>
   </div>
-
-  <!-- QUICK SCORE STEP -->
   <div class="quick-score-bar">
     <span>점수 단위:</span>
     <button class="quick-btn active" data-step="1" onclick="setStep(1)">+1</button>
@@ -394,11 +589,7 @@
     <button class="quick-btn" data-step="50" onclick="setStep(50)">+50</button>
     <button class="quick-btn" data-step="100" onclick="setStep(100)">+100</button>
   </div>
-
-  <!-- TEAM LIST -->
   <div class="team-list" id="teamList"></div>
-
-  <!-- BOTTOM -->
   <div class="bottom-bar">
     <button class="btn btn-danger" onclick="resetAllScores()">모든 점수 초기화</button>
     <button class="btn btn-ghost" onclick="deleteAllTeams()">전체 삭제</button>
@@ -413,6 +604,7 @@ let timerInterval = null;
 let timerRemaining = 0;
 let timerTotal = 0;
 let timerRunning = false;
+let isFullscreen = false;
 
 // ===== PERSISTENCE =====
 function save() {
@@ -422,7 +614,6 @@ function save() {
     timerSeconds: document.getElementById('secInput').value
   }));
 }
-
 function load() {
   try {
     const d = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -444,43 +635,30 @@ function addTeam() {
   render();
   save();
 }
-
 function removeTeam(id) {
   teams = teams.filter(t => t.id !== id);
   render();
   save();
 }
-
 function changeScore(id, delta) {
   const team = teams.find(t => t.id === id);
   if (!team) return;
   team.score += delta;
   if (team.score < 0) team.score = 0;
-
-  // pop animation
-  const el = document.querySelector(`[data-id="${id}"] .team-score`);
-  if (el) {
-    el.classList.remove('score-pop');
-    void el.offsetWidth;
-    el.classList.add('score-pop');
-  }
-
+  const el = document.querySelector(`[data-id="${id}"] .team-score, [data-fs-id="${id}"] .fs-team-score`);
+  if (el) { el.classList.remove('score-pop'); void el.offsetWidth; el.classList.add('score-pop'); }
   sortAndRender();
   save();
 }
-
 function sortAndRender() {
   const sorted = [...teams].sort((a, b) => b.score - a.score);
-  // Animate reorder using FLIP technique
   const listEl = document.getElementById('teamList');
   const oldRects = {};
   listEl.querySelectorAll('.team-card').forEach(el => {
     oldRects[el.dataset.id] = el.getBoundingClientRect();
   });
-
   teams = sorted;
   render();
-
   listEl.querySelectorAll('.team-card').forEach(el => {
     const id = el.dataset.id;
     if (oldRects[id]) {
@@ -497,50 +675,57 @@ function sortAndRender() {
     }
   });
 }
-
-function resetAllScores() {
-  if (!teams.length) return;
-  teams.forEach(t => t.score = 0);
-  render();
-  save();
-}
-
-function deleteAllTeams() {
-  if (!teams.length) return;
-  teams = [];
-  render();
-  save();
-}
+function resetAllScores() { if (!teams.length) return; teams.forEach(t => t.score = 0); render(); save(); }
+function deleteAllTeams() { if (!teams.length) return; teams = []; render(); save(); }
 
 function render() {
+  // Embedded list
   const list = document.getElementById('teamList');
   if (!teams.length) {
     list.innerHTML = '<div class="empty-state"><div class="icon">🎮</div><p>팀을 추가하여 게임을 시작하세요!</p></div>';
+  } else {
+    list.innerHTML = teams.map((t, i) => {
+      const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+      const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+      return `<div class="team-card" data-id="${t.id}">
+        <div class="team-rank ${rankClass}">${medal}</div>
+        <div class="team-name">${escHtml(t.name)}</div>
+        <div class="team-score">${t.score}</div>
+        <div class="team-actions">
+          <button class="score-btn minus" onclick="changeScore(${t.id}, -scoreStep)">−</button>
+          <button class="score-btn plus" onclick="changeScore(${t.id}, scoreStep)">+</button>
+          <button class="score-btn del" onclick="removeTeam(${t.id})">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Fullscreen teams
+  renderFullscreenTeams();
+}
+
+function renderFullscreenTeams() {
+  const fsTeams = document.getElementById('fsTeams');
+  if (!teams.length) {
+    fsTeams.innerHTML = '<div style="color:#555;font-size:18px">팀을 추가하세요</div>';
     return;
   }
-  list.innerHTML = teams.map((t, i) => {
+  fsTeams.innerHTML = teams.map((t, i) => {
     const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
     const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
-    return `<div class="team-card" data-id="${t.id}">
-      <div class="team-rank ${rankClass}">${medal}</div>
-      <div class="team-name">${escHtml(t.name)}</div>
-      <div class="team-score">${t.score}</div>
-      <div class="team-actions">
-        <button class="score-btn minus" onclick="changeScore(${t.id}, -scoreStep)">−</button>
-        <button class="score-btn plus" onclick="changeScore(${t.id}, scoreStep)">+</button>
-        <button class="score-btn del" onclick="removeTeam(${t.id})">✕</button>
+    return `<div class="fs-team-card ${rankClass}" data-fs-id="${t.id}">
+      <div class="fs-team-rank">${medal}</div>
+      <div class="fs-team-name">${escHtml(t.name)}</div>
+      <div class="fs-team-score">${t.score}</div>
+      <div class="fs-team-actions">
+        <button class="fs-score-btn minus" onclick="changeScore(${t.id}, -scoreStep)">−</button>
+        <button class="fs-score-btn plus" onclick="changeScore(${t.id}, scoreStep)">+</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function escHtml(s) {
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-// ===== QUICK SCORE STEP =====
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 function setStep(n) {
   scoreStep = n;
   document.querySelectorAll('.quick-btn').forEach(b => {
@@ -548,7 +733,7 @@ function setStep(n) {
   });
 }
 
-// ===== TIMER =====
+// ===== TIMER DISPLAY =====
 function getSetTime() {
   const m = parseInt(document.getElementById('minInput').value) || 0;
   const s = parseInt(document.getElementById('secInput').value) || 0;
@@ -556,26 +741,63 @@ function getSetTime() {
 }
 
 function updateTimerDisplay() {
-  const totalSec = Math.ceil(timerRemaining / 1000);
+  const totalMs = timerRemaining;
+  const totalSec = Math.ceil(totalMs / 1000);
   const m = Math.floor(totalSec / 60);
   const s = totalSec % 60;
-  const disp = document.getElementById('timerDisplay');
-  disp.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  const cs = Math.floor((totalMs % 1000) / 10);
+
+  const m1 = Math.floor(m / 10);
+  const m2 = m % 10;
+  const s1 = Math.floor(s / 10);
+  const s2 = s % 10;
+  const msStr = String(cs).padStart(2, '0');
+
+  // Embedded LED
+  document.getElementById('ledMin1').textContent = m1;
+  document.getElementById('ledMin2').textContent = m2;
+  document.getElementById('ledSec1').textContent = s1;
+  document.getElementById('ledSec2').textContent = s2;
+  document.getElementById('ledMs').textContent = msStr;
+
+  // Fullscreen LED
+  document.getElementById('fsMin1').textContent = m1;
+  document.getElementById('fsMin2').textContent = m2;
+  document.getElementById('fsSec1').textContent = s1;
+  document.getElementById('fsSec2').textContent = s2;
+  document.getElementById('fsMs').textContent = msStr;
 
   // Progress
   const pct = timerTotal > 0 ? (timerRemaining / timerTotal) * 100 : 100;
-  const fill = document.getElementById('progressFill');
-  fill.style.width = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
 
   // Color states
-  disp.className = 'timer-display';
+  const ledEl = document.getElementById('ledDisplay');
+  const fsLedEl = document.getElementById('fsLedDisplay');
+  const fill = document.getElementById('progressFill');
+
+  [ledEl, fsLedEl].forEach(el => {
+    el.className = el.id.includes('fs') ? 'fs-led-display' : 'led-display';
+  });
   fill.className = 'progress-fill';
+
   if (timerRunning) {
-    if (pct <= 10) { disp.classList.add('critical'); fill.classList.add('critical'); }
-    else if (pct <= 30) { disp.classList.add('warning'); fill.classList.add('warning'); }
+    document.body.className = 'timer-running';
+    if (pct <= 10) {
+      ledEl.classList.add('critical'); fsLedEl.classList.add('critical'); fill.style.background = '#ff0000';
+    } else if (pct <= 30) {
+      ledEl.classList.add('warning'); fsLedEl.classList.add('warning'); fill.style.background = '#ffaa00';
+    } else {
+      fill.style.background = 'var(--led-color)';
+    }
+  } else if (timerRemaining <= 0 && timerTotal > 0) {
+    document.body.className = 'timer-idle';
+  } else {
+    document.body.className = 'timer-idle';
   }
 }
 
+// ===== TIMER CONTROLS =====
 function startTimer() {
   if (timerRunning) return;
   if (timerRemaining <= 0) {
@@ -585,8 +807,7 @@ function startTimer() {
   if (timerRemaining <= 0) return;
 
   timerRunning = true;
-  document.getElementById('btnStart').disabled = true;
-  document.getElementById('btnPause').disabled = false;
+  setTimerBtns(true);
   document.getElementById('minInput').disabled = true;
   document.getElementById('secInput').disabled = true;
 
@@ -603,8 +824,7 @@ function startTimer() {
       onTimerEnd();
     }
     updateTimerDisplay();
-  }, 50);
-
+  }, 30);
   updateTimerDisplay();
   save();
 }
@@ -614,8 +834,8 @@ function pauseTimer() {
   timerRunning = false;
   clearInterval(timerInterval);
   timerInterval = null;
-  document.getElementById('btnStart').disabled = false;
-  document.getElementById('btnPause').disabled = true;
+  document.body.className = 'timer-paused';
+  setTimerBtns(false);
   updateTimerDisplay();
 }
 
@@ -625,66 +845,113 @@ function resetTimer() {
   timerInterval = null;
   timerTotal = 0;
   timerRemaining = 0;
-  document.getElementById('btnStart').disabled = false;
-  document.getElementById('btnPause').disabled = true;
+  document.body.className = 'timer-idle';
+  setTimerBtns(false);
   document.getElementById('minInput').disabled = false;
   document.getElementById('secInput').disabled = false;
   updateTimerDisplay();
+  // Also reset LED display classes
+  document.getElementById('ledDisplay').className = 'led-display';
+  document.getElementById('fsLedDisplay').className = 'fs-led-display';
+}
+
+function setTimerBtns(running) {
+  document.getElementById('btnStart').disabled = running;
+  document.getElementById('btnPause').disabled = !running;
+  document.getElementById('fsBtnStart').disabled = running;
+  document.getElementById('fsBtnPause').disabled = !running;
 }
 
 function onTimerEnd() {
-  document.getElementById('btnStart').disabled = false;
-  document.getElementById('btnPause').disabled = true;
+  setTimerBtns(false);
   document.getElementById('minInput').disabled = false;
   document.getElementById('secInput').disabled = false;
+  document.body.className = 'timer-idle';
 
-  const disp = document.getElementById('timerDisplay');
-  disp.className = 'timer-display finished';
-  disp.textContent = '00:00';
+  const ledEl = document.getElementById('ledDisplay');
+  const fsLedEl = document.getElementById('fsLedDisplay');
+  ledEl.classList.add('finished');
+  fsLedEl.classList.add('finished');
 
-  // Show winner
   const overlay = document.getElementById('overlay');
   const winnerText = document.getElementById('overlayWinner');
   if (teams.length > 0) {
     const sorted = [...teams].sort((a, b) => b.score - a.score);
-    if (sorted[0].score > 0) {
-      winnerText.textContent = `🥇 ${sorted[0].name} — ${sorted[0].score}점 승리!`;
-    } else {
-      winnerText.textContent = '경기 종료!';
-    }
+    winnerText.textContent = sorted[0].score > 0
+      ? `🥇 ${sorted[0].name} — ${sorted[0].score}점 승리!`
+      : '경기 종료!';
   } else {
     winnerText.textContent = '경기 종료!';
   }
   overlay.classList.add('show');
 }
 
-function closeOverlay() {
-  document.getElementById('overlay').classList.remove('show');
+function closeOverlay() { document.getElementById('overlay').classList.remove('show'); }
+
+// ===== FULLSCREEN =====
+function enterFullscreen() {
+  isFullscreen = true;
+  document.getElementById('fsOverlay').classList.add('show');
+  renderFullscreenTeams();
+  updateTimerDisplay();
+  // Try native fullscreen
+  const el = document.getElementById('fsOverlay');
+  if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+  else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
 }
+function exitFullscreen() {
+  isFullscreen = false;
+  document.getElementById('fsOverlay').classList.remove('show');
+  if (document.exitFullscreen) document.exitFullscreen().catch(() => {});
+  else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+}
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && isFullscreen) exitFullscreen();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isFullscreen) { e.preventDefault(); exitFullscreen(); }
+  if (e.code === 'Space' && !e.target.matches('input')) {
+    e.preventDefault();
+    timerRunning ? pauseTimer() : startTimer();
+  }
+});
 
 // ===== INIT =====
 load();
-updateTimerDisplay();
 render();
-
-// Also update display when inputs change
+setInitialDisplay();
 document.getElementById('minInput').addEventListener('input', () => {
-  if (!timerRunning && timerRemaining <= 0) updateTimerDisplay();
+  if (!timerRunning && timerRemaining <= 0) setInitialDisplay();
   save();
 });
 document.getElementById('secInput').addEventListener('input', () => {
-  if (!timerRunning && timerRemaining <= 0) updateTimerDisplay();
+  if (!timerRunning && timerRemaining <= 0) setInitialDisplay();
   save();
 });
 
-// Initial display from inputs
-if (!timerRunning && timerRemaining <= 0) {
+function setInitialDisplay() {
   const totalMs = getSetTime();
   const totalSec = Math.ceil(totalMs / 1000);
   const m = Math.floor(totalSec / 60);
   const s = totalSec % 60;
-  document.getElementById('timerDisplay').textContent =
-    String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  const m1 = Math.floor(m / 10), m2 = m % 10;
+  const s1 = Math.floor(s / 10), s2 = s % 10;
+  ['ledMin1','ledMin2','ledSec1','ledSec2','ledMs',
+   'fsMin1','fsMin2','fsSec1','fsSec2','fsMs'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '';
+  });
+  document.getElementById('ledMin1').textContent = m1;
+  document.getElementById('ledMin2').textContent = m2;
+  document.getElementById('ledSec1').textContent = s1;
+  document.getElementById('ledSec2').textContent = s2;
+  document.getElementById('ledMs').textContent = '00';
+  document.getElementById('fsMin1').textContent = m1;
+  document.getElementById('fsMin2').textContent = m2;
+  document.getElementById('fsSec1').textContent = s1;
+  document.getElementById('fsSec2').textContent = s2;
+  document.getElementById('fsMs').textContent = '00';
+  document.getElementById('progressFill').style.width = '100%';
 }
 </script>
 </body>

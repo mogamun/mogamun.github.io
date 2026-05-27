@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="kit-title" content="배당 캘린더">
+<meta name="kit-category" content="data">
+<meta name="kit-description" content="한국 배당주 배당수익률, 배당락일, 배당금 정보 조회">
+<meta name="kit-emoji" content="💰">
+<title>배당 캘린더</title>
+<style>
+  :root {
+    --bg: #0d0d1a;
+    --surface: #1a1a2e;
+    --surface2: #252540;
+    --border: #2a2a4a;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #818cf8;
+    --accent2: #a78bfa;
+    --green: #22c55e;
+    --red: #ef4444;
+    --gold: #fbbf24;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --surface2: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-dim: #64748b;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== TOOLBAR ===== */
+  .toolbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .toolbar-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn:hover { filter: brightness(1.1); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .search-box {
+    flex: 1;
+    min-width: 120px;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .market-tabs {
+    display: flex;
+    gap: 4px;
+  }
+  .tab {
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-dim);
+    transition: all 0.15s;
+  }
+  .tab:hover { border-color: var(--accent); color: var(--accent); }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ===== SUMMARY ===== */
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+    padding: 12px 16px;
+  }
+  .summary-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .summary-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .summary-value { font-size: 20px; font-weight: 800; margin-top: 2px; }
+  .summary-value.green { color: var(--green); }
+  .summary-value.accent { color: var(--accent); }
+  .summary-value.gold { color: var(--gold); }
+
+  /* ===== TABLE ===== */
+  .table-wrap {
+    flex: 1;
+    overflow-x: auto;
+    padding: 0 16px 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-dim);
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+  th:hover { color: var(--accent); }
+  th .sort { font-size: 10px; margin-left: 2px; opacity: 0.4; }
+  th.sorted .sort { opacity: 1; color: var(--accent); }
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  tr:hover td { background: var(--surface2); }
+  .stock-name {
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .stock-code { font-size: 11px; color: var(--text-dim); font-weight: 400; }
+  .yield-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .yield-high { background: rgba(34,197,94,0.15); color: var(--green); }
+  .yield-mid { background: rgba(129,140,248,0.15); color: var(--accent); }
+  .yield-low { background: rgba(148,163,184,0.1); color: var(--text-dim); }
+  .price-up { color: var(--red); }
+  .price-down { color: var(--blue); }
+  .dps { font-weight: 700; color: var(--gold); }
+  .date-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(129,140,248,0.1);
+    color: var(--accent);
+  }
+  .date-tag.upcoming { background: rgba(34,197,94,0.15); color: var(--green); }
+  .date-tag.past { background: rgba(148,163,184,0.1); color: var(--text-dim); }
+
+  /* ===== LOADING / EMPTY ===== */
+  .loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-dim);
+  }
+  .spinner {
+    display: inline-block;
+    width: 32px; height: 32px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .error-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--red);
+  }
+  .error-state .retry { margin-top: 16px; }
+
+  /* ===== INFO ===== */
+  .info-bar {
+    padding: 8px 16px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .toolbar { padding: 8px 10px; gap: 6px; }
+    .toolbar-title { font-size: 14px; }
+    .summary { padding: 8px 10px; }
+    .table-wrap { padding: 0 8px 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 6px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="toolbar-title">💰 한국 배당주</span>
+  <div class="market-tabs">
+    <button class="tab active" data-mkt="ALL" onclick="setMarket('ALL')">전체</button>
+    <button class="tab" data-mkt="STK" onclick="setMarket('STK')">코스피</button>
+    <button class="tab" data-mkt="KSQ" onclick="setMarket('KSQ')">코스닥</button>
+  </div>
+  <input class="search-box" id="searchInput" placeholder="종목명 검색..." oninput="filterAndRender()">
+  <button class="btn btn-primary" id="btnFetch" onclick="fetchData()">조회</button>
+  <button class="btn btn-ghost" onclick="sortAndRefresh()">수익률순</button>
+</div>
+
+<div class="summary" id="summary"></div>
+<div class="table-wrap" id="tableWrap">
+  <div class="loading" id="loadingState">
+    <div class="spinner"></div>
+    <p>조회 버튼을 눌러 배당 데이터를 불러오세요</p>
+  </div>
+</div>
+
+<div class="info-bar" id="infoBar">
+  <span>데이터: KRX (한국거래소) | 배당수익률 기준</span>
+  <span id="updateTime"></span>
+</div>
+
+<script>
+const CACHE_KEY = 'dividend_cache';
+const CACHE_TTL = 4 * 60 * 60 * 1000; // 4 hours
+const PROXIES = [
+  url => 'https://corsproxy.io/?' + encodeURIComponent(url),
+  url => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
+  url => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url),
+];
+const KRX_URL = 'http://data.krx.co.kr/comm/bldAttendant/getJsonData.cmd';
+let allStocks = [];
+let filteredStocks = [];
+let currentMarket = 'ALL';
+let currentSort = { key: 'yield', dir: 'desc' };
+const YEAR = new Date().getFullYear();
+
+function getExDivDate() {
+  const d = new Date(YEAR, 11, 31);
+  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+// ===== CORS PROXY FALLBACK =====
+async function fetchWithProxy(url) {
+  for (const mkProxy of PROXIES) {
+    try {
+      const proxyUrl = mkProxy(url);
+      const resp = await fetch(proxyUrl, { signal: AbortSignal.timeout(10000) });
+      if (!resp.ok) continue;
+      const data = await resp.json();
+      if (data && (data.OutBlock_1 || data.result)) return data;
+    } catch (e) { continue; }
+  }
+  throw new Error('모든 프록시 실패');
+}
+
+// ===== CACHE =====
+function saveCache(stocks) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), stocks, market: currentMarket }));
+  } catch(e) {}
+}
+function loadCache() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { ts, stocks, market } = JSON.parse(raw);
+    if (Date.now() - ts > CACHE_TTL) return null;
+    return { stocks, market };
+  } catch(e) { return null; }
+}
+
+// ===== FETCH =====
+async function fetchData() {
+  const btn = document.getElementById('btnFetch');
+  const wrap = document.getElementById('tableWrap');
+  btn.disabled = true;
+  wrap.innerHTML = '<div class="loading"><div class="spinner"></div><p>KRX 데이터 조회 중...</p></div>';
+
+  try {
+    const today = new Date();
+    const trdDd = today.toISOString().slice(0, 10).replace(/-/g, '');
+    const params = new URLSearchParams({
+      bld: 'dbms/MDC/STAT/standard/MDCSTAT03501',
+      locale: 'ko_KR', mktId: currentMarket, trdDd,
+      share: '1', money: '1', csvxls_is498No: 'No',
+    });
+    const fullUrl = KRX_URL + '?' + params.toString();
+    const data = await fetchWithProxy(fullUrl);
+    const rows = data.OutBlock_1 || data.result || [];
+    if (!rows || !rows.length) throw new Error('데이터가 없습니다');
+
+    allStocks = rows
+      .filter(r => parseFloat(r.DPS) > 0)
+      .map(r => ({
+        code: r.ISU_SRT_CD || '',
+        name: r.ISU_ABBRV || '',
+        close: parseFloat(r.TDD_CLSPRC?.replace(/,/g, '')) || 0,
+        per: parseFloat(r.PER?.replace(/,/g, '')) || 0,
+        pbr: parseFloat(r.PBR?.replace(/,/g, '')) || 0,
+        dps: parseFloat(r.DPS?.replace(/,/g, '')) || 0,
+        yield: parseFloat(r.DVD_YLD?.replace(/,/g, '')) || 0,
+        market: r.MKT_NM || currentMarket,
+      }))
+      .filter(s => s.yield > 0 && s.dps > 0);
+
+    saveCache(allStocks);
+    document.getElementById('updateTime').textContent = '업데이트: ' + today.toLocaleString('ko-KR');
+    filterAndRender();
+  } catch (e) {
+    // Fallback to cache
+    const cached = loadCache();
+    if (cached && cached.stocks.length) {
+      allStocks = cached.stocks;
+      document.getElementById('updateTime').textContent = '(캐시 데이터 — 마지막 성공 조회)';
+      filterAndRender();
+      return;
+    }
+    wrap.innerHTML = '<div class="error-state">' +
+      '<p style="font-size:18px;margin-bottom:8px">⚠ 데이터 조회 실패</p>' +
+      '<p style="color:var(--text-dim);font-size:13px">' + escHtml(e.message) + '</p>' +
+      '<p style="color:var(--text-dim);font-size:12px;margin-top:8px">잠시 후 다시 시도하거나, 다른 네트워크에서 접속해 보세요.</p>' +
+      '<button class="btn btn-primary retry" onclick="fetchData()">다시 시도</button></div>';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ===== FILTER & RENDER =====
+function filterAndRender() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  filteredStocks = allStocks.filter(s => !q || s.name.toLowerCase().includes(q) || s.code.includes(q));
+  applySort();
+  renderSummary();
+  renderTable();
+}
+
+function applySort() {
+  const { key, dir } = currentSort;
+  filteredStocks.sort((a, b) => {
+    const va = a[key], vb = b[key];
+    return dir === 'desc' ? vb - va : va - vb;
+  });
+}
+
+function renderSummary() {
+  const el = document.getElementById('summary');
+  if (!filteredStocks.length) { el.innerHTML = ''; return; }
+
+  const avgYield = (filteredStocks.reduce((s, t) => s + t.yield, 0) / filteredStocks.length).toFixed(2);
+  const maxYield = Math.max(...filteredStocks.map(t => t.yield)).toFixed(2);
+  const over5 = filteredStocks.filter(t => t.yield >= 5).length;
+  const exDate = getExDivDate();
+
+  el.innerHTML = `
+    <div class="summary-card">
+      <div class="summary-label">배당주 수</div>
+      <div class="summary-value accent">${filteredStocks.length}</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">평균 배당수익률</div>
+      <div class="summary-value green">${avgYield}%</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">최고 배당수익률</div>
+      <div class="summary-value gold">${maxYield}%</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">5% 이상</div>
+      <div class="summary-value accent">${over5}개</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">${YEAR} 배당락 예상일</div>
+      <div class="summary-value gold" style="font-size:15px">${exDate}</div>
+    </div>
+  `;
+}
+
+function renderTable() {
+  const wrap = document.getElementById('tableWrap');
+  if (!filteredStocks.length) {
+    wrap.innerHTML = '<div class="loading"><p>조회 버튼을 눌러 데이터를 불러오세요</p></div>';
+    return;
+  }
+
+  const exDate = getExDivDate();
+  const top100 = filteredStocks.slice(0, 100);
+
+  wrap.innerHTML = `<table>
+    <thead><tr>
+      <th data-key="name">종목 <span class="sort">↕</span></th>
+      <th data-key="close">종가 <span class="sort">↕</span></th>
+      <th data-key="dps">배당금 <span class="sort">↕</span></th>
+      <th data-key="yield" class="sorted">수익률 <span class="sort">▼</span></th>
+      <th data-key="per">PER <span class="sort">↕</span></th>
+      <th data-key="pbr">PBR <span class="sort">↕</span></th>
+      <th>배당락일</th>
+      <th>지급예상</th>
+    </tr></thead>
+    <tbody>${top100.map(s => {
+      const yc = s.yield >= 5 ? 'yield-high' : s.yield >= 3 ? 'yield-mid' : 'yield-low';
+      const exDateClass = new Date(exDate) > new Date() ? 'date-tag upcoming' : 'date-tag past';
+      return `<tr>
+        <td><div class="stock-name">${escHtml(s.name)}<span class="stock-code">${s.code}</span></div></td>
+        <td>${s.close.toLocaleString()}</td>
+        <td class="dps">${s.dps.toLocaleString()}</td>
+        <td><span class="yield-badge ${yc}">${s.yield.toFixed(2)}%</span></td>
+        <td>${s.per > 0 ? s.per.toFixed(1) : '-'}</td>
+        <td>${s.pbr > 0 ? s.pbr.toFixed(2) : '-'}</td>
+        <td><span class="${exDateClass}">${exDate}</span></td>
+        <td><span class="date-tag">${YEAR+1}.04~05</span></td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>
+  ${filteredStocks.length > 100 ? `<div style="text-align:center;padding:12px;color:var(--text-dim);font-size:12px">상위 100개 표시 (전체 ${filteredStocks.length}개)</div>` : ''}`;
+
+  // Sort on header click
+  wrap.querySelectorAll('th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (currentSort.key === key) currentSort.dir = currentSort.dir === 'desc' ? 'asc' : 'desc';
+      else { currentSort.key = key; currentSort.dir = 'desc'; }
+      applySort();
+      renderTable();
+    });
+  });
+}
+
+function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function setMarket(m) {
+  currentMarket = m;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.mkt === m));
+  if (allStocks.length) filterAndRender();
+}
+
+function sortAndRefresh() {
+  currentSort = { key: 'yield', dir: 'desc' };
+  if (allStocks.length) filterAndRender();
+  else fetchData();
+}
+
+// ===== AUTO INIT =====
+(function init() {
+  const cached = loadCache();
+  if (cached && cached.stocks.length) {
+    allStocks = cached.stocks;
+    document.getElementById('updateTime').textContent = '(캐시 데이터 — 새로고침으로 업데이트)';
+    filterAndRender();
+  }
+  // Always try fresh data in background
+  fetchData();
+})();
+</script>
+</body>
+</html>

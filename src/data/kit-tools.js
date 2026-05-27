@@ -23,6 +23,14 @@ export const KIT_TOOLS = [
     desc: '게임용 타이머 + 팀 점수 기록 및 순위 자동 정렬',
     emoji: '🎮',
   },
+  {
+    slug: 'dividend-calendar',
+    title: '배당 캘린더',
+    category: 'data',
+    type: 'html',
+    desc: '한국 배당주 배당수익률, 배당락일, 배당금 정보 조회',
+    emoji: '💰',
+  },
 ];
 
 export const KIT_CATEGORY_ORDER = ['data', 'text', 'encode', 'calc', 'game'];
