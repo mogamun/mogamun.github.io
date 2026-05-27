@@ -14,27 +14,15 @@ const BannerWrap = styled.div`
   }
 `;
 
-const BannerFrame = styled.iframe`
-  border: none;
-  max-width: 100%;
-`;
-
-const iframeSrc = `<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;display:flex;justify-content:center;align-items:center;min-height:140px;background:transparent;">
-<script src="https://ads-partners.coupang.com/g.js"></script>
-<script>new PartnersCoupang.G({"id":992064,"template":"carousel","trackingCode":"AF6738959","width":"680","height":"140","tsource":""});</script>
-</body>
-</html>`;
-
 const CoupangBanner = () => (
   <BannerWrap>
-    <BannerFrame
-      srcDoc={iframeSrc}
+    <iframe
+      src="/coupang-banner.html"
       width="680"
       height="160"
       scrolling="no"
+      frameBorder="0"
+      style={{ border: 'none', maxWidth: '100%' }}
       title="추천 상품"
     />
   </BannerWrap>

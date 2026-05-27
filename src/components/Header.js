@@ -227,6 +227,7 @@ const tools = [
 
 const apps = [
   { icon: '📝', title: '일기써영', desc: 'AI 영어 일기 교정', to: '/todaydailyeng/' },
+  { icon: '🎮', title: 'GameToBook', desc: '게임을 책으로 만나다', to: '/gametobook/' },
 ];
 
 const Header = () => {
