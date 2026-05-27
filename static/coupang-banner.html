@@ -9,6 +9,13 @@
 </head>
 <body>
 <script src="https://ads-partners.coupang.com/g.js"></script>
-<script>new PartnersCoupang.G({"id":992064,"template":"carousel","trackingCode":"AF6738959","width":"680","height":"140","tsource":""});</script>
+<script>
+if (window.PartnersCoupang) {
+  new PartnersCoupang.G({"id":992064,"template":"carousel","trackingCode":"AF6738959","width":"680","height":"140","tsource":""});
+  parent.postMessage('coupang-loaded','*');
+} else {
+  parent.postMessage('coupang-blocked','*');
+}
+</script>
 </body>
 </html>
