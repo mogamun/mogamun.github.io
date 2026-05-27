@@ -278,6 +278,7 @@ const NavBtn = styled(Link)`
 const WikiPage = ({ data }) => {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
+  const slug = data.markdownRemark.fields?.slug || '';
 
   const tags = Array.isArray(frontmatter.tags)
     ? frontmatter.tags
@@ -286,8 +287,6 @@ const WikiPage = ({ data }) => {
       : [];
 
   const category = frontmatter.category || '';
-
-  const slug = data.markdownRemark.fields?.slug || '';
 
   return (
     <WikiLayout currentSlug={slug}>
