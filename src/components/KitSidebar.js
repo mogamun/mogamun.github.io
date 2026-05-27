@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
 import { KIT_CATEGORIES, KIT_TOOLS, KIT_CATEGORY_ORDER } from '../data/kit-tools';
 
@@ -11,7 +12,7 @@ const CategoryList = styled.ul`
   gap: 2px;
 `;
 
-const CategoryItem = styled.a`
+const CategoryItem = styled(Link)`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -69,10 +70,9 @@ const KitSidebar = ({ activeCategory }) => {
         return (
           <li key={cat}>
             <CategoryItem
-              href={`#${cat}`}
+              to={`/kit/#${cat}`}
               $active={activeCategory === cat}
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 const el = document.getElementById(cat);
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
