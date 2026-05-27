@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled, { keyframes } from 'styled-components';
-import KitLayout from '../components/KitLayout';
-import SEO from '../components/SEO';
-import { KIT_TOOLS, KIT_CATEGORIES } from '../data/kit-tools';
+import KitLayout from '@/components/KitLayout';
+import SEO from '@/components/SEO';
 
 const fadeInAnim = keyframes`
   from { opacity: 0; }
@@ -129,8 +128,7 @@ const FullscreenFrame = styled.div`
 `;
 
 const KitPage = ({ pageContext }) => {
-  const { slug } = pageContext;
-  const tool = KIT_TOOLS.find(t => t.slug === slug);
+  const { slug, tool } = pageContext;
   const [fullscreen, setFullscreen] = useState(false);
   const iframeRef = useRef(null);
   const fsIframeRef = useRef(null);
@@ -146,7 +144,7 @@ const KitPage = ({ pageContext }) => {
     );
   }
 
-  const category = KIT_CATEGORIES[tool.category];
+  const category = tool.category;
   const iframeSrc = tool.type === 'html' ? `/kit/${tool.slug}.html` : null;
 
   return (

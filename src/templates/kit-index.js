@@ -1,10 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
-import KitLayout from '../../components/KitLayout';
-import SEO from '../../components/SEO';
-import { useScrollReveal } from '../../hooks/useScrollReveal';
-import { KIT_TOOLS, KIT_CATEGORIES, KIT_CATEGORY_ORDER } from '../../data/kit-tools';
+import KitLayout from '@/components/KitLayout';
+import SEO from '@/components/SEO';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const shimmerAnim = keyframes`
   0%   { transform: translateX(-100%) skewX(-12deg); }
@@ -201,26 +200,27 @@ function RevealSection({ children }) {
   );
 }
 
-const KitIndexPage = () => {
+const KitIndexPage = ({ pageContext }) => {
+  const { tools, categories, categoryOrder } = pageContext;
   const [activeCategory] = useState(null);
 
   const grouped = useMemo(() => {
     const map = {};
-    for (const tool of KIT_TOOLS) {
+    for (const tool of tools) {
       if (!map[tool.category]) map[tool.category] = [];
       map[tool.category].push(tool);
     }
     return map;
-  }, []);
+  }, [tools]);
 
-  const sortedCategories = KIT_CATEGORY_ORDER.filter(c => grouped[c]);
+  const sortedCategories = categoryOrder.filter(c => grouped[c]);
 
   return (
     <KitLayout activeCategory={activeCategory}>
       <SEO title="Kit" />
       <PageWrapper>
         {sortedCategories.map(cat => {
-          const { emoji, label, color } = KIT_CATEGORIES[cat];
+          const { emoji, label, color } = categories[cat] || { emoji: '📁', label: cat, color: '#818cf8' };
           return (
             <RevealSection key={cat}>
               <CategorySection id={cat}>

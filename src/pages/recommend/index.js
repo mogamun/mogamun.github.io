@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 import Layout from '../../components/Layout';
 import SEO from '../../components/SEO';
+import { PRODUCTS, PRODUCT_CATEGORIES, PRODUCT_CATEGORY_ORDER } from '../../data/products';
 
 const shimmerAnim = keyframes`
   0%   { transform: translateX(-100%) skewX(-12deg); }
@@ -182,8 +183,6 @@ const EmptyState = styled.div`
   opacity: 0.5;
   font-size: 0.9rem;
 `;
-
-import { PRODUCTS, PRODUCT_CATEGORIES, PRODUCT_CATEGORY_ORDER } from '../../data/products';
 
 const RecommendPage = () => {
   const grouped = {};

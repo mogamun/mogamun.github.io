@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="kit-title" content="게임 점수판">
+<meta name="kit-category" content="game">
+<meta name="kit-description" content="게임용 타이머 + 팀 점수 기록 및 순위 자동 정렬">
+<meta name="kit-emoji" content="🎮">
+<title>게임 점수판</title>
+<style>
+  :root {
+    --bg: #0d0d1a;
+    --surface: #1a1a2e;
+    --surface2: #252540;
+    --border: #2a2a4a;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #818cf8;
+    --accent2: #a78bfa;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --gold: #fbbf24;
+    --silver: #94a3b8;
+    --bronze: #d97706;
+    --radius: 12px;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f0f4ff;
+      --surface: #ffffff;
+      --surface2: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --text-dim: #64748b;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== TIMER ===== */
+  .timer-bar {
+    width: 100%;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .timer-display {
+    font-family: 'Courier New', 'Menlo', monospace;
+    font-size: clamp(48px, 10vw, 80px);
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(129,140,248,0.4);
+    min-width: 200px;
+    text-align: center;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  .timer-display.warning { color: #fbbf24; text-shadow: 0 0 20px rgba(251,191,36,0.5); }
+  .timer-display.critical { color: var(--danger); text-shadow: 0 0 30px rgba(239,68,68,0.6); animation: pulse 0.5s ease-in-out infinite; }
+  .timer-display.finished { color: var(--danger); text-shadow: 0 0 40px rgba(239,68,68,0.8); animation: flash 0.3s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+  @keyframes flash { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .timer-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .timer-input {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+  }
+  .timer-input:focus { border-color: var(--accent); }
+  .timer-label { font-size: 13px; color: var(--text-dim); }
+  .btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+  .btn:active { transform: translateY(0); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ===== TIME'S UP OVERLAY ===== */
+  .times-up-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0,0,0,0.85);
+    animation: overlayIn 0.3s ease-out;
+  }
+  .times-up-overlay.show { display: flex; }
+  @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+  .times-up-text {
+    font-size: clamp(40px, 12vw, 100px);
+    font-weight: 900;
+    color: #ef4444;
+    text-shadow: 0 0 60px rgba(239,68,68,0.8), 0 0 120px rgba(239,68,68,0.4);
+    animation: timesUpPulse 0.5s ease-in-out infinite;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .times-up-sub {
+    font-size: clamp(16px, 4vw, 28px);
+    color: #fbbf24;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+  @keyframes timesUpPulse {
+    0%,100% { transform: scale(1); text-shadow: 0 0 60px rgba(239,68,68,0.8), 0 0 120px rgba(239,68,68,0.4); }
+    50% { transform: scale(1.08); text-shadow: 0 0 80px rgba(239,68,68,1), 0 0 160px rgba(239,68,68,0.6); }
+  }
+  .times-up-close {
+    margin-top: 40px;
+    padding: 14px 40px;
+    font-size: 18px;
+    background: var(--danger);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .times-up-close:hover { transform: scale(1.05); background: #dc2626; }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    width: 100%;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.3s linear, background 0.3s;
+    width: 100%;
+  }
+  .progress-fill.warning { background: #fbbf24; }
+  .progress-fill.critical { background: var(--danger); }
+
+  /* ===== MAIN CONTENT ===== */
+  .content {
+    flex: 1;
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* ===== ADD TEAM ===== */
+  .add-team-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .add-team-bar input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 15px;
+    outline: none;
+  }
+  .add-team-bar input:focus { border-color: var(--accent); }
+
+  /* ===== TEAM LIST ===== */
+  .team-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .team-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+    position: relative;
+  }
+  .team-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .team-rank {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+    background: var(--surface2);
+    color: var(--text-dim);
+  }
+  .team-rank.rank-1 { background: var(--gold); color: #000; box-shadow: 0 0 12px rgba(251,191,36,0.4); }
+  .team-rank.rank-2 { background: var(--silver); color: #000; }
+  .team-rank.rank-3 { background: var(--bronze); color: #fff; }
+  .team-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .team-score {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    min-width: 50px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+  }
+  .team-actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .score-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .score-btn:hover { transform: scale(1.1); }
+  .score-btn:active { transform: scale(0.95); }
+  .score-btn.plus { background: rgba(34,197,94,0.15); color: var(--success); }
+  .score-btn.plus:hover { background: rgba(34,197,94,0.25); }
+  .score-btn.minus { background: rgba(239,68,68,0.15); color: var(--danger); }
+  .score-btn.minus:hover { background: rgba(239,68,68,0.25); }
+  .score-btn.del { background: rgba(239,68,68,0.1); color: var(--danger); font-size: 14px; margin-left: 4px; }
+  .score-btn.del:hover { background: rgba(239,68,68,0.2); }
+
+  /* ===== QUICK SCORE ===== */
+  .quick-score-bar {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .quick-score-bar span { font-size: 13px; color: var(--text-dim); margin-right: 4px; }
+  .quick-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface2);
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .quick-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ===== RESET ===== */
+  .bottom-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+  }
+  .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 15px; }
+
+  /* ===== SCORE POP ANIMATION ===== */
+  @keyframes scorePop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  .score-pop { animation: scorePop 0.2s ease-out; }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 480px) {
+    .timer-bar { padding: 12px 12px; gap: 10px; }
+    .timer-display { font-size: 40px; }
+    .content { padding: 12px; }
+    .team-card { padding: 10px 12px; gap: 8px; }
+    .team-score { font-size: 22px; }
+    .team-name { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TIME'S UP OVERLAY -->
+<div class="times-up-overlay" id="overlay">
+  <div class="times-up-text">TIME'S UP!</div>
+  <div class="times-up-sub" id="overlayWinner"></div>
+  <button class="times-up-close" onclick="closeOverlay()">닫기</button>
+</div>
+
+<!-- TIMER BAR -->
+<div class="timer-bar">
+  <div class="timer-controls">
+    <input type="number" class="timer-input" id="minInput" min="0" max="99" value="3">
+    <span class="timer-label">분</span>
+    <input type="number" class="timer-input" id="secInput" min="0" max="59" value="0">
+    <span class="timer-label">초</span>
+  </div>
+  <div class="timer-display" id="timerDisplay">03:00</div>
+  <div class="timer-controls">
+    <button class="btn btn-primary" id="btnStart" onclick="startTimer()">▶ 시작</button>
+    <button class="btn btn-ghost" id="btnPause" onclick="pauseTimer()" disabled>⏸ 일시정지</button>
+    <button class="btn btn-danger" id="btnReset" onclick="resetTimer()">↺ 리셋</button>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+  <!-- ADD TEAM -->
+  <div class="add-team-bar">
+    <input type="text" id="teamNameInput" placeholder="팀 이름 입력..." maxlength="20"
+           onkeydown="if(event.key==='Enter')addTeam()">
+    <button class="btn btn-primary" onclick="addTeam()">+ 팀 추가</button>
+  </div>
+
+  <!-- QUICK SCORE STEP -->
+  <div class="quick-score-bar">
+    <span>점수 단위:</span>
+    <button class="quick-btn active" data-step="1" onclick="setStep(1)">+1</button>
+    <button class="quick-btn" data-step="2" onclick="setStep(2)">+2</button>
+    <button class="quick-btn" data-step="5" onclick="setStep(5)">+5</button>
+    <button class="quick-btn" data-step="10" onclick="setStep(10)">+10</button>
+    <button class="quick-btn" data-step="50" onclick="setStep(50)">+50</button>
+    <button class="quick-btn" data-step="100" onclick="setStep(100)">+100</button>
+  </div>
+
+  <!-- TEAM LIST -->
+  <div class="team-list" id="teamList"></div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-bar">
+    <button class="btn btn-danger" onclick="resetAllScores()">모든 점수 초기화</button>
+    <button class="btn btn-ghost" onclick="deleteAllTeams()">전체 삭제</button>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'scoreboard_data';
+let teams = [];
+let scoreStep = 1;
+let timerInterval = null;
+let timerRemaining = 0;
+let timerTotal = 0;
+let timerRunning = false;
+
+// ===== PERSISTENCE =====
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    teams,
+    timerMinutes: document.getElementById('minInput').value,
+    timerSeconds: document.getElementById('secInput').value
+  }));
+}
+
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (d && d.teams) {
+      teams = d.teams;
+      if (d.timerMinutes) document.getElementById('minInput').value = d.timerMinutes;
+      if (d.timerSeconds) document.getElementById('secInput').value = d.timerSeconds;
+    }
+  } catch(e) {}
+}
+
+// ===== TEAMS =====
+function addTeam() {
+  const input = document.getElementById('teamNameInput');
+  const name = input.value.trim();
+  if (!name) return;
+  teams.push({ id: Date.now(), name, score: 0 });
+  input.value = '';
+  render();
+  save();
+}
+
+function removeTeam(id) {
+  teams = teams.filter(t => t.id !== id);
+  render();
+  save();
+}
+
+function changeScore(id, delta) {
+  const team = teams.find(t => t.id === id);
+  if (!team) return;
+  team.score += delta;
+  if (team.score < 0) team.score = 0;
+
+  // pop animation
+  const el = document.querySelector(`[data-id="${id}"] .team-score`);
+  if (el) {
+    el.classList.remove('score-pop');
+    void el.offsetWidth;
+    el.classList.add('score-pop');
+  }
+
+  sortAndRender();
+  save();
+}
+
+function sortAndRender() {
+  const sorted = [...teams].sort((a, b) => b.score - a.score);
+  // Animate reorder using FLIP technique
+  const listEl = document.getElementById('teamList');
+  const oldRects = {};
+  listEl.querySelectorAll('.team-card').forEach(el => {
+    oldRects[el.dataset.id] = el.getBoundingClientRect();
+  });
+
+  teams = sorted;
+  render();
+
+  listEl.querySelectorAll('.team-card').forEach(el => {
+    const id = el.dataset.id;
+    if (oldRects[id]) {
+      const newRect = el.getBoundingClientRect();
+      const dy = oldRects[id].top - newRect.top;
+      if (dy !== 0) {
+        el.style.transform = `translateY(${dy}px)`;
+        el.style.transition = 'none';
+        requestAnimationFrame(() => {
+          el.style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
+          el.style.transform = '';
+        });
+      }
+    }
+  });
+}
+
+function resetAllScores() {
+  if (!teams.length) return;
+  teams.forEach(t => t.score = 0);
+  render();
+  save();
+}
+
+function deleteAllTeams() {
+  if (!teams.length) return;
+  teams = [];
+  render();
+  save();
+}
+
+function render() {
+  const list = document.getElementById('teamList');
+  if (!teams.length) {
+    list.innerHTML = '<div class="empty-state"><div class="icon">🎮</div><p>팀을 추가하여 게임을 시작하세요!</p></div>';
+    return;
+  }
+  list.innerHTML = teams.map((t, i) => {
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : '';
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : (i + 1);
+    return `<div class="team-card" data-id="${t.id}">
+      <div class="team-rank ${rankClass}">${medal}</div>
+      <div class="team-name">${escHtml(t.name)}</div>
+      <div class="team-score">${t.score}</div>
+      <div class="team-actions">
+        <button class="score-btn minus" onclick="changeScore(${t.id}, -scoreStep)">−</button>
+        <button class="score-btn plus" onclick="changeScore(${t.id}, scoreStep)">+</button>
+        <button class="score-btn del" onclick="removeTeam(${t.id})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// ===== QUICK SCORE STEP =====
+function setStep(n) {
+  scoreStep = n;
+  document.querySelectorAll('.quick-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.step) === n);
+  });
+}
+
+// ===== TIMER =====
+function getSetTime() {
+  const m = parseInt(document.getElementById('minInput').value) || 0;
+  const s = parseInt(document.getElementById('secInput').value) || 0;
+  return (m * 60 + s) * 1000;
+}
+
+function updateTimerDisplay() {
+  const totalSec = Math.ceil(timerRemaining / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  const disp = document.getElementById('timerDisplay');
+  disp.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+
+  // Progress
+  const pct = timerTotal > 0 ? (timerRemaining / timerTotal) * 100 : 100;
+  const fill = document.getElementById('progressFill');
+  fill.style.width = pct + '%';
+
+  // Color states
+  disp.className = 'timer-display';
+  fill.className = 'progress-fill';
+  if (timerRunning) {
+    if (pct <= 10) { disp.classList.add('critical'); fill.classList.add('critical'); }
+    else if (pct <= 30) { disp.classList.add('warning'); fill.classList.add('warning'); }
+  }
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  if (timerRemaining <= 0) {
+    timerTotal = getSetTime();
+    timerRemaining = timerTotal;
+  }
+  if (timerRemaining <= 0) return;
+
+  timerRunning = true;
+  document.getElementById('btnStart').disabled = true;
+  document.getElementById('btnPause').disabled = false;
+  document.getElementById('minInput').disabled = true;
+  document.getElementById('secInput').disabled = true;
+
+  const startTs = Date.now();
+  const startRemaining = timerRemaining;
+
+  timerInterval = setInterval(() => {
+    timerRemaining = startRemaining - (Date.now() - startTs);
+    if (timerRemaining <= 0) {
+      timerRemaining = 0;
+      timerRunning = false;
+      clearInterval(timerInterval);
+      timerInterval = null;
+      onTimerEnd();
+    }
+    updateTimerDisplay();
+  }, 50);
+
+  updateTimerDisplay();
+  save();
+}
+
+function pauseTimer() {
+  if (!timerRunning) return;
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  document.getElementById('btnStart').disabled = false;
+  document.getElementById('btnPause').disabled = true;
+  updateTimerDisplay();
+}
+
+function resetTimer() {
+  timerRunning = false;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerTotal = 0;
+  timerRemaining = 0;
+  document.getElementById('btnStart').disabled = false;
+  document.getElementById('btnPause').disabled = true;
+  document.getElementById('minInput').disabled = false;
+  document.getElementById('secInput').disabled = false;
+  updateTimerDisplay();
+}
+
+function onTimerEnd() {
+  document.getElementById('btnStart').disabled = false;
+  document.getElementById('btnPause').disabled = true;
+  document.getElementById('minInput').disabled = false;
+  document.getElementById('secInput').disabled = false;
+
+  const disp = document.getElementById('timerDisplay');
+  disp.className = 'timer-display finished';
+  disp.textContent = '00:00';
+
+  // Show winner
+  const overlay = document.getElementById('overlay');
+  const winnerText = document.getElementById('overlayWinner');
+  if (teams.length > 0) {
+    const sorted = [...teams].sort((a, b) => b.score - a.score);
+    if (sorted[0].score > 0) {
+      winnerText.textContent = `🥇 ${sorted[0].name} — ${sorted[0].score}점 승리!`;
+    } else {
+      winnerText.textContent = '경기 종료!';
+    }
+  } else {
+    winnerText.textContent = '경기 종료!';
+  }
+  overlay.classList.add('show');
+}
+
+function closeOverlay() {
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ===== INIT =====
+load();
+updateTimerDisplay();
+render();
+
+// Also update display when inputs change
+document.getElementById('minInput').addEventListener('input', () => {
+  if (!timerRunning && timerRemaining <= 0) updateTimerDisplay();
+  save();
+});
+document.getElementById('secInput').addEventListener('input', () => {
+  if (!timerRunning && timerRemaining <= 0) updateTimerDisplay();
+  save();
+});
+
+// Initial display from inputs
+if (!timerRunning && timerRemaining <= 0) {
+  const totalMs = getSetTime();
+  const totalSec = Math.ceil(totalMs / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  document.getElementById('timerDisplay').textContent =
+    String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+</script>
+</body>
+</html>
