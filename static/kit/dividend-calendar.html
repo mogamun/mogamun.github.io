@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="kit-title" content="배당 캘린더">
 <meta name="kit-category" content="data">
-<meta name="kit-description" content="한국 배당주 배당수익률, 배당락일, 배당금 정보 조회">
+<meta name="kit-description" content="한국 배당주 배당락일, 1주당 배당금 조회">
 <meta name="kit-emoji" content="💰">
 <title>배당 캘린더</title>
 <style>
@@ -17,7 +17,6 @@
     --text: #e2e8f0;
     --text-dim: #94a3b8;
     --accent: #818cf8;
-    --accent2: #a78bfa;
     --green: #22c55e;
     --red: #ef4444;
     --gold: #fbbf24;
@@ -89,10 +88,7 @@
     outline: none;
   }
   .search-box:focus { border-color: var(--accent); }
-  .market-tabs {
-    display: flex;
-    gap: 4px;
-  }
+  .market-tabs { display: flex; gap: 4px; }
   .tab {
     padding: 5px 12px;
     border: 1px solid var(--border);
@@ -110,7 +106,7 @@
   /* ===== SUMMARY ===== */
   .summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 8px;
     padding: 12px 16px;
   }
@@ -120,7 +116,7 @@
     border-radius: 10px;
     padding: 12px 14px;
   }
-  .summary-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+  .summary-label { font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; }
   .summary-value { font-size: 20px; font-weight: 800; margin-top: 2px; }
   .summary-value.green { color: var(--green); }
   .summary-value.accent { color: var(--accent); }
@@ -144,7 +140,6 @@
     color: var(--text-dim);
     font-weight: 700;
     font-size: 11px;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
     white-space: nowrap;
@@ -166,18 +161,6 @@
     gap: 1px;
   }
   .stock-code { font-size: 11px; color: var(--text-dim); font-weight: 400; }
-  .yield-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 12px;
-  }
-  .yield-high { background: rgba(34,197,94,0.15); color: var(--green); }
-  .yield-mid { background: rgba(129,140,248,0.15); color: var(--accent); }
-  .yield-low { background: rgba(148,163,184,0.1); color: var(--text-dim); }
-  .price-up { color: var(--red); }
-  .price-down { color: var(--blue); }
   .dps { font-weight: 700; color: var(--gold); }
   .date-tag {
     display: inline-block;
@@ -190,8 +173,38 @@
   }
   .date-tag.upcoming { background: rgba(34,197,94,0.15); color: var(--green); }
   .date-tag.past { background: rgba(148,163,184,0.1); color: var(--text-dim); }
+  .dividend-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .dividend-event {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+  .dividend-event .ev-date { color: var(--accent); font-weight: 600; }
+  .dividend-event .ev-dps { color: var(--gold); font-weight: 700; }
+  .dividend-event.next { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); }
+  .dividend-event.next .ev-date { color: var(--green); }
+  .dividend-event.past { opacity: 0.5; }
+  .market-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .market-badge.kospi { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .market-badge.kosdaq { background: rgba(168,85,247,0.15); color: #c084fc; }
 
-  /* ===== LOADING / EMPTY ===== */
+  /* ===== LOADING ===== */
   .loading {
     text-align: center;
     padding: 60px 20px;
@@ -207,11 +220,7 @@
     margin-bottom: 12px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .error-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: var(--red);
-  }
+  .error-state { text-align: center; padding: 40px 20px; color: var(--red); }
   .error-state .retry { margin-top: 16px; }
 
   /* ===== INFO ===== */
@@ -224,18 +233,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 4px;
   }
 
-  /* ===== MOBILE ===== */
   @media (max-width: 600px) {
     .toolbar { padding: 8px 10px; gap: 6px; }
-    .toolbar-title { font-size: 14px; }
     .summary { padding: 8px 10px; }
     .table-wrap { padding: 0 8px 12px; }
     table { font-size: 12px; }
     th, td { padding: 6px 6px; }
+    .dividend-row { gap: 6px; }
   }
 </style>
 </head>
@@ -245,12 +251,11 @@
   <span class="toolbar-title">💰 한국 배당주</span>
   <div class="market-tabs">
     <button class="tab active" data-mkt="ALL" onclick="setMarket('ALL')">전체</button>
-    <button class="tab" data-mkt="STK" onclick="setMarket('STK')">코스피</button>
-    <button class="tab" data-mkt="KSQ" onclick="setMarket('KSQ')">코스닥</button>
+    <button class="tab" data-mkt="코스피" onclick="setMarket('코스피')">코스피</button>
+    <button class="tab" data-mkt="코스닥" onclick="setMarket('코스닥')">코스닥</button>
   </div>
   <input class="search-box" id="searchInput" placeholder="종목명 검색..." oninput="filterAndRender()">
   <button class="btn btn-primary" id="btnFetch" onclick="fetchData()">조회</button>
-  <button class="btn btn-ghost" onclick="sortAndRefresh()">수익률순</button>
 </div>
 
 <div class="summary" id="summary"></div>
@@ -262,7 +267,7 @@
 </div>
 
 <div class="info-bar" id="infoBar">
-  <span>데이터: KRX (한국거래소) | 배당수익률 기준</span>
+  <span>데이터: 네이버 증권 | 배당락일 기준</span>
   <span id="updateTime"></span>
 </div>
 
@@ -270,16 +275,9 @@
 let allStocks = [];
 let filteredStocks = [];
 let currentMarket = 'ALL';
-let currentSort = { key: 'yield', dir: 'desc' };
-const YEAR = new Date().getFullYear();
+let currentSort = { key: '_nextDate', dir: 'asc' };
+const TODAY = new Date().toISOString().slice(0, 10);
 
-function getExDivDate() {
-  const d = new Date(YEAR, 11, 31);
-  while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() - 1);
-  return d.toISOString().slice(0, 10);
-}
-
-// ===== LOAD FROM LOCAL JSON =====
 async function fetchData() {
   const btn = document.getElementById('btnFetch');
   const wrap = document.getElementById('tableWrap');
@@ -290,33 +288,27 @@ async function fetchData() {
     const resp = await fetch('/kit/dividend-data.json');
     if (!resp.ok) throw new Error('데이터 파일을 불러올 수 없습니다');
     const data = await resp.json();
-
     if (!data.stocks || !data.stocks.length) throw new Error('데이터가 비어 있습니다');
 
     allStocks = data.stocks;
-    const exDivDate = data.exDivDate || getExDivDate();
-    const payPeriod = data.paymentPeriod || '';
-    const holdInfo = data.holdInfo || '';
-
     document.getElementById('updateTime').textContent = '업데이트: ' + (data.updated || '');
-    // Store extra info for summary
-    window._divMeta = { exDivDate, payPeriod, holdInfo };
     filterAndRender();
   } catch (e) {
     wrap.innerHTML = '<div class="error-state">' +
-      '<p style="font-size:18px;margin-bottom:8px">⚠ 데이터 로딩 실패</p>' +
+      '<p style="font-size:18px;margin-bottom:8px">데이터 로딩 실패</p>' +
       '<p style="color:var(--text-dim);font-size:13px">' + escHtml(e.message) + '</p>' +
-      '<p style="color:var(--text-dim);font-size:12px;margin-top:8px">데이터 갱신이 필요합니다. scripts/fetch_dividends.py를 실행하세요.</p>' +
       '<button class="btn btn-primary retry" onclick="fetchData()">다시 시도</button></div>';
   } finally {
     btn.disabled = false;
   }
 }
 
-// ===== FILTER & RENDER =====
 function filterAndRender() {
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  filteredStocks = allStocks.filter(s => !q || s.name.toLowerCase().includes(q) || s.code.includes(q));
+  filteredStocks = allStocks.filter(s => {
+    if (currentMarket !== 'ALL' && s.market !== currentMarket) return false;
+    return !q || s.name.toLowerCase().includes(q) || s.code.includes(q);
+  });
   applySort();
   renderSummary();
   renderTable();
@@ -325,47 +317,58 @@ function filterAndRender() {
 function applySort() {
   const { key, dir } = currentSort;
   filteredStocks.sort((a, b) => {
-    const va = a[key], vb = b[key];
-    return dir === 'desc' ? vb - va : va - vb;
+    let va = a[key], vb = b[key];
+    if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    return dir === 'asc' ? va - vb : vb - va;
   });
+}
+
+function getNextDate(stock) {
+  for (const d of stock.dividends) {
+    if (d.date >= TODAY) return d.date;
+  }
+  return stock.dividends[stock.dividends.length - 1].date;
+}
+
+function getNextDps(stock) {
+  for (const d of stock.dividends) {
+    if (d.date >= TODAY) return d.dps;
+  }
+  return stock.dividends[stock.dividends.length - 1].dps;
+}
+
+function getTotalDps(stock) {
+  return stock.dividends.reduce((s, d) => s + d.dps, 0);
 }
 
 function renderSummary() {
   const el = document.getElementById('summary');
   if (!filteredStocks.length) { el.innerHTML = ''; return; }
 
-  const avgYield = (filteredStocks.reduce((s, t) => s + t.yield, 0) / filteredStocks.length).toFixed(2);
-  const maxYield = Math.max(...filteredStocks.map(t => t.yield)).toFixed(2);
-  const over5 = filteredStocks.filter(t => t.yield >= 5).length;
-  const meta = window._divMeta || {};
-  const exDate = meta.exDivDate || getExDivDate();
-  const payPeriod = meta.payPeriod || `${YEAR+1}.04~05`;
-  const holdInfo = meta.holdInfo || '';
+  const total = filteredStocks.length;
+  const nextDates = filteredStocks.map(s => getNextDate(s)).filter(d => d >= TODAY);
+  const soonest = nextDates.length ? nextDates.sort()[0] : '-';
+
+  const allEvents = filteredStocks.flatMap(s => s.dividends);
+  const futureEvents = allEvents.filter(d => d.date >= TODAY);
+  const maxDps = Math.max(...futureEvents.map(d => d.dps), 0);
 
   el.innerHTML = `
     <div class="summary-card">
       <div class="summary-label">배당주 수</div>
-      <div class="summary-value accent">${filteredStocks.length}</div>
+      <div class="summary-value accent">${total}</div>
     </div>
     <div class="summary-card">
-      <div class="summary-label">평균 배당수익률</div>
-      <div class="summary-value green">${avgYield}%</div>
+      <div class="summary-label">가장 빠른 배당락일</div>
+      <div class="summary-value green" style="font-size:15px">${soonest}</div>
     </div>
     <div class="summary-card">
-      <div class="summary-label">최고 배당수익률</div>
-      <div class="summary-value gold">${maxYield}%</div>
+      <div class="summary-label">남은 배당 이벤트</div>
+      <div class="summary-value gold">${futureEvents.length}</div>
     </div>
     <div class="summary-card">
-      <div class="summary-label">5% 이상</div>
-      <div class="summary-value accent">${over5}개</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">${YEAR} 배당락일</div>
-      <div class="summary-value gold" style="font-size:15px">${exDate}</div>
-    </div>
-    <div class="summary-card">
-      <div class="summary-label">배당지급 예상</div>
-      <div class="summary-value accent" style="font-size:14px">${payPeriod}</div>
+      <div class="summary-label">최고 1주당 배당금</div>
+      <div class="summary-value gold">${maxDps.toLocaleString()}원</div>
     </div>
   `;
 }
@@ -373,56 +376,58 @@ function renderSummary() {
 function renderTable() {
   const wrap = document.getElementById('tableWrap');
   if (!filteredStocks.length) {
-    wrap.innerHTML = '<div class="loading"><p>조회 버튼을 눌러 데이터를 불러오세요</p></div>';
+    wrap.innerHTML = '<div class="loading"><p>데이터를 불러오세요</p></div>';
     return;
   }
 
-  const exDate = (window._divMeta || {}).exDivDate || getExDivDate();
-  const payPeriod = (window._divMeta || {}).payPeriod || `${YEAR+1}.04~05`;
-  const holdInfo = (window._divMeta || {}).holdInfo || '';
-  const top100 = filteredStocks.slice(0, 100);
-
+  const rows = filteredStocks.slice(0, 150);
   wrap.innerHTML = `<table>
     <thead><tr>
       <th data-key="name">종목 <span class="sort">↕</span></th>
       <th data-key="close">종가 <span class="sort">↕</span></th>
-      <th data-key="dps">1주당 배당금 <span class="sort">↕</span></th>
-      <th data-key="yield" class="sorted">수익률 <span class="sort">▼</span></th>
-      <th data-key="per">PER <span class="sort">↕</span></th>
-      <th data-key="pbr">PBR <span class="sort">↕</span></th>
-      <th>배당락일</th>
-      <th>보유기간</th>
-      <th>지급예상</th>
+      <th data-key="_totalDps">연간 배당금 <span class="sort">↕</span></th>
+      <th data-key="_nextDate" class="sorted">다음 배당락일 <span class="sort">▲</span></th>
+      <th data-key="_nextDps">1주당 배당금 <span class="sort">↕</span></th>
+      <th>전체 배당 일정</th>
     </tr></thead>
-    <tbody>${top100.map(s => {
-      const yc = s.yield >= 5 ? 'yield-high' : s.yield >= 3 ? 'yield-mid' : 'yield-low';
-      const exDateClass = new Date(exDate) > new Date() ? 'date-tag upcoming' : 'date-tag past';
-      // Calculate holding period
-      const today = new Date();
-      const exDay = new Date(exDate);
-      const daysLeft = Math.max(0, Math.ceil((exDay - today) / 86400000));
-      const holdLabel = daysLeft > 0 ? `D-${daysLeft} (${daysLeft}일)` : '배당락 완료';
+    <tbody>${rows.map(s => {
+      s._nextDate = getNextDate(s);
+      s._nextDps = getNextDps(s);
+      s._totalDps = getTotalDps(s);
+
+      const mktClass = s.market === '코스피' ? 'kospi' : 'kosdaq';
+      const isNext = s._nextDate >= TODAY;
+      const dateClass = isNext ? 'upcoming' : 'past';
+
+      const events = s.dividends.map(d => {
+        const past = d.date < TODAY;
+        const next = d.date === s._nextDate && isNext;
+        return `<span class="dividend-event${next ? ' next' : ''}${past ? ' past' : ''}">
+          <span class="ev-date">${d.date}</span>
+          <span class="ev-dps">${d.dps.toLocaleString()}원</span>
+        </span>`;
+      }).join('');
+
       return `<tr>
-        <td><div class="stock-name">${escHtml(s.name)}<span class="stock-code">${s.code}</span></div></td>
+        <td><div class="stock-name">
+          ${escHtml(s.name)}
+          <span><span class="stock-code">${s.code}</span> <span class="market-badge ${mktClass}">${s.market}</span></span>
+        </div></td>
         <td>${s.close.toLocaleString()}원</td>
-        <td class="dps">${s.dps.toLocaleString()}원</td>
-        <td><span class="yield-badge ${yc}">${s.yield.toFixed(2)}%</span></td>
-        <td>${s.per > 0 ? s.per.toFixed(1) : '-'}</td>
-        <td>${s.pbr > 0 ? s.pbr.toFixed(2) : '-'}</td>
-        <td><span class="${exDateClass}">${exDate}</span></td>
-        <td><span class="date-tag ${daysLeft > 0 ? 'upcoming' : 'past'}">${holdLabel}</span></td>
-        <td><span class="date-tag">${payPeriod}</span></td>
+        <td class="dps">${s._totalDps.toLocaleString()}원</td>
+        <td><span class="date-tag ${dateClass}">${s._nextDate}</span></td>
+        <td class="dps">${s._nextDps.toLocaleString()}원</td>
+        <td><div class="dividend-row">${events}</div></td>
       </tr>`;
     }).join('')}</tbody>
   </table>
-  ${filteredStocks.length > 100 ? `<div style="text-align:center;padding:12px;color:var(--text-dim);font-size:12px">상위 100개 표시 (전체 ${filteredStocks.length}개)</div>` : ''}`;
+  ${filteredStocks.length > 150 ? `<div style="text-align:center;padding:12px;color:var(--text-dim);font-size:12px">상위 150개 표시 (전체 ${filteredStocks.length}개)</div>` : ''}`;
 
-  // Sort on header click
   wrap.querySelectorAll('th[data-key]').forEach(th => {
     th.addEventListener('click', () => {
       const key = th.dataset.key;
-      if (currentSort.key === key) currentSort.dir = currentSort.dir === 'desc' ? 'asc' : 'desc';
-      else { currentSort.key = key; currentSort.dir = 'desc'; }
+      if (currentSort.key === key) currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      else { currentSort.key = key; currentSort.dir = 'asc'; }
       applySort();
       renderTable();
     });
@@ -437,13 +442,6 @@ function setMarket(m) {
   if (allStocks.length) filterAndRender();
 }
 
-function sortAndRefresh() {
-  currentSort = { key: 'yield', dir: 'desc' };
-  if (allStocks.length) filterAndRender();
-  else fetchData();
-}
-
-// ===== AUTO INIT =====
 fetchData();
 </script>
 </body>
