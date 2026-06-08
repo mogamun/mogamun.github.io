@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
-import KitLayout from '@/components/KitLayout';
-import SEO from '@/components/SEO';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
+import KitLayout from '../components/KitLayout';
+import SEO from '../components/SEO';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const shimmerAnim = keyframes`
   0%   { transform: translateX(-100%) skewX(-12deg); }
