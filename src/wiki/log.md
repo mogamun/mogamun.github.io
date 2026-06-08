@@ -7,6 +7,27 @@ category: log.md
 
 > Append-only chronological record of all wiki operations.
 
+## [2026-06-08] ingest | Gemma 4 QAT — 양자화 인식 학습으로 모바일·에지 최적화
+- Ingested: raw/2026-06-06-gemma4-qat.md
+- Added: wiki/sources/gemma4-qat.md, wiki/entities/litert-lm.md, wiki/concepts/quantization-aware-training.md
+- Updated: wiki/index.md, wiki/log.md, wiki/entities/autopenna.md
+- Key insight: QAT로 Gemma 4 E2B가 1GB 미만 메모리로 동작 → 스마트폰 온디바이스 LLM 현실화
+
+## [2026-06-03] work | stashYoutube — 다운로드/자막 번역 팝업 매니저
+- Added: raw/2026-06-03-yousstash-work-popup-job-managers.md
+- Updated: DownloadStatus sticky bar를 하단 런처 + 다운로드/자막 팝업 매니저로 교체
+- Key insight: 진행 UI는 화면 상단을 점유하는 bar보다 팝업 매니저가 대기/완료/실패 목록을 넓게 보여주기 좋다.
+
+## [2026-06-03] work | stashYoutube — 영상 평가 이동 후 다음 재생 플로우 개선
+- Added: raw/2026-06-03-yousstash-work-review-move-next.md
+- Updated: PlayerContext removeAndPlayNext, PlayerOverlay 숫자키/버튼 이동, files.js 이동 충돌 방어
+- Key insight: 시리즈 카드 재생 시 playlistRef는 시리즈만 담을 수 있으므로 평가 이동 후 다음 영상은 현재 폴더 전체 videos 목록 기준으로 계산해야 한다.
+
+## [2026-05-28] work | multiagent — Report Template 팝업 모달 및 리포트 워크플로우 변경
+- Added: raw/2026-05-28-multiagent-work-report-template-modal.md
+- Source project: multiagent (Hono+Vite+React+Tailwind)
+- Key insight: 리포트 받아보기 버튼을 send-direct 기반으로 변경, 투자자 데이터(기관/외국인 보유비율·순매수) DB 조회 API 추가
+
 ## [2026-05-16] work | Autopenna — LiteRT Gemma 서버 자동 관리
 - Added: raw/2026-05-16-autopenna-work-litert-gemma-runtime-management.md
 - Updated: `server/features/llm/litertServer.ts`, `litert.ts`, `index.ts`
@@ -17,6 +38,12 @@ category: log.md
 - Server: thumbnails.js (404→SVG placeholder 200), subtitles.js (신규 /api/subtitle-status), config.js (moveFolders GET/POST)
 - Frontend: VideoCard 폴링 교체, subtitle/api.ts notifyQueued 래퍼, App.tsx 이벤트 폴링 트리거, MoveDropZones 위젯 신규, SettingsPage 1~5 폴더 섹션
 - Key insight: dataTransfer.types로 드래그 종류를 구별해 무관한 드래그에 드롭존을 띄우지 않는 패턴. 콘솔 404는 "응답을 다르게" 주는 게 가장 단순한 해결책 (placeholder/상태 JSON 200).
+
+## [2026-06-05] ingest | AI 뉴스 — Claude Oceanus, 재귀적 자기 개선, Agent Arena
+- Ingested: raw/2026-06-05-ai-news-oceanus.md
+- Added: wiki/sources/ai-news-2026-06-05.md
+- Updated: wiki/entities/claude-code.md (성능 지표: 성공률 40%→70%, 인당 3배, 분기당 8배, 80% Claude 작성), wiki/index.md, wiki/log.md
+- Key insight: Anthropic이 재귀적 자기 개선 경로가 현실화하고 있다고 공식 연구 발표. Claude Code 성공률 40%→70%, 병합 코드 80%를 Claude가 작성, 16시간+ 자율 작업. "Verification Debt" 개념 등장 — AI 코드 폭발에 리뷰는 스케일하지 않음. Agent Arena 벤치마크에서 Opus 4.7 with thinking이 2위. Nemotron 3 Ultra가 GPT-5.5 대비 10배 저렴.
 
 ## [2026-05-13] ingest | Hermes Google Chat 연동 가이드 (2번째 Hermes 설치 영상)
 - Ingested: raw/2026-05-13-hermes-google-chat-setup.md

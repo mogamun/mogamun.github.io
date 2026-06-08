@@ -1,7 +1,7 @@
 ---
 title: autopenna
 created: 2026-04-22
-updated: 2026-05-16
+updated: 2026-06-08
 tags: [project, react, typescript, capacitor, mobile-app, vite7, zustand]
 status: stable
 category: entities
@@ -57,3 +57,5 @@ cp android/app/build/outputs/apk/debug/app-debug.apk "/Volumes/Vol3So/autopenna-
 - CLAUDE.md — 프로젝트 루트 설정 파일
 - [모바일앱 개발 지침](/wiki/sources/mobile-app-guidelines/)
 - [빌드 파이프라인 상세](/wiki/../raw/2026-04-24-autopenna-work-build-pipeline/)
+- [Gemma 4 QAT](/wiki/sources/gemma4-qat/) — QAT로 E2B <1GB, autopenna 기기 지원 확대 가능
+- [LiteRT-LM](/wiki/entities/litert-lm/) — autopenna에서 사용하는 로컬 Gemma4 런타임

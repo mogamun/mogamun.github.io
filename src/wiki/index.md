@@ -16,6 +16,8 @@ category: index.md
 - [overview](/wiki/overview/) — 위키 전체에 대한 고수준 종합 (2026-04-16)
 
 ## Sources
+- [gemma4-qat](/wiki/sources/gemma4-qat/) — Gemma 4 QAT: 양자화 인식 학습, E2B <1GB, 모바일 4대 최적화, LiteRT-LM, MTP 보존 (2026-06-08)
+- [ai-news-2026-06-05](/wiki/sources/ai-news-2026-06-05/) — Claude Oceanus, 재귀적 자기 개선, GPT-5.6 Jewel Alpha, Nemotron 3 Ultra, Agent Arena 벤치마크 (2026-06-05)
 - [hermes-codex-setup](/wiki/sources/hermes-codex-setup/) — Hermes Agent X Codex 실전 설정: 추가 비용 제로, Slack 연동, Wave Terminal, VPS 원클릭 (2026-05-13)
 - [hermes-agent-v2](/wiki/sources/hermes-agent-v2/) — Hermes Agent v0.13.0 "Tenacity": Computer Use (KUA), WebUI 칸반, /goal 자율 모드, Qwen 3.6 Plus 무료 (2026-05-13)
 - [claudagent-view](/wiki/sources/claudagent-view/) — Claude Code Agent View: 터미널 멀티 세션 TUI, 5상태 관리, 병렬 디스패치, 독립 worktree, 수퍼바이저 아키텍처 (2026-05-13)
@@ -61,6 +63,7 @@ category: index.md
 - [heyjames-claude-code-frameworks](/wiki/sources/heyjames-claude-code-frameworks/) — 헤이제임스: Superpowers vs GSD vs gstack 비교, Claude 코딩 프레임워크 3종 (2026-04-24)
 
 ## Entities
+- [litert-lm](/wiki/entities/litert-lm/) — Google 온디바이스 LLM 추론 런타임, LiteRT 기반, MTP 2.2x 가속, Gemma 4 E2B/E4B (2026-06-08)
 - [agentmemory](/wiki/entities/agentmemory/) — AI 코딩 에이전트용 영구 메모리 엔진, iii engine 기반, 51 MCP tools, 16 에이전트 지원 (2026-05-12)
 - [pi](/wiki/entities/pi/) — 미니멀 터미널 코딩 하네스, TypeScript 확장, 세션 트리, 수백 모델, OpenClaw 기반 (2026-05-08)
 - [hermes-agent](/wiki/entities/hermes-agent/) — Nous Research 독립 자가 개선 AI 에이전트, v0.12.0 Curator, 8 백엔드, 19 메시징, 200+ 모델 (2026-05-06)
@@ -98,6 +101,7 @@ category: index.md
 - [gstack](/wiki/gstack/) — Claude Code 23역할 리뷰 게이트 프레임워크 (71K stars, Garry Tan/YC CEO) (2026-04-24)
 
 ## Concepts
+- [quantization-aware-training](/wiki/concepts/quantization-aware-training/) — 학습 중 양자화 시뮬레이션으로 압축 품질 손실 최소화, PTQ 대비 우위, 모바일 4대 최적화 기법 (2026-06-08)
 - [memory-consolidation-tiers](/wiki/concepts/memory-consolidation-tiers/) — 4-Tier 기억 모델: Working→Episodic→Semantic→Procedural, Ebbinghaus 감쇠, 모순 해결 (2026-05-12)
 - [iii-engine](/wiki/concepts/iii-engine/) — 웹 스택 통합 런타임: Functions+Triggers+KV State 3원시, Workers 확장, 내장 OTEL (2026-05-12)
 - [agent-teams](/wiki/concepts/agent-teams/) — Claude Code Agent Teams: Mailbox/Task List/Spawn 협업 모델, Subagent 전환 기준, 이중 할당 구조 (2026-05-09)
@@ -178,4 +182,4 @@ _설치/설정 가이드 (단계별)_
 - [port-env-override](/wiki/corrections/port-env-override/) — **HIGH** 전역 환경변수 PORT로 포트 충돌 + 다른 서비스 kill 사고. 해결: 포트 상수 하드코딩, run.sh로만 구동, 광역 kill 금지 (2026-04-24)
 
 ---
-_Stats: 43 sources | 144 pages | Last updated: 2026-05-16_
+_Stats: 45 sources | 148 pages | Last updated: 2026-06-08_

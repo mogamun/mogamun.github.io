@@ -1,7 +1,7 @@
 ---
 title: Claude Code
 created: 2026-04-16
-updated: 2026-05-13
+updated: 2026-06-05
 tags: [entity, tool, anthropic, cli, ai-agent]
 sources: [claude-code-game-studios.md, 2026-04-22-geeknews-weekly-352.md, 2026-04-22-playwright-mcp-setup.md, 2026-04-27-claude-mcp-production-agents.md, 2026-04-29-claude-managed-agents-memory.md, 2026-05-09-claude-code-hookify-plugin.md, 2026-05-12-agentmemory.md, 2026-05-13-claude-agent-view.md]
 status: stable
@@ -85,6 +85,13 @@ category: entities
 - 필터링: `a:<agent>`, `s:<state>`, `#<PR-number>`, PR 상태 컬러 점
 - CLI 전용 (데스크탑 앱 미지원)
 - 공식 문서: https://code.claude.com/docs/en/agent-view
+
+### 성능 지표 (Anthropic 내부 데이터, 2026-06)
+- Mythos 도입 후 Claude Code 성공률: 40% → 70% (개방형 엔지니어링 태스크)
+- 인당 코드 생산: 6개월 전 대비 3배 증가
+- 분기당 코드 생산: 8배 증가 (vs 2021-2025)
+- 병합 코드 중 Claude 작성 비율: 80%
+- Mythos 자율 작업 시간: 16시간+
 
 ### Agent Teams (실험적)
 - 여러 에이전트가 팀으로 협업: Mailbox(직접 메시지), Task List(공유 작업), Spawn(팀원 생성)
