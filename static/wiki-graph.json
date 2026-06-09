@@ -193,6 +193,12 @@
       "val": 3.4000000000000004
     },
     {
+      "id": "/wiki/concepts/quantization-aware-training/",
+      "title": "quantization-aware-training",
+      "category": "concepts",
+      "val": 3
+    },
+    {
       "id": "/wiki/concepts/rag/",
       "title": "rag",
       "category": "concepts",
@@ -244,7 +250,7 @@
       "id": "/wiki/concepts/verification-driven-development/",
       "title": "verification-driven-development",
       "category": "concepts",
-      "val": 3.8000000000000003
+      "val": 4.2
     },
     {
       "id": "/wiki/concepts/vibe-coding-cheatkey/",
@@ -298,7 +304,7 @@
       "id": "/wiki/entities/autopenna/",
       "title": "autopenna",
       "category": "entities",
-      "val": 3
+      "val": 4.2
     },
     {
       "id": "/wiki/entities/claude-code/",
@@ -387,6 +393,12 @@
     {
       "id": "/wiki/entities/keygraph/",
       "title": "keygraph",
+      "category": "entities",
+      "val": 2.6
+    },
+    {
+      "id": "/wiki/entities/litert-lm/",
+      "title": "litert-lm",
       "category": "entities",
       "val": 2.6
     },
@@ -634,7 +646,7 @@
       "id": "/wiki/sources/agent-teams/",
       "title": "agent-teams",
       "category": "sources",
-      "val": 4.6
+      "val": 5
     },
     {
       "id": "/wiki/sources/agentmemory/",
@@ -649,6 +661,12 @@
       "val": 2.2
     },
     {
+      "id": "/wiki/sources/ai-news-2026-06-05/",
+      "title": "ai-news-2026-06-05",
+      "category": "sources",
+      "val": 3.8000000000000003
+    },
+    {
       "id": "/wiki/sources/caveman-token-reduction/",
       "title": "caveman-token-reduction",
       "category": "sources",
@@ -658,7 +676,7 @@
       "id": "/wiki/sources/claudagent-view/",
       "title": "claudagent-view",
       "category": "sources",
-      "val": 3.8000000000000003
+      "val": 4.2
     },
     {
       "id": "/wiki/sources/claude-code-game-studios/",
@@ -718,7 +736,13 @@
       "id": "/wiki/sources/geeknews-weekly-352/",
       "title": "geeknews-weekly-352",
       "category": "sources",
-      "val": 5.800000000000001
+      "val": 6
+    },
+    {
+      "id": "/wiki/sources/gemma4-qat/",
+      "title": "gemma4-qat",
+      "category": "sources",
+      "val": 3.8000000000000003
     },
     {
       "id": "/wiki/sources/gpt-image-2-15-use-cases/",
@@ -1463,6 +1487,22 @@
       "target": "/wiki/entities/mcp-protocol/"
     },
     {
+      "source": "/wiki/concepts/quantization-aware-training/",
+      "target": "/wiki/sources/gemma4-qat/"
+    },
+    {
+      "source": "/wiki/concepts/quantization-aware-training/",
+      "target": "/wiki/entities/litert-lm/"
+    },
+    {
+      "source": "/wiki/concepts/quantization-aware-training/",
+      "target": "/wiki/entities/autopenna/"
+    },
+    {
+      "source": "/wiki/concepts/quantization-aware-training/",
+      "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
       "source": "/wiki/concepts/rag/",
       "target": "/wiki/sources/llm-wiki-pattern/"
     },
@@ -1661,6 +1701,14 @@
     {
       "source": "/wiki/entities/autopenna/",
       "target": "/wiki/sources/mobile-app-guidelines/"
+    },
+    {
+      "source": "/wiki/entities/autopenna/",
+      "target": "/wiki/sources/gemma4-qat/"
+    },
+    {
+      "source": "/wiki/entities/autopenna/",
+      "target": "/wiki/entities/litert-lm/"
     },
     {
       "source": "/wiki/entities/claude-code/",
@@ -1889,6 +1937,10 @@
     {
       "source": "/wiki/entities/keygraph/",
       "target": "/wiki/sources/keygraph-shannon-ai-pentester/"
+    },
+    {
+      "source": "/wiki/entities/litert-lm/",
+      "target": "/wiki/sources/gemma4-qat/"
     },
     {
       "source": "/wiki/entities/managed-agents/",
@@ -2332,6 +2384,14 @@
     },
     {
       "source": "/wiki/index/",
+      "target": "/wiki/sources/gemma4-qat/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/sources/ai-news-2026-06-05/"
+    },
+    {
+      "source": "/wiki/index/",
       "target": "/wiki/sources/hermes-codex-setup/"
     },
     {
@@ -2504,6 +2564,10 @@
     },
     {
       "source": "/wiki/index/",
+      "target": "/wiki/entities/litert-lm/"
+    },
+    {
+      "source": "/wiki/index/",
       "target": "/wiki/entities/pi/"
     },
     {
@@ -2621,6 +2685,10 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/entities/gstack/"
+    },
+    {
+      "source": "/wiki/index/",
+      "target": "/wiki/concepts/quantization-aware-training/"
     },
     {
       "source": "/wiki/index/",
@@ -3215,6 +3283,26 @@
       "target": "/wiki/important/setup/ai-coding-frameworks-setup/"
     },
     {
+      "source": "/wiki/sources/ai-news-2026-06-05/",
+      "target": "/wiki/concepts/verification-driven-development/"
+    },
+    {
+      "source": "/wiki/sources/ai-news-2026-06-05/",
+      "target": "/wiki/entities/claude-code/"
+    },
+    {
+      "source": "/wiki/sources/ai-news-2026-06-05/",
+      "target": "/wiki/concepts/llm-harness-model/"
+    },
+    {
+      "source": "/wiki/sources/ai-news-2026-06-05/",
+      "target": "/wiki/sources/agent-teams/"
+    },
+    {
+      "source": "/wiki/sources/ai-news-2026-06-05/",
+      "target": "/wiki/sources/claudagent-view/"
+    },
+    {
       "source": "/wiki/sources/caveman-token-reduction/",
       "target": "/wiki/sources/geeknews-weekly-352/"
     },
@@ -3325,6 +3413,18 @@
     {
       "source": "/wiki/sources/geeknews-weekly-352/",
       "target": "/wiki/concepts/knowledge-repository-evolution/"
+    },
+    {
+      "source": "/wiki/sources/gemma4-qat/",
+      "target": "/wiki/sources/geeknews-weekly-352/"
+    },
+    {
+      "source": "/wiki/sources/gemma4-qat/",
+      "target": "/wiki/sources/ai-news-2026-06-05/"
+    },
+    {
+      "source": "/wiki/sources/gemma4-qat/",
+      "target": "/wiki/concepts/llm-harness-model/"
     },
     {
       "source": "/wiki/sources/gpt-image-2-15-use-cases/",
