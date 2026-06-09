@@ -44,11 +44,10 @@ Node.create({ group: 'inline', inline: true, atom: true })
 
 ## 실제 적용 사례
 
-- **Autopenna EffectMarker**: 텍스트 내 인라인 효과 마커 버튼 (클릭 → 효과 패널 열기)
 - **Mention/Tag 시스템**: @username, #tag를 인라인 컴포넌트로 렌더링
 - **수식 편집기**: 인라인 수식을 LaTeX 컴포넌트로 렌더링
+- **인라인 마커/배지**: 텍스트 흐름 내 클릭 가능한 UI 요소 삽입
 
 ## See also
 
 - [tiptap-rich-text-editor](/wiki/sources/tiptap-rich-text-editor/) — Tiptap 에디터 전체 개요
-- [autopenna](/wiki/autopenna/) — Autopenna의 EffectMarker 구현

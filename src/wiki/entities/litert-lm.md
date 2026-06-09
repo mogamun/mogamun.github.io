@@ -33,11 +33,9 @@ Google의 프로덕션급 경량 LLM 런타임. Gemma 4 모델을 Android, Chrom
 ## 관련 프로젝트/맥락
 
 - **Gemma 4 QAT**: LiteRT-LM이 타겟 런타임. E2B 텍스트 전용 <1GB로 동작
-- **autopenna**: 로컬 Gemma4 LiteRT 서버를 health check 후 자동 시작하는 앱
 - **Transformers.js**: 브라우저 내 실행 대안
 
 ## See also
 
 - [Gemma 4 QAT](/wiki/sources/gemma4-qat/) — QAT 체크포인트 + LiteRT-LM 배포
-- [autopenna](/wiki/entities/autopenna/) — LiteRT 런타임 사용 모바일 앱
 - [QAT 개념](/wiki/concepts/quantization-aware-training/) — 양자화 인식 학습 원리

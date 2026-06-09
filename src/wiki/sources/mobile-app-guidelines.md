@@ -1,9 +1,9 @@
 ---
 title: 모바일앱 개발 지침
 created: 2026-04-22
-updated: 2026-04-25
-tags: [source, mobile, css, build, autopenna, capacitor, native-plugin]
-sources: [모바일앱 지침.md, autopenna 빌드 파이프라인, ilgisseoyeong 네이티브 플러그인 트러블슈팅]
+updated: 2026-06-09
+tags: [source, mobile, css, build, capacitor, native-plugin]
+sources: [모바일앱 지침.md]
 status: stable
 category: sources
 ---
@@ -21,7 +21,7 @@ category: sources
 - 오버레이는 `absolute inset-0`로 내부 div 안에 자동 제한
 - 핵심: 오버레이가 안전 영역 밖으로 벗어나지 않도록 중첩 구조로 제한
 
-## APK 빌드 파이프라인 (autopenna 기준)
+## Capacitor + Vite APK 빌드 파이프라인
 
 ### 필수 순서
 ```
@@ -37,7 +37,7 @@ vite, typescript, tailwindcss, @vitejs/plugin-react 모두 devDependencies.
 
 ### 2. Vite 빌드
 ```bash
-npx tsx scripts/sync-server-data.ts && npx vite build
+npx vite build
 ```
 - `npm run build`는 `tsc -b && vite build`이나, 기존 tsc 에러로 실패 가능
 - vite build만 실행하면 정상 빌드 (vite는 타입체크 안함)
@@ -52,11 +52,6 @@ npx cap sync android
 cd android && ./gradlew assembleDebug
 ```
 APK: `android/app/build/outputs/apk/debug/app-debug.apk`
-
-### 5. APK 복사
-```bash
-cp android/app/build/outputs/apk/debug/app-debug.apk "/Volumes/Vol3So/autopenna-debug.apk"
-```
 
 ### Vite 버전 호환성
 - `vite@8.x` 사용 불가 — `@vitejs/plugin-react@4.7.0`이 vite ^4-7 까지만 지원
@@ -80,9 +75,6 @@ cp android/app/build/outputs/apk/debug/app-debug.apk "/Volumes/Vol3So/autopenna-
 ## 원문 인용
 > 안전 영역: 외부 div에 env(safe-area-inset-*) 패딩, 내부 div에 relative로 오버레이 포함 — 오버레이는 absolute inset-0로 내부 div 안에 자동 제한
 > npm 11은 기본 omit=dev → npm install --include=dev 필수
-> APK 복사: "/Volumes/Vol3So/autopenna-debug.apk"
 
 ## See also
-- [autopenna](/wiki/entities/autopenna/)
 - [safe-area-inset](/wiki/concepts/safe-area-inset/)
-- [빌드 파이프라인 상세](/wiki/../raw/2026-04-24-autopenna-work-build-pipeline/)

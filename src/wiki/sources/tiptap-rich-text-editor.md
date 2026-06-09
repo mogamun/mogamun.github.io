@@ -47,7 +47,6 @@ ProseMirror 기반 헤드리스 리치 텍스트 에디터 프레임워크. Reac
 
 ## See also
 
-- [autopenna](/wiki/autopenna/) — Autopenna 뷰어에서 인라인 효과 마커에 Tiptap 사용
 - [prosemirror](/wiki/prosemirror/) — Tiptap의 기반 기술
 - [react-node-view](/wiki/react-node-view/) — React Node Views 패턴
 - [rich-text-inline-widgets](/wiki/rich-text-inline-widgets/) — 텍스트 내 인라인 위젯 패턴

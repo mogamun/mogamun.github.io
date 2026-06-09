@@ -76,25 +76,20 @@ category: index.md
 - [mcp-protocol](/wiki/entities/mcp-protocol/) — AI 에이전트-외부 시스템 연결 프로토콜 (CIMD, Vaults, MCP Apps, 3억 다운로드/월) (2026-04-27)
 - [figma](/wiki/figma/) — 웹 기반 디자인 협업 도구, 공식 MCP 서버 제공 (13개 Tool, Write to Canvas) (2026-04-24)
 - [goddaehee](/wiki/goddaehee/) — 한국어 기술 블로거, MCP 추천 시리즈 연재 (2026-04-24)
-- [figma-project](/wiki/figma-project/) — 영어APP Figma→HTML 변환 프로젝트 (10화면, Figma MCP) (2026-04-24)
 - [prosemirror](/wiki/prosemirror/) — 웹 구조화 콘텐츠 편집 프레임워크, Tiptap 기반 기술 (2026-04-23)
 - [donchitos](/wiki/donchitos/) — Claude Code Game Studios 오픈소스 작성자 (GitHub) (2026-04-16)
 - [claude-code](/wiki/claude-code/) — Anthropic AI 코딩 CLI 도구, 이 위키의 실행 환경 (2026-04-16)
 - [arrays-devbook](/wiki/arrays-devbook/) — Unity ECS/DOTS 게임 개발 유튜브 채널 (2026-04-16)
-- [autopenna](/wiki/entities/autopenna/) — 웹/dev 서버가 로컬 Gemma4 LiteRT 런타임을 health check 후 자동 관리하는 인터랙티브 스토리 앱 (2026-05-16)
 - [geeknews](/wiki/geeknews/) — 한국어 기술 뉴스 큐레이션 플랫폼 (2026-04-22)
 - [karpathy](/wiki/karpathy/) — AI 연구자, LLM Wiki 패턴의 영감 원천 (2026-04-22)
 - [weekdaycode](/wiki/weekdaycode/) — 한국어 AI 코딩 유튜브 채널 (2026-04-22)
 - [gymcoding](/wiki/gymcoding/) — 한국어 AI 코딩 유튜브 채널, LLM Wiki 대중화 (2026-04-22)
-- [stashyoutube](/wiki/stashyoutube/) — 네트워크 폴더 기반 비디오 스트리밍 웹 앱 (React+Vite+TS+Express) (2026-04-22)
-- [multiagent](/wiki/multiagent/) — AI 에이전트 코디네이션 채팅 서버 (Hono+Vite+React+Tailwind) (2026-04-22)
 - [ttj](/wiki/ttj/) — 코딩 수익화 유튜버, 바이브 코딩 입문 시리즈, 치트키 15 가이드북 (2026-04-23)
 - [modueu-myeongjak](/wiki/modueu-myeongjak/) — 한국어 애니메이션 심도 분석 유튜브 채널 (2026-04-23)
 - [aikorea-community](/wiki/aikorea-community/) — 한국어 AI 커뮤니티/뉴스 플랫폼 (2026-04-23)
 - [shannon](/wiki/shannon/) — Keygraph 자율 AI 침투테스트 도구 (Claude Agent SDK, XBOW 96.15%) (2026-04-23)
 - [keygraph](/wiki/keygraph/) — AI 보안 테스트 기업 (Shannon 개발사) (2026-04-23)
 - [source-playground](/wiki/source-playground/) — 소스놀이터: AI 도구 실전 시연 유튜브 채널 (2026-04-24)
-- [ilgisseoyeong](/wiki/ilgisseoyeong/) — 영어 일기 작성 + AI 교정 모바일 앱 (React+Capacitor+Gemma) (2026-04-24)
 - [heyjames](/wiki/heyjames/) — 한국어 AI 코딩 유튜브 채널, Claude Code 프레임워크 비교 분석 (2026-04-24)
 - [superpowers](/wiki/superpowers/) — Claude Code TDD 강제 워크플로우 프레임워크 (149K stars, 6 에이전트) (2026-04-24)
 - [gsd](/wiki/gsd/) — Claude Code 컨텍스트 격리 프레임워크 (51K stars, 14+ 에이전트) (2026-04-24)
@@ -178,8 +173,5 @@ _설치/설정 가이드 (단계별)_
 
 ---
 
-## Corrections
-- [port-env-override](/wiki/corrections/port-env-override/) — **HIGH** 전역 환경변수 PORT로 포트 충돌 + 다른 서비스 kill 사고. 해결: 포트 상수 하드코딩, run.sh로만 구동, 광역 kill 금지 (2026-04-24)
-
 ---
-_Stats: 45 sources | 148 pages | Last updated: 2026-06-08_
+_Stats: 45 sources | 148 pages | Last updated: 2026-06-09_

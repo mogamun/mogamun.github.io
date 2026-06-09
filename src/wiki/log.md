@@ -10,34 +10,9 @@ category: log.md
 ## [2026-06-08] ingest | Gemma 4 QAT — 양자화 인식 학습으로 모바일·에지 최적화
 - Ingested: raw/2026-06-06-gemma4-qat.md
 - Added: wiki/sources/gemma4-qat.md, wiki/entities/litert-lm.md, wiki/concepts/quantization-aware-training.md
-- Updated: wiki/index.md, wiki/log.md, wiki/entities/autopenna.md
+- Updated: wiki/index.md, wiki/log.md
 - Key insight: QAT로 Gemma 4 E2B가 1GB 미만 메모리로 동작 → 스마트폰 온디바이스 LLM 현실화
 
-## [2026-06-03] work | stashYoutube — 다운로드/자막 번역 팝업 매니저
-- Added: raw/2026-06-03-yousstash-work-popup-job-managers.md
-- Updated: DownloadStatus sticky bar를 하단 런처 + 다운로드/자막 팝업 매니저로 교체
-- Key insight: 진행 UI는 화면 상단을 점유하는 bar보다 팝업 매니저가 대기/완료/실패 목록을 넓게 보여주기 좋다.
-
-## [2026-06-03] work | stashYoutube — 영상 평가 이동 후 다음 재생 플로우 개선
-- Added: raw/2026-06-03-yousstash-work-review-move-next.md
-- Updated: PlayerContext removeAndPlayNext, PlayerOverlay 숫자키/버튼 이동, files.js 이동 충돌 방어
-- Key insight: 시리즈 카드 재생 시 playlistRef는 시리즈만 담을 수 있으므로 평가 이동 후 다음 영상은 현재 폴더 전체 videos 목록 기준으로 계산해야 한다.
-
-## [2026-05-28] work | multiagent — Report Template 팝업 모달 및 리포트 워크플로우 변경
-- Added: raw/2026-05-28-multiagent-work-report-template-modal.md
-- Source project: multiagent (Hono+Vite+React+Tailwind)
-- Key insight: 리포트 받아보기 버튼을 send-direct 기반으로 변경, 투자자 데이터(기관/외국인 보유비율·순매수) DB 조회 API 추가
-
-## [2026-05-16] work | Autopenna — LiteRT Gemma 서버 자동 관리
-- Added: raw/2026-05-16-autopenna-work-litert-gemma-runtime-management.md
-- Updated: `server/features/llm/litertServer.ts`, `litert.ts`, `index.ts`
-- Key insight: 웹/dev 서버는 로컬 Gemma4 LiteRT 런타임을 health check 후 tmux로 자동 시작할 수 있다. 다만 Autopenna dev 서버의 `PORT=9231`이 자식 프로세스에 상속될 수 있으므로 Gemma 시작 시 `PORT=8088`을 명시해야 한다.
-
-## [2026-05-15] work | stashYoutube — 썸네일/자막 404 청소 + 자막 큐 표시 + 1~5 드롭존
-- Added: raw/2026-05-15-yousstash-work-thumbnail-subtitle-dropzone.md
-- Server: thumbnails.js (404→SVG placeholder 200), subtitles.js (신규 /api/subtitle-status), config.js (moveFolders GET/POST)
-- Frontend: VideoCard 폴링 교체, subtitle/api.ts notifyQueued 래퍼, App.tsx 이벤트 폴링 트리거, MoveDropZones 위젯 신규, SettingsPage 1~5 폴더 섹션
-- Key insight: dataTransfer.types로 드래그 종류를 구별해 무관한 드래그에 드롭존을 띄우지 않는 패턴. 콘솔 404는 "응답을 다르게" 주는 게 가장 단순한 해결책 (placeholder/상태 JSON 200).
 
 ## [2026-06-05] ingest | AI 뉴스 — Claude Oceanus, 재귀적 자기 개선, Agent Arena
 - Ingested: raw/2026-06-05-ai-news-oceanus.md
@@ -86,10 +61,6 @@ category: log.md
 - Updated: wiki/entities/claude-code.md (플러그인 생태계 섹션, See also), wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: Hookify는 복잡한 hooks.json 대신 마크다운 파일로 훅을 생성하는 사용성 추상화. 자연어로 규칙을 만들고 즉시 적용. Claude Code의 훅 시스템(PreToolUse/PostToolUse/Stop) 위에 마크다운 레이어를 얹어 "훅의 민주화" 실현.
 
-## [2026-05-08] note | AnimatedSceneBackground 전역화 및 색상 스키마 시스템
-- Added: raw/2026-05-08-autopenna-animated-bg-global.md
-- Source project: Autopenna
-- Key insight: dangerouslySetInnerHTML CSS 주입은 Android WebView에서 불안정 → 반드시 index.css로 이동. GlobalBackground 단일 컴포넌트로 모든 페이지 커버.
 
 ## [2026-05-08] ingest | Pi 터미널 코딩 하네스 리뷰
 - Ingested: raw/2026-05-08-pi-terminal-coding-harness.md
@@ -109,47 +80,6 @@ category: log.md
 - Updated: wiki/entities/hermes-agent.md (아키텍처 섹션 추가), wiki/comparisons/openclaw-vs-hermes-agent.md (Discord/CLI 차이점 추가), wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: Hermes는 "LLM + Harness" 모델 — 단순 래퍼가 아닌 통제 도구 결합. 클로즈 루프 학습(경험→스킬→개선→회상)이 코어. 메모리와 대화 기록의 분리가 핵심 설계.
 
-## [2026-05-06] work | autopenna 등장인물 배치 시스템 1차 구현
-- Added: raw/2026-05-06-autopenna-work-casting-system-implementation.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: 캐스팅 시스템은 `CastCharacter`/`CastingPlan`을 별도 계층으로 두고, 게임은 자동 캐스팅 후 자동 진행, 글쓰기/커스텀은 수동 배치를 제공했다. 스토리 전용 캐릭터는 메모리 없이 시작하고 메인 등장인물 승격 후에만 메모리 대상이 된다.
-
-## [2026-05-06] work | autopenna 등장인물 배치 시스템 설계
-- Added: raw/2026-05-06-autopenna-work-casting-system-plan.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: 기존 `CharacterTemplate`을 직접 확장하기보다 캐스팅용 `CastCharacter`/`CastingPlan` 계층을 두면, 내장 캐릭터와 스토리 전용 적/네임드/조연을 같은 roster로 다루면서 공방 탭과 WorldFrame/연대기 입력을 안정적으로 연결할 수 있다. 게임은 자동 캐스팅 후 2초 뒤 자동 진행, 글쓰기/커스텀은 수동 캐스팅으로 확정.
-
-## [2026-05-06] work | autopenna Ollama 큐와 게임 진행 표시
-- Added: raw/2026-05-06-autopenna-work-ollama-queue-game-progress.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: 스토리 시작 메모리 피크는 모델 로드와 긴 context에 더해 서버 병렬 요청이 겹치면 악화될 수 있으므로, `chatOllamaStream()` 단일 진입점에서 promise chain 큐로 Ollama 호출을 직렬화하고 게임 생성 UI는 streaming text/progress로 대기 상태를 드러내야 한다.
-
-## [2026-05-06] work | autopenna WritingPage 점검 후 수정
-- Added: raw/2026-05-06-autopenna-work-writing-page-review-fixes.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: idle suggestion hook은 early return 이전에 항상 호출해야 하며, context 변경 cleanup 이후에도 idle timer를 재등록해야 한다. 페이지 변경은 debounce autosave로 persist 안정성을 보강했다.
-
-## [2026-05-06] work | autopenna WritingPage 시스템 계획 구현 보강
-- Added: raw/2026-05-06-autopenna-work-writing-page-system-plan-implementation.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: 페이지형 textarea 구현 위에 `useIdleSuggestion`, page splitter, 설정 토글, 페이지 CRUD, 새 페이지/단축키/빈 페이지 정리를 추가해 문서의 시스템 계획에 맞췄다.
-
-## [2026-05-05] work | autopenna WritingPage 페이지형 textarea 구현
-- Added: raw/2026-05-05-autopenna-work-paged-textarea-editor-implementation.md
-- Updated: wiki/log.md
-- Source project: autopenna
-- Key insight: 원고 입력은 Tiptap 대신 native textarea를 페이지 단위로 유지하고, hidden mirror pagination과 `Chapter.pages` 저장 동기화로 스크롤 없는 작성 UX를 구현했다.
-
-## [2026-05-05] work | autopenna LLM 미들웨어 + 캐릭터 채팅 메모리 계획
-- Added: raw/2026-05-05-autopenna-work-llm-middleware-character-chat-memory-plan.md
-- Updated: wiki/entities/autopenna.md, wiki/log.md
-- Source project: autopenna
-- Key insight: 웹 LLM 호출은 Hono 미들웨어가 로컬 Ollama와 통신하고, 캐릭터 채팅 메모리 합성/저장은 서버 통합 endpoint가 맡는다.
 
 ## [2026-04-29] ingest | Warp Terminal — 오픈소스화 + 자동완성 아키텍처
 - Ingested: raw/2026-04-29-warp-terminal.md
@@ -199,20 +129,6 @@ category: log.md
 - Updated: wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: Claude Code 프레임워크 3종이 각각 다른 축(실행/컨텍스트/의사결정)을 최적화하며 레이어 조합 가능. gstack(결정) → GSD(환경) → Superpowers(실행). Context rot 임계값(0-30%/50%/70%)은 "구조가 곧 프롬프트" 테제의 실증 — 구조 없이 컨텍스트만 채우면 품질 저하 불가피.
 
-## [2026-04-25] work | ilgisseoyeong GemmaAIEngine 네이티브 플러그인 트러블슈팅
-- Added: raw/2026-04-25-ilgisseoyeong-work-native-plugin-troubleshooting.md
-- Updated: wiki/sources/mobile-app-guidelines.md (Capacitor 플러그인 복제 체크리스트, Android 11+ 권한), wiki/index.md, wiki/log.md
-- Key insight: "그대로 복제"인데 문제 발생한 근본 원인 = Kotlin 소스 유실 + 빌드 캐시 의존. 5개 연쇄 문제: JS정의 누락 → plugins.json 미등록 → AAR DEX 누락 → MANAGE_EXTERNAL_STORAGE → LiteRTLM SDK 누락. 해결: 라이브러리 모듈 래핑 + Maven 의존성 추가.
-
-## [2026-04-24] setup | ilgisseoyeong (일기써영) LLM Wiki 연동
-- Added: raw/2026-04-24-project-ilgisseoyeong-setup.md, wiki/entities/ilgisseoyeong.md
-- Updated: wiki/index.md, wiki/log.md
-- Key insight: autopenna에서 일기써영(영어 일기 앱)으로 마이그레이션. 게임/스토리 코드 삭제, AI 교정 기능 유지. 기술 스택: React 19 + TypeScript 6 + Vite 7 + Capacitor 8 + Zustand 5 + Gemma
-
-## [2026-04-24] setup | figma (영어APP) LLM Wiki 연동
-- Added: raw/2026-04-24-project-figma-setup.md, wiki/entities/figma-project.md
-- Updated: wiki/index.md (entities), wiki/log.md
-- Key insight: 영어APP Figma→HTML 변환 프로젝트에 LLM Wiki 연동. 피그마 파일 10화면 + 디자인시스템 4페이지. 기술 스택: Figma MCP → HTML/CSS/JS.
 
 ## [2026-04-24] ingest | 갓대희 — Figma MCP 설치 및 사용방법
 - Ingested: raw/2026-04-24-goddaehee-figma-mcp-setup.md
@@ -220,15 +136,6 @@ category: log.md
 - Updated: wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: Figma MCP는 양방향 도구 — Figma→Code뿐 아니라 Code→Figma 역캡처도 가능. 스크린샷 대신 구조화된 메타데이터 전달이 픽셀 퍼펙트의 핵심. 13개 Tool 체계적 호출 순서 존재. "구조가 곧 프롬프트" 테제와 직결.
 
-## [2026-04-24] work | autopenna 빌드 파이프라인 정리
-- Added: raw/2026-04-24-autopenna-work-build-pipeline.md
-- Updated: wiki/sources/mobile-app-guidelines.md (npm 11 --include=dev, vite 7, APK 경로 변경), wiki/index.md, wiki/entities/autopenna.md
-- Key insight: npm 11 기본 omit=dev로 devDependencies 미설치. `npm install --include=dev` 필수. vite 8.x는 @vitejs/plugin-react와 peer dep 충돌 → 7.x 사용. APK 복사 경로 `/Volumes/Vol3So/`.
-
-## [2026-04-22] setup | multiagent LLM Wiki 연동
-- Added: raw/2026-04-22-project-multiagent-setup.md, wiki/entities/multiagent.md
-- Updated: wiki/index.md, wiki/log.md
-- Key insight: multiagent에 LLM Wiki 자동 기록 지침 주입 완료. 기술 스택: Hono+Vite+React+Tailwind
 
 ## [2026-04-24] setup | Z AI MCP 서버 설정 기록
 - Added: raw/2026-04-24-setup-zai-mcp-server.md, wiki/important/setup/zai-mcp-server.md
@@ -241,12 +148,6 @@ category: log.md
 - Updated: wiki/index.md (sources, entities, stats), wiki/log.md, wiki/overview.md
 - Key insight: GPT 이미지 2.0의 수정 능력이 핵심 차별화. "AI 이미지는 생성보다 수정이 문제"인데 ChatGPT는 원하는 부분만 깔끔하게 수정 반영. 띵킹 모드로 자율 조사→추론→이미지 생성 파이프라인. 상세페이지, 랜딩페이지, 브랜드 키트 등 상업용 즉시 활용 가능. 숫자 계산도 정확.
 
-## [2026-04-24] correction | 전역 환경변수 PORT로 인한 포트 충돌 및 다른 서비스 kill 사고
-- Added: raw/2026-04-24-stashyoutube-correction-port-env-override.md, wiki/corrections/port-env-override.md
-- Severity: high
-- Updated: wiki/index.md, wiki/log.md
-- Source project: stashYoutube
-- Key insight: 프로젝트 포트는 상수로 하드코딩. process.env.PORT 사용 금지. 광역 kill 명령어 절대 금지. run.sh로만 서버 구동.
 
 ## [2026-04-24] ingest | 소스놀이터 — GPT 이미지 2.0 코덱스 웹툰 자동화 시연
 - Ingested: raw/2026-04-24-gpt-image-2-codex-webtoon.md (144줄 자막 전문)
@@ -258,7 +159,7 @@ category: log.md
 - Ingested: raw/2026-04-23-tiptap-rich-text-editor.md
 - Added: wiki/sources/tiptap-rich-text-editor.md, wiki/entities/prosemirror.md, wiki/concepts/react-node-view.md, wiki/important/setup/tiptap-react-setup.md
 - Updated: wiki/index.md, wiki/log.md, wiki/overview.md
-- Key insight: textarea는 인라인 UI 요소 배치가 불가능. contenteditable 기반 에디터(Tiptap)의 React Node Views가 해결책. `atom: true` + `inline: true` + `NodeViewWrapper as="span"` 조합으로 텍스트 내부에 버튼/마커 삽입. Autopenna 뷰어의 EffectMarker 구현에 적용.
+- Key insight: textarea는 인라인 UI 요소 배치가 불가능. contenteditable 기반 에디터(Tiptap)의 React Node Views가 해결책. `atom: true` + `inline: true` + `NodeViewWrapper as="span"` 조합으로 텍스트 내부에 버튼/마커 삽입.
 
 ## [2026-04-23] ingest | TTJ 바이브코딩 재컴파일 — 자막 전문 보존 파이프라인 적용
 - Ingested: raw/2026-04-23-ttj-vibe-coding-monetization-interviews-v2.md (4182줄), raw/2026-04-23-ttj-vibe-coding-cheatkey-15-v2.md (384줄), raw/2026-04-23-ttj-vibe-coding-basics-web-dev-v2.md (1005줄), 8개 쇼츠 raw 파일
@@ -278,8 +179,8 @@ category: log.md
 - Updated: wiki/concepts/multi-agent-hierarchy.md (Shannon 보안 테스트 실례 추가), wiki/concepts/agent-coordination.md (Shannon 병렬 조정 추가), wiki/concepts/verification-driven-development.md (보안 테스트 맥락 추가), wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: Shannon이 "구조가 곧 프롬프트" 테제의 강력한 실례. 5단계 파이프라인 구조가 AI에게 보안 테스트 방법을 암묵적으로 지시. "No Exploit, No Report" = VDD의 보안 적용. Claude Agent SDK 생태계가 보안 영역으로 확장.
 
-## [2026-04-23] ingest | 컴파일 배치 — Vibe to Spec, 시각화 스킨, stashYoutube
-- Ingested: raw/메타프롬프트 Vibe to Spec 앱 개발 기획 변환기2025-06-10T153302+0900.md, raw/클로드 100개 시각화 스킨 무료 배포! (Claude 3.7 Sonnet 시각화)2025-03-17T154622+0900.md, raw/2026-04-22-project-stashyoutube-setup.md
+## [2026-04-23] ingest | 컴파일 배치 — Vibe to Spec, 시각화 스킨
+- Ingested: raw/메타프롬프트 Vibe to Spec 앱 개발 기획 변환기2025-06-10T153302+0900.md, raw/클로드 100개 시각화 스킨 무료 배포! (Claude 3.7 Sonnet 시각화)2025-03-17T154622+0900.md
 - Added: wiki/sources/vibe-to-spec.md, wiki/concepts/vibe-to-spec.md, wiki/sources/claude-visualization-skins.md, wiki/concepts/visualization-prompt-template.md, wiki/entities/aikorea-community.md
 - Updated: wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: 두 소스 모두 "구조화된 프롬프트 템플릿" 패턴의 구체적 실례. Vibe to Spec은 페르소나+단계 구조로 비전문가→전문가 번역, 시각화 스킨은 스타일-콘텐츠 분리로 1프롬프트→100디자인. 둘 다 "구조가 곧 프롬프트" 테제의 새로운 층위.
@@ -296,10 +197,6 @@ category: log.md
 - Updated: wiki/index.md, wiki/log.md
 - Key insight: 바이브 코딩의 "이해=컨트롤"은 "구조가 곧 프롬프트" 테제와 동일. UI/UX 용어를 아는 것이 곧 프롬프트의 질을 결정. 클론 코딩 = 남의 소스를 분석해 자신의 지식으로 축적 = LLM Wiki 패턴과 동일. 모두의명작 포스트는 애니 콘텐츠로 위키 스코프 밖.
 
-## [2026-04-22] setup | stashYoutube LLM Wiki 연동
-- Added: raw/2026-04-22-project-stashyoutube-setup.md, wiki/entities/stashyoutube.md
-- Updated: wiki/index.md, wiki/log.md
-- Key insight: stashYoutube에 LLM Wiki 자동 기록 지침 주입 완료. 기술 스택: React 19 + Vite 7 + TypeScript 5.9 + Express 4
 
 ## [2026-04-22] ingest | claude-context 시맨틱 코드 검색
 - Ingested: raw/2026-04-22-claude-context-semantic-search.md
@@ -321,7 +218,7 @@ category: log.md
 
 ## [2026-04-22] ingest | 컴파일 배치 — Caveman, GN#352
 - Ingested: raw/2026-04-22-caveman-token-reduction.md, raw/2026-04-22-geeknews-weekly-352.md, raw/2026-04-22-youtube-post-access-failed-1.md, raw/2026-04-22-youtube-post-access-failed-2.md
-- Archived: raw/2026-04-22-pattern-uilens.md, raw/2026-04-22-project-autopenna-setup.md (기존 컴파일분)
+- Archived: raw/2026-04-22-pattern-uilens.md (기존 컴파일분)
 - Added: wiki/sources/caveman-token-reduction.md, wiki/sources/geeknews-weekly-352.md, wiki/concepts/brevity-accuracy-tradeoff.md, wiki/concepts/knowledge-repository-evolution.md, wiki/entities/geeknews.md, wiki/entities/karpathy.md
 - Updated: wiki/entities/claude-code.md (소스 유출, 내부 구조, 숨겨진 기능), wiki/concepts/rag.md, wiki/concepts/memex.md, wiki/concepts/compounding-artifact.md, wiki/synthesis/structure-as-implicit-prompt.md, wiki/index.md, wiki/log.md, wiki/overview.md
 - Key insight: GN#352 에디토리얼이 LLM Wiki 패턴을 공식 큐레이션. "간결성=정확성"은 "구조가 곧 프롬프트" 테제의 새로운 층위. YouTube community post는 yt-dlp/webReader/WebSearch 모두 접근 불가.
@@ -331,10 +228,6 @@ category: log.md
 - Updated: wiki/index.md, wiki/log.md
 - Key insight: UILens는 3개 파일(Context + Sheet + useLongPress)만으로 어떤 React 프로젝트에든 이식 가능. 핵심은 UILensInfo 인터페이스 — tags는 모든 요소에 필수, promptTemplate은 AI 버튼에만 선택. 16개 AI 호출 지점과 일반 UI 요소에 적용 검증 완료.
 
-## [2026-04-22] setup | autopenna LLM Wiki 연동
-- Added: raw/2026-04-22-project-autopenna-setup.md, wiki/entities/autopenna.md
-- Updated: wiki/index.md, wiki/log.md
-- Key insight: autopenna에 LLM Wiki 자동 기록 지침 주입 완료. 기술 스택: React 19 + TypeScript + Vite 6 + Capacitor + Tailwind + Zustand + Gemma
 
 ## [2026-04-22] ingest | 컴파일 배치
 - Ingested: raw/모바일앱 지침.md, raw/이미지 프롬프트.md

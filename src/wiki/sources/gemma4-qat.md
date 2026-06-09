@@ -68,7 +68,6 @@ QAT는 학습 단계에서 낮은 정밀도 연산을 모의하여, 실제 양�
 
 ## See also
 
-- [autopenna](/wiki/entities/autopenna/) — 로컬 Gemma4 LiteRT 런타임 사용 앱, QAT로 기기 지원 확대 가능
 - [GeekNews Weekly #352](/wiki/sources/geeknews-weekly-352/) — Gemma 4 최초 발표 (2026-04-22)
 - [AI 뉴스 2026-06-05](/wiki/sources/ai-news-2026-06-05/) — Gemma 4 12B (Apache 2.0 로컬 멀티모달)
 - [LLM + Harness 모델](/wiki/concepts/llm-harness-model/) — 로컬 LLM 하네스 아키텍처

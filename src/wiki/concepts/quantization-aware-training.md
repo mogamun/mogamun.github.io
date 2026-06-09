@@ -38,5 +38,4 @@ category: concepts
 
 - [Gemma 4 QAT](/wiki/sources/gemma4-qat/) — Google 공식 QAT 체크포인트 발표
 - [LiteRT-LM](/wiki/entities/litert-lm/) — Google 온디바이스 LLM 추론 런타임
-- [autopenna](/wiki/entities/autopenna/) — 로컬 Gemma4 기반 모바일 앱
 - [LLM + Harness 모델](/wiki/concepts/llm-harness-model/) — 로컬 LLM 하네스 아키텍처

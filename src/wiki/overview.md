@@ -194,7 +194,7 @@ category: overview.md
 30. **Display Mode → Agent View: 멀티 세션 관리의 네이티브화**: Agent Teams의 Display Mode(Ingress/Split Panes)가 독립 TUI인 Agent View로 진화. tmux/iTerm2 분할의 외부 의존성 없이 `claude agents` 하나로 멀티 세션 오케스트레이션. 각 세션이 독립 git worktree에서 격리되고, 수퍼바이저 프로세스가 생명주기를 관리. "터미널에서 데스크탑 앱급 멀티 에이전트 경험"이 CLI의 범위를 확장
 31. **Computer Use의 오픈소스 도착**: Hermes Agent v0.13.0이 KUA 기반 백그라운드 컴퓨터 제어를 오픈소스로 구현. 커서 이동/키보드 포커스/Space 전환 없이 에이전트가 데스크탑을 조작하며, 비전 지원 모델(Claude, GPT, Gemini, VLM) 모두 호환. Codex 스타일 Computer Use의 오픈소스 대등물. "에이전트가 사용자 워크플로우를 방해하지 않으면서 병렬 작동"이 독립형 에이전트의 새로운 패러다임
 32. **칸반 보드 = 멀티 에이전트 오케스트레이션의 UI 패턴**: Hermes의 칸반 웹 UI와 Claude Code의 Agent View가 서로 다른 접근으로 같은 문제(멀티 에이전트 관리)를 해결. Hermes는 웹 기반 칸반 보드(To-Do→In Progress→Done), Claude Code는 터미널 TUI(5상태). /goal 명령으로 장기 자율 목표를 추적하는 패턴이 두 플랫폼에서 수렴 진화
-33. **QAT가 온디바이스 LLM의 실용성 임계점 돌파**: Gemma 4 E2B가 QAT + 모바일 특화 양자화로 1GB 미만 메모리 동작. "학습 중 양자화 시뮬레이션"이 PTQ의 품질 손실 한계를 돌파하며, 스마트폰에서 실제로 사용 가능한 LLM의 시대를 엶. autopenna 같은 로컬 Gemma4 앱의 기기 호환성을 획기적으로 확대
+33. **QAT가 온디바이스 LLM의 실용성 임계점 돌파**: Gemma 4 E2B가 QAT + 모바일 특화 양자화로 1GB 미만 메모리 동작. "학습 중 양자화 시뮬레이션"이 PTQ의 품질 손실 한계를 돌파하며, 스마트폰에서 실제로 사용 가능한 LLM의 시대를 엶
 ## Open Questions
 - 이 위키 자체의 구조가 "좋은 프롬프트"인가? — 위키 스키마를 AI에게 더 나은 프롬프트로 만드는 방법
 - ECS 철학을 LLM Wiki 에이전트 자체에 적용하면? — ingest/query/lint를 독립 시스템으로
