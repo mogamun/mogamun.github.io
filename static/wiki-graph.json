@@ -196,7 +196,7 @@
       "id": "/wiki/concepts/quantization-aware-training/",
       "title": "quantization-aware-training",
       "category": "concepts",
-      "val": 3
+      "val": 2.6
     },
     {
       "id": "/wiki/concepts/rag/",
@@ -271,12 +271,6 @@
       "val": 5.4
     },
     {
-      "id": "/wiki/corrections/port-env-override/",
-      "title": "port-env-override",
-      "category": "corrections",
-      "val": 1.4
-    },
-    {
       "id": "/wiki/entities/agent-browser/",
       "title": "agent-browser",
       "category": "entities",
@@ -301,12 +295,6 @@
       "val": 3
     },
     {
-      "id": "/wiki/entities/autopenna/",
-      "title": "autopenna",
-      "category": "entities",
-      "val": 4.2
-    },
-    {
       "id": "/wiki/entities/claude-code/",
       "title": "claude-code",
       "category": "entities",
@@ -319,16 +307,10 @@
       "val": 2.2
     },
     {
-      "id": "/wiki/entities/figma-project/",
-      "title": "figma-project",
-      "category": "entities",
-      "val": 2.2
-    },
-    {
       "id": "/wiki/entities/figma/",
       "title": "figma",
       "category": "entities",
-      "val": 3.4000000000000004
+      "val": 3
     },
     {
       "id": "/wiki/entities/geeknews/",
@@ -373,12 +355,6 @@
       "val": 4.6
     },
     {
-      "id": "/wiki/entities/ilgisseoyeong/",
-      "title": "ilgisseoyeong",
-      "category": "entities",
-      "val": 2.2
-    },
-    {
       "id": "/wiki/entities/imagesorcery-mcp/",
       "title": "imagesorcery-mcp",
       "category": "entities",
@@ -400,7 +376,7 @@
       "id": "/wiki/entities/litert-lm/",
       "title": "litert-lm",
       "category": "entities",
-      "val": 2.6
+      "val": 2.2
     },
     {
       "id": "/wiki/entities/managed-agents/",
@@ -425,12 +401,6 @@
       "title": "modueu-myeongjak",
       "category": "entities",
       "val": 1.8
-    },
-    {
-      "id": "/wiki/entities/multiagent/",
-      "title": "multiagent",
-      "category": "entities",
-      "val": 1.4
     },
     {
       "id": "/wiki/entities/openclaw/",
@@ -461,12 +431,6 @@
       "title": "source-playground",
       "category": "entities",
       "val": 4.6
-    },
-    {
-      "id": "/wiki/entities/stashyoutube/",
-      "title": "stashyoutube",
-      "category": "entities",
-      "val": 1.4
     },
     {
       "id": "/wiki/entities/superpowers/",
@@ -634,7 +598,7 @@
       "id": "/wiki/react-node-view/",
       "title": "react-node-view",
       "category": "react-node-view.md",
-      "val": 2.2
+      "val": 1.8
     },
     {
       "id": "/wiki/sources/agent-browser/",
@@ -730,7 +694,7 @@
       "id": "/wiki/sources/figma-mcp-setup-usage/",
       "title": "figma-mcp-setup-usage",
       "category": "sources",
-      "val": 5
+      "val": 4.6
     },
     {
       "id": "/wiki/sources/geeknews-weekly-352/",
@@ -742,7 +706,7 @@
       "id": "/wiki/sources/gemma4-qat/",
       "title": "gemma4-qat",
       "category": "sources",
-      "val": 3.8000000000000003
+      "val": 3.4000000000000004
     },
     {
       "id": "/wiki/sources/gpt-image-2-15-use-cases/",
@@ -838,7 +802,7 @@
       "id": "/wiki/sources/mobile-app-guidelines/",
       "title": "mobile-app-guidelines",
       "category": "sources",
-      "val": 3
+      "val": 2.2
     },
     {
       "id": "/wiki/sources/modueu-myeongjak-anime-q1/",
@@ -874,7 +838,7 @@
       "id": "/wiki/sources/tiptap-rich-text-editor/",
       "title": "tiptap-rich-text-editor",
       "category": "sources",
-      "val": 2.6
+      "val": 2.2
     },
     {
       "id": "/wiki/sources/ttj-vibe-coding-basics-web-dev/",
@@ -1496,10 +1460,6 @@
     },
     {
       "source": "/wiki/concepts/quantization-aware-training/",
-      "target": "/wiki/entities/autopenna/"
-    },
-    {
-      "source": "/wiki/concepts/quantization-aware-training/",
       "target": "/wiki/concepts/llm-harness-model/"
     },
     {
@@ -1699,18 +1659,6 @@
       "target": "/wiki/concepts/data-oriented-design/"
     },
     {
-      "source": "/wiki/entities/autopenna/",
-      "target": "/wiki/sources/mobile-app-guidelines/"
-    },
-    {
-      "source": "/wiki/entities/autopenna/",
-      "target": "/wiki/sources/gemma4-qat/"
-    },
-    {
-      "source": "/wiki/entities/autopenna/",
-      "target": "/wiki/entities/litert-lm/"
-    },
-    {
       "source": "/wiki/entities/claude-code/",
       "target": "/wiki/sources/claude-code-game-studios/"
     },
@@ -1777,14 +1725,6 @@
     {
       "source": "/wiki/entities/donchitos/",
       "target": "/wiki/sources/claude-code-game-studios/"
-    },
-    {
-      "source": "/wiki/entities/figma-project/",
-      "target": "/wiki/entities/figma/"
-    },
-    {
-      "source": "/wiki/entities/figma-project/",
-      "target": "/wiki/sources/figma-mcp-setup-usage/"
     },
     {
       "source": "/wiki/entities/figma/",
@@ -1889,14 +1829,6 @@
     {
       "source": "/wiki/entities/heyjames/",
       "target": "/wiki/entities/hermes-agent/"
-    },
-    {
-      "source": "/wiki/entities/ilgisseoyeong/",
-      "target": "/wiki/entities/autopenna/"
-    },
-    {
-      "source": "/wiki/entities/ilgisseoyeong/",
-      "target": "/wiki/sources/mobile-app-guidelines/"
     },
     {
       "source": "/wiki/entities/imagesorcery-mcp/",
@@ -2596,10 +2528,6 @@
     },
     {
       "source": "/wiki/index/",
-      "target": "/wiki/entities/figma-project/"
-    },
-    {
-      "source": "/wiki/index/",
       "target": "/wiki/prosemirror/"
     },
     {
@@ -2616,10 +2544,6 @@
     },
     {
       "source": "/wiki/index/",
-      "target": "/wiki/entities/autopenna/"
-    },
-    {
-      "source": "/wiki/index/",
       "target": "/wiki/entities/geeknews/"
     },
     {
@@ -2633,14 +2557,6 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/entities/gymcoding/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/entities/stashyoutube/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/entities/multiagent/"
     },
     {
       "source": "/wiki/index/",
@@ -2665,10 +2581,6 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/entities/source-playground/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/entities/ilgisseoyeong/"
     },
     {
       "source": "/wiki/index/",
@@ -2877,10 +2789,6 @@
     {
       "source": "/wiki/index/",
       "target": "/wiki/important/setup/zai-mcp-server/"
-    },
-    {
-      "source": "/wiki/index/",
-      "target": "/wiki/corrections/port-env-override/"
     },
     {
       "source": "/wiki/overview/",
@@ -3233,10 +3141,6 @@
     {
       "source": "/wiki/react-node-view/",
       "target": "/wiki/sources/tiptap-rich-text-editor/"
-    },
-    {
-      "source": "/wiki/react-node-view/",
-      "target": "/wiki/entities/autopenna/"
     },
     {
       "source": "/wiki/sources/agent-browser/",
@@ -3673,10 +3577,6 @@
     {
       "source": "/wiki/sources/quarkdown/",
       "target": "/wiki/sources/llm-wiki-pattern/"
-    },
-    {
-      "source": "/wiki/sources/tiptap-rich-text-editor/",
-      "target": "/wiki/entities/autopenna/"
     },
     {
       "source": "/wiki/sources/ttj-vibe-coding-basics-web-dev/",
