@@ -8,6 +8,7 @@ category: index.md
 > Content catalog — updated on every ingest. Organized by category.
 
 ## Important — 즉시 활용 가능
+- [Hermes + Claude Code 연동 워크플로우](/wiki/important/workflows/hermes-claude-code-workflow/) — MCP 서버 모드 연동, Slack PRD 자동화, 배포 앱 헬스체크 (2026-06-11)
 - [바이브코딩 치트키 15 워크플로우](/wiki/important/workflows/vibe-coding-15-keys/) — 5그룹 15단계 AI 조련 워크플로우
 - [바이브코딩 페르소나 프롬프트](/wiki/important/prompts/vibe-coding-persona/) — AI 역할 부여 프롬프트 4종 (복붙 가능)
 - [바이브코딩 UI/UX 프롬프트](/wiki/important/prompts/vibe-coding-ui-ux/) — UI 품질 향상 프롬프트 5종 (FontAwesome, 벤토디자인)
@@ -16,6 +17,9 @@ category: index.md
 - [overview](/wiki/overview/) — 위키 전체에 대한 고수준 종합 (2026-04-16)
 
 ## Sources
+- [hermes-claude-code-integration](/wiki/sources/hermes-claude-code-integration/) — Hermes Agent × Claude Code MCP 연동: MCP 서버 모드, PRD 스킬 자동화, 배포 앱 헬스체크, Anthropic 6월 정책 변경 (2026-06-11)
+- [loop-engineering](/wiki/sources/loop-engineering/) — 루프 엔지니어링: 프롬프트→루프 패러다임 전환, 5+1 모델(Automations/Worktrees/Skills/Connectors/Sub-agents+Memory), Codex/Claude Code 매핑, OpenClaw Claude Whisperer 4,000건 (2026-06-10)
+- [github-top10-june5](/wiki/sources/github-top10-june5/) — GitHub 주간 Top 10 AI 리포: MarkItDown 149K, Odysseus 65K, VoxCPM 28K, ECC 205K, 스킬 신뢰성 경고 (2026-06-10)
 - [gemma4-qat](/wiki/sources/gemma4-qat/) — Gemma 4 QAT: 양자화 인식 학습, E2B <1GB, 모바일 4대 최적화, LiteRT-LM, MTP 보존 (2026-06-08)
 - [ai-news-2026-06-05](/wiki/sources/ai-news-2026-06-05/) — Claude Oceanus, 재귀적 자기 개선, GPT-5.6 Jewel Alpha, Nemotron 3 Ultra, Agent Arena 벤치마크 (2026-06-05)
 - [hermes-codex-setup](/wiki/sources/hermes-codex-setup/) — Hermes Agent X Codex 실전 설정: 추가 비용 제로, Slack 연동, Wave Terminal, VPS 원클릭 (2026-05-13)
@@ -96,6 +100,8 @@ category: index.md
 - [gstack](/wiki/gstack/) — Claude Code 23역할 리뷰 게이트 프레임워크 (71K stars, Garry Tan/YC CEO) (2026-04-24)
 
 ## Concepts
+- [loop-engineering](/wiki/concepts/loop-engineering/) — 루프 엔지니어링: 프롬프트→루프 패러다임, 5+1 모델, 생성/검증 분리, Comprehension Debt, Cognitive Surrender (2026-06-10)
+- [ai-skill-trust](/wiki/concepts/ai-skill-trust/) — AI 스킬 신뢰성: 제3자 스킬 blindly trust 금지, 학습 참고용 활용, 모델 변경 시 스킬 무효화 (2026-06-10)
 - [quantization-aware-training](/wiki/concepts/quantization-aware-training/) — 학습 중 양자화 시뮬레이션으로 압축 품질 손실 최소화, PTQ 대비 우위, 모바일 4대 최적화 기법 (2026-06-08)
 - [memory-consolidation-tiers](/wiki/concepts/memory-consolidation-tiers/) — 4-Tier 기억 모델: Working→Episodic→Semantic→Procedural, Ebbinghaus 감쇠, 모순 해결 (2026-05-12)
 - [iii-engine](/wiki/concepts/iii-engine/) — 웹 스택 통합 런타임: Functions+Triggers+KV State 3원시, Workers 확장, 내장 OTEL (2026-05-12)
@@ -174,4 +180,4 @@ _설치/설정 가이드 (단계별)_
 ---
 
 ---
-_Stats: 45 sources | 148 pages | Last updated: 2026-06-09_
+_Stats: 48 sources | 155 pages | Last updated: 2026-06-11_

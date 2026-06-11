@@ -1,9 +1,9 @@
 ---
 title: Hermes Agent
 created: 2026-04-26
-updated: 2026-05-13
-tags: [entity, framework, ai-agent, self-improving, nous-research]
-sources: [2026-04-26-hermes-agent-github.md, 2026-04-26-claude-code-frameworks-deep-research.md, 2026-04-29-zerocho-openclaw-vs-hermes.md, 2026-05-04-hermes-agent-review-beomsu.md, 2026-05-06-hermes-agent-github-update.md, 2026-05-13-hermes-agent-v2.md]
+updated: 2026-06-11
+tags: [entity, framework, ai-agent, self-improving, nous-research, mcp-server]
+sources: [2026-04-26-hermes-agent-github.md, 2026-04-26-claude-code-frameworks-deep-research.md, 2026-04-29-zerocho-openclaw-vs-hermes.md, 2026-05-04-hermes-agent-review-beomsu.md, 2026-05-06-hermes-agent-github-update.md, 2026-05-13-hermes-agent-v2.md, 2026-06-11-hermes-claude-code-integration.md]
 status: stable
 category: entities
 ---
@@ -62,7 +62,22 @@ Nous Research가 개발한 **독립 실행형 자가 개선 AI 에이전트**. C
 
 **Profiles**: 다중 격리 인스턴스 실행.
 
-**MCP Server Mode**: `hermes mcp serve`로 MCP 클라이언트에 대화 세션 노출.
+**MCP Server Mode**: `hermes mcp serve`로 MCP 클라이언트에 대화 세션 노출. Claude Code, Cursor, Codex와 양방향 연결. `.mcp.json`에 추가하여 프로젝트/글로벌 스코프 설정. 다른 에이전트가 Hermes의 메모리·스킬·연결된 앱에 접근 가능. **"하네스 간 통신" 패턴** — 각 앱을 개별 에이전트에 연결할 필요 없이 Hermes 경유로 통합.
+
+### 메모리 토큰 리미트 메커니즘
+- user.md, memory.md에 크기 제한 설정
+- 한도 도달 시 모델이 불필요한 정보 자동 삭제, 최신 정보 유지
+- 컨텍스트 윈도우에서 노이즈 방지 → 모델 집중력 유지
+- **OpenClaw 대비 차별점**: OpenClaw는 메모리 무한 증가 (정리 메커니즘 없음)
+
+### 스킬 허브 보안
+- 스킬 허브에서 각 스킬에 자동 보안 스캔 실행
+- 기본 90개 스킬은 조직에서 직접 유지관리 (보안 보장)
+- OpenClaw 스킬 대비 위험 스킬(데이터 유출 스크립트 등) 사례 적음
+
+### Second Brain 온보딩
+- 경로 제공 → Hermes가 직접 온보딩 → 사용자 정보 자동 학습
+- 한 달간 사용하며 자동 학습 또는 즉시 온보딩 선택 가능
 
 **Pluggable Memory Provider**: 메모리를 확장 가능한 플러그인 시스템으로.
 
@@ -125,4 +140,7 @@ Superpowers/GSD/gstack이 "Claude Code에 규칙을 입히는 플러그인"이�
 - [LLM + Harness 모델](/wiki/concepts/llm-harness-model/) — "LLM + 통제 도구" 멘탈 모델
 - [Closed Learning Loop](/wiki/concepts/closed-learning-loop/) — 클로즈 루프 학습 개념
 - [Hermes v0.13.0 업데이트](/wiki/sources/hermes-agent-v2/) — Computer Use, Kanban, /goal, Qwen 3.6 Plus
+- [Hermes × Claude Code MCP 연동](/wiki/sources/hermes-claude-code-integration/) — MCP 서버 모드, PRD 스킬, 헬스체크 워크플로우
+- [Hermes + Claude Code 워크플로우](/wiki/important/workflows/hermes-claude-code-workflow/) — 단계별 실전 가이드
 - [ai-coding-frameworks-setup](/wiki/important/setup/ai-coding-frameworks-setup/)
+- [루프 엔지니어링](/wiki/concepts/loop-engineering/) — 크론잡 기반 루프 실전 구현의 이론적 배경

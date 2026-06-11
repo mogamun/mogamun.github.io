@@ -1,9 +1,9 @@
 ---
 title: Hermes Agent 설정 가이드
 created: 2026-04-27
-updated: 2026-05-06
-tags: [important, setup-guide, ai-agent, hermes, nous-research, self-improving]
-sources: [2026-04-27-hermes-agent-setup.md, 2026-05-06-hermes-agent-github-update.md]
+updated: 2026-06-11
+tags: [important, setup-guide, ai-agent, hermes, nous-research, self-improving, mcp-server]
+sources: [2026-04-27-hermes-agent-setup.md, 2026-05-06-hermes-agent-github-update.md, 2026-06-11-hermes-claude-code-integration.md]
 status: stable
 category: important
 ---
@@ -138,6 +138,29 @@ MCP 클라이언트에 대화 세션 노출:
 hermes mcp serve
 ```
 
+터미널 출력 없지만 백그라운드에서 MCP 서버 실행 중.
+
+### Claude Code와 연동
+
+1. Hermes MCP 서버 시작:
+```bash
+hermes mcp serve
+```
+
+2. `.mcp.json`에 Hermes MCP 추가:
+
+**프로젝트 스코프** (해당 프로젝트만): 프로젝트 루트 `.mcp.json`
+**글로벌 스코프** (전체 프로젝트): `~/.claude/.mcp.json`
+
+3. Claude Code에서 Hermes 도구 접근 확인
+
+→ Claude Code가 Hermes의 메모리, 스킬, 연결된 모든 앱에 접근 가능. 각 앱을 개별 에이전트에 연결할 필요 없이 Hermes 경유로 통합 접근.
+
+### Anthropic 6월 15일 정책 변경 주의
+- Agent SDK + `claude -p`(non-interactive mode) 사용량이 구독 풀에서 분리
+- Pro: $20/월 API 크레딧, Max 5x: $100/월
+- 서드파티 에이전트(Hermes 등) 무료 사용 종료
+
 ## Profiles (v0.12.0)
 
 다중 격리 인스턴스 실행. 각 Profile은 독립 설정/메모리/스킬 유지.
@@ -221,3 +244,5 @@ Hermes는 프로젝트 루트에서 자동 읽기:
 - [OpenClaw](/wiki/entities/openclaw/) — 마이그레이션 소스
 - [Closed Learning Loop](/wiki/concepts/closed-learning-loop/) — 자가 개선 루프 개념
 - [LLM + Harness 모델](/wiki/concepts/llm-harness-model/) — 아키텍처 멘탈 모델
+- [Hermes + Claude Code 워크플로우](/wiki/important/workflows/hermes-claude-code-workflow/) — MCP 연동 실전 가이드
+- [Hermes × Claude Code 연동 소스](/wiki/sources/hermes-claude-code-integration/)

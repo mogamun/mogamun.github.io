@@ -7,6 +7,24 @@ category: log.md
 
 > Append-only chronological record of all wiki operations.
 
+## [2026-06-11] ingest | Hermes Agent × Claude Code MCP 연동 실전 가이드
+- Ingested: raw/2026-06-11-hermes-claude-code-integration.md
+- Added: wiki/sources/hermes-claude-code-integration.md, wiki/important/workflows/hermes-claude-code-workflow.md
+- Updated: wiki/index.md, wiki/log.md, wiki/overview.md, wiki/entities/hermes-agent.md, wiki/important/setup/hermes-agent-setup.md
+- Key insight: "Hermes를 MCP 서버로 실행하면 Claude Code에 메모리·스킬·앱 접근권을 부여" — 하네스 간 통신 패턴. 스킬은 필요할 때만 "fresh part of context window"에 로드되어 파일보다 우수. Anthropic 6월 15일 Agent SDK 분리 청구 확정.
+
+## [2026-06-10] ingest | 루프 엔지니어링 (Loop Engineering) — Addy Osmani
+- Ingested: raw/2026-06-10-loop-engineering.md
+- Added: wiki/sources/loop-engineering.md, wiki/concepts/loop-engineering.md
+- Updated: wiki/index.md, wiki/log.md, wiki/overview.md, wiki/concepts/llm-harness-model.md, wiki/concepts/closed-learning-loop.md
+- Key insight: "프롬프트하지 말고 루프를 설계하라" — 직접 프롬프트하는 시대에서 루프를 설계하는 시대로. 5+1 모델(Automations, Worktrees, Skills, Connectors, Sub-agents + Memory). Claude Code와 Codex 모두 동일 구조. 루프의 역설: 매끄러울수록 Comprehension Debt, Cognitive Surrender 가속.
+
+## [2026-06-10] ingest | GitHub Top 10 AI 리포 — 2026년 6월 5일 주간
+- Ingested: raw/2026-06-10-github-top10-june5.md
+- Added: wiki/sources/github-top10-june5.md, wiki/concepts/ai-skill-trust.md
+- Updated: wiki/index.md, wiki/log.md, wiki/overview.md
+- Key insight: "AI 스킬 신뢰성 경고" — 제3자 스킬/에이전트 번들을 blindly trust하지 말고 학습 참고용으로만 활용. ECC 205K stars도 "Boeing 747으로 길 건너기". Headroom 토큰 절감은 헤드라인 60-95% vs 실제 median 4.8%. MarkItDown 149K stars가 문서→Markdown 변환의 실용적 해답.
+
 ## [2026-06-08] ingest | Gemma 4 QAT — 양자화 인식 학습으로 모바일·에지 최적화
 - Ingested: raw/2026-06-06-gemma4-qat.md
 - Added: wiki/sources/gemma4-qat.md, wiki/entities/litert-lm.md, wiki/concepts/quantization-aware-training.md

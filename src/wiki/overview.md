@@ -1,9 +1,9 @@
 ---
 title: Wiki Overview
 created: 2026-04-16
-updated: 2026-06-08
+updated: 2026-06-11
 tags: [overview, meta]
-sources: [2026-04-22-geeknews-weekly-352.md, 2026-04-22-caveman-token-reduction.md, 2026-04-27-imagesorcery-mcp.md, 2026-04-29-claude-managed-agents-memory.md, 2026-04-29-quarkdown.md, 2026-04-29-warp-terminal.md, 2026-05-04-hermes-agent-review-beomsu.md, 2026-05-06-hermes-agent-github-update.md, 2026-05-08-pi-terminal-coding-harness.md, 2026-05-09-claude-code-hookify-plugin.md, 2026-05-12-agentmemory.md, 2026-05-13-claude-agent-view.md, 2026-05-13-hermes-agent-v2.md, 2026-05-13-hermes-codex-setup.md, 2026-06-06-gemma4-qat.md]
+sources: [2026-04-22-geeknews-weekly-352.md, 2026-04-22-caveman-token-reduction.md, 2026-04-27-imagesorcery-mcp.md, 2026-04-29-claude-managed-agents-memory.md, 2026-04-29-quarkdown.md, 2026-04-29-warp-terminal.md, 2026-05-04-hermes-agent-review-beomsu.md, 2026-05-06-hermes-agent-github-update.md, 2026-05-08-pi-terminal-coding-harness.md, 2026-05-09-claude-code-hookify-plugin.md, 2026-05-12-agentmemory.md, 2026-05-13-claude-agent-view.md, 2026-05-13-hermes-agent-v2.md, 2026-05-13-hermes-codex-setup.md, 2026-06-06-gemma4-qat.md, 2026-06-11-hermes-claude-code-integration.md]
 status: stable
 category: overview.md
 ---
@@ -11,6 +11,7 @@ category: overview.md
 # Wiki Overview
 
 ## Quick Access — Important
+- [Hermes + Claude Code 연동 워크플로우](/wiki/important/workflows/hermes-claude-code-workflow/) — MCP 서버 모드 연동, Slack PRD 자동화, 배포 앱 헬스체크
 - [바이브코딩 치트키 15 워크플로우](/wiki/important/workflows/vibe-coding-15-keys/) — 5그룹 15단계 AI 조련 워크플로우
 - [바이브코딩 페르소나 프롬프트](/wiki/important/prompts/vibe-coding-persona/) — AI 역할 부여 프롬프트 4종 (복붙 가능)
 - [바이브코딩 UI/UX 프롬프트](/wiki/important/prompts/vibe-coding-ui-ux/) — UI 품질 향상 프롬프트 5종
@@ -195,6 +196,12 @@ category: overview.md
 31. **Computer Use의 오픈소스 도착**: Hermes Agent v0.13.0이 KUA 기반 백그라운드 컴퓨터 제어를 오픈소스로 구현. 커서 이동/키보드 포커스/Space 전환 없이 에이전트가 데스크탑을 조작하며, 비전 지원 모델(Claude, GPT, Gemini, VLM) 모두 호환. Codex 스타일 Computer Use의 오픈소스 대등물. "에이전트가 사용자 워크플로우를 방해하지 않으면서 병렬 작동"이 독립형 에이전트의 새로운 패러다임
 32. **칸반 보드 = 멀티 에이전트 오케스트레이션의 UI 패턴**: Hermes의 칸반 웹 UI와 Claude Code의 Agent View가 서로 다른 접근으로 같은 문제(멀티 에이전트 관리)를 해결. Hermes는 웹 기반 칸반 보드(To-Do→In Progress→Done), Claude Code는 터미널 TUI(5상태). /goal 명령으로 장기 자율 목표를 추적하는 패턴이 두 플랫폼에서 수렴 진화
 33. **QAT가 온디바이스 LLM의 실용성 임계점 돌파**: Gemma 4 E2B가 QAT + 모바일 특화 양자화로 1GB 미만 메모리 동작. "학습 중 양자화 시뮬레이션"이 PTQ의 품질 손실 한계를 돌파하며, 스마트폰에서 실제로 사용 가능한 LLM의 시대를 엶
+34. **AI 스킬의 "맹신 금지" 원칙**: GitHub 주간 리포(ECC 205K stars, Compound Engineering 20K stars)가 증명 — 대규모 스킬/에이전트 번들은 만든 사람에게만 최적화. "Blindly trust하지 말고 학습 참고용으로만 활용"이 커뮤니티 합의로 부상. 디자인 스킬(taste)만 예외적으로 타인 의견 수용 가능. 모델 변경 시 기존 스킬 무효화 문제도 지적
+35. **로컬 AI 도구의 양산화**: Odysseus(자가호스팅 ChatGPT), VoxCPM(로컬 음성 클로닝), LiteParse(로컬 PDF 파싱)가 모두 로컬에서 완전 동작. "API 키 없이 10분 내 실행 가능"이 새로운 기준. MarkItDown(149K stars)이 문서→Markdown 변환으로 "지식 재구성" 파이프라인의 핵심 도구로 부상
+36. **LLM은 "읽기"가 "쓰기"보다 뛰어나다**: Understand-Anything 코드 분석에 대한 평가에서 "LLM을 글쓰기보다 읽기에 활용하라"는 통찰. 이 위키의 "지식 재구성 > 지식 검색" 테제와 완전히 일치. Headroom의 토큰 절감도 헤드라인 60-95% vs 실제 median 4.8%로 "간결성=정확성"의 재확인
+37. **루프 엔지니어링 = 하네스 위의 공장 모델**: Addy Osmani가 정의 — 프롬프트하는 것을 넘어 루프를 설계하는 것으로 레버리지 이동. 5개 프리미티브(Automations, Worktrees, Skills, Connectors, Sub-agents) + Memory. Claude Code와 Codex가 동일 구조. "LLM + Harness" 모델의 상위 레이어. 루프의 역설: 매끄러울수록 Comprehension Debt(이해 부채)와 Cognitive Surrender(인지 항복) 가속. "같은 루프 두 사람 정반대 결과 — 차이는 판단력"
+38. **MCP = 하네스 간 통신 브릿지**: Hermes를 MCP 서버로 실행하면 Claude Code가 Hermes의 메모리·스킬·연결된 앱에 접근. "하네스 간 통신" 패턴 — 각 에이전트의 Harness를 MCP로 노출하여 다른 에이전트가 도구로 호출. Claude Code의 약점(메모리 없음, 스킬 자가 개선 없음)을 Hermes의 강점으로 보완. 스킬은 필요할 때만 "fresh part of context window"에 로드되어 파일보다 우수
+39. **에이전트 생태계의 비용 벽**: Anthropic이 2026년 6월 15일 Agent SDK + `claude -p` 사용량을 구독에서 분리. 서드파티 에이전트(Hermes, OpenClaw 등) 무료 실행 종료. Pro $20, Max 5x $100 API 크레딧 할당. "에이전트를 구독에 포함"에서 "에이전트 사용량을 별도 과금"으로의 전환은 에이전트 경제학의 새로운 국면
 ## Open Questions
 - 이 위키 자체의 구조가 "좋은 프롬프트"인가? — 위키 스키마를 AI에게 더 나은 프롬프트로 만드는 방법
 - ECS 철학을 LLM Wiki 에이전트 자체에 적용하면? — ingest/query/lint를 독립 시스템으로

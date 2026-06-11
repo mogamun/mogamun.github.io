@@ -41,3 +41,4 @@ Pi 리뷰에서 명확히 정의된 비유: LLM(Claude, GPT, Gemini)은 CPU, 컨
 - [Closed Learning Loop](/wiki/concepts/closed-learning-loop/)
 - [파일시스템 기반 메모리](/wiki/concepts/filesystem-based-memory/)
 - [컨텍스트 로트 방지](/wiki/concepts/context-rot-prevention/)
+- [루프 엔지니어링](/wiki/concepts/loop-engineering/) — 하네스 위의 레이어. 타이머+병렬+자가급식 공장 모델

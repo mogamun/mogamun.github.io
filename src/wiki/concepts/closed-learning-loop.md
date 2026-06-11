@@ -52,3 +52,4 @@ AI 에이전트가 작업 경험에서 자동으로 학습하고, 학습 결과�
 - [파일시스템 기반 메모리](/wiki/concepts/filesystem-based-memory/)
 - [컨텍스트 로트 방지](/wiki/concepts/context-rot-prevention/)
 - [Hermes Agent 독스 기반 기술 리뷰](/wiki/sources/hermes-agent-review-beomsu/)
+- [루프 엔지니어링](/wiki/concepts/loop-engineering/) — 학습 루프를 포함하는 상위 패러다임
