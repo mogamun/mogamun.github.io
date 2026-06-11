@@ -1,0 +1,17 @@
+{
+  "instructions": "",
+  "startupCommands": [],
+  "active": false,
+  "autoExecEnabled": true,
+  "autoExecCommands": [
+    {
+      "id": "autoexec_1779245798029",
+      "command": "claudeg  --dangerously-skip-permissions -c",
+      "description": "claudeg  --dangerously-skip-permissions -c",
+      "order": 1,
+      "enabled": true,
+      "delaySeconds": 1
+    }
+  ],
+  "workDir": ""
+}
