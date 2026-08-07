@@ -1,0 +1,14 @@
+{
+  "name": "trending-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "GitHub Trending daily scraper (vendored from kevin9327/github-trending-daily). Run via root `npm run scrape-trending`.",
+  "scripts": {
+    "scrape": "node scraper.js",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "^1.44.1"
+  }
+}

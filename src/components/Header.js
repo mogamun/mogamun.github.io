@@ -287,7 +287,7 @@ const Header = () => {
       </LogoWrap>
       <Nav>
         <NavLinks>
-          <li><NavLink to="/wiki/">Blog</NavLink></li>
+          <li><NavLink to="/trending/">Trending</NavLink></li>
           <li><NavLink to="/kit/">Kit</NavLink></li>
           <li><NavLink to="/recommend/">추천</NavLink></li>
           <DropdownWrap ref={toolRef}>

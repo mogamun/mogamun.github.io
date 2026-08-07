@@ -8,7 +8,7 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "sync-wiki": "node scripts/sync-wiki.js"
+    "scrape-trending": "cd scripts/trending && APP_TIMEZONE=Asia/Seoul TRENDING_SINCE=daily node scraper.js"
   },
   "dependencies": {
     "gatsby": "^5.14.0",
@@ -22,7 +22,6 @@
     "pdf-lib": "^1.17.1",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "react-force-graph-2d": "^1.29.1",
     "styled-components": "^6.1.0"
   },
   "devDependencies": {

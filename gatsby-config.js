@@ -25,14 +25,6 @@ module.exports = {
         path: `${__dirname}/src/legal`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `wiki`,
-        path: `${__dirname}/src/wiki`,
-        ignore: [`**/.gitkeep`],
-      },
-    },
     `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-google-gtag`,

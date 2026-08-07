@@ -5,7 +5,6 @@ import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import PostCard from '../components/PostCard';
 import ParticleBackground from '../components/ParticleBackground';
-import WikiTicker from '../components/WikiTicker';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { useTilt } from '../hooks/useTilt';
 
@@ -389,14 +388,10 @@ const HomePage = ({ data }) => {
           <HeroSubtitle>기술의 흐름 속에서 사람 냄새 나는 이야기를 전합니다.</HeroSubtitle>
           <HeroCTA>
             <CTAButton href="#latest" $primary>글 읽기 시작하기 →</CTAButton>
-            <CTAButton href="/wiki/">Wiki 보기</CTAButton>
           </HeroCTA>
         </HeroContent>
         <ScrollIndicator><ScrollArrow /></ScrollIndicator>
       </HeroSection>
-
-      {/* Wiki Ticker — Hero 바로 아래 */}
-      <WikiTicker />
 
       {/* Apps */}
       <Section>
@@ -486,7 +481,6 @@ export const query = graphql`
   query {
     allMarkdownRemark(
       sort: { frontmatter: { date: DESC } }
-      filter: { fields: { isWiki: { ne: true } } }
     ) {
       edges {
         node {
